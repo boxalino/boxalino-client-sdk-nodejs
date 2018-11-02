@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="255" />
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="492" />
-    <bookmark url="file://$PROJECT_DIR$/source/example/frontend_search_basic.ts" />
+    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="254" />
+    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="494" />
     <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="231" />
     <bookmark url="file://$PROJECT_DIR$/dist/bxthrift/P13nService.js" />
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="368" />
+    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="367" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4280fa9-9487-4cff-a464-11f86663de73" name="Default Changelist" comment="" />
@@ -27,8 +26,9 @@
     <session id="-826604421">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.112" value="1" />
+          <entry key="project.open.time.115" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.122" value="1" />
           <entry key="project.open.time.32" value="1" />
@@ -40,42 +40,42 @@
           <entry key="project.open.time.52" value="2" />
           <entry key="project.open.time.59" value="1" />
           <entry key="project.open.time.8" value="3" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="33" />
+          <entry key="js" value="42" />
           <entry key="json" value="7" />
           <entry key="mocha" value="2" />
-          <entry key="ts" value="72" />
+          <entry key="ts" value="99" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="35" />
-          <entry key="TypeScript" value="72" />
+          <entry key="JavaScript" value="44" />
+          <entry key="TypeScript" value="99" />
           <entry key="tsconfig" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
         <counts>
-          <entry key="TypeScriptServerServiceImpl" value="16" />
+          <entry key="TypeScriptServerServiceImpl" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="533" />
+          <entry key="js" value="600" />
           <entry key="json" value="34" />
-          <entry key="ts" value="1294" />
+          <entry key="ts" value="1374" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="533" />
-          <entry key="TypeScript" value="1294" />
+          <entry key="JavaScript" value="600" />
+          <entry key="TypeScript" value="1374" />
           <entry key="tsconfig" value="33" />
         </counts>
       </usages-collector>
@@ -86,11 +86,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/BxClient.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="368" column="43" selection-start-line="368" selection-start-column="43" selection-end-line="368" selection-end-column="43" />
+            <state relative-caret-position="96">
+              <caret line="369" column="47" selection-start-line="369" selection-start-column="24" selection-end-line="369" selection-end-column="54" />
               <folding>
                 <element signature="e#193#261#0" expanded="true" />
               </folding>
@@ -99,13 +99,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/bxthrift/p13n_types.js">
+        <entry file="file://$PROJECT_DIR$/tests/frontend_search_basic.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21811">
-              <caret line="1287" column="17" selection-start-line="1287" selection-start-column="4" selection-end-line="1287" selection-end-column="17" />
+            <state relative-caret-position="170">
+              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dist/bxthrift/p13n_types.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="1736" selection-start-line="1736" selection-end-line="1736" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/example/frontend_search_basic.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="113">
+              <caret line="26" column="75" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -113,32 +134,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/bxthrift/P13nService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="805" column="27" lean-forward="true" selection-start-line="805" selection-start-column="27" selection-end-line="805" selection-end-column="27" />
+            <state relative-caret-position="96">
+              <caret line="781" column="21" selection-start-line="781" selection-start-column="21" selection-end-line="781" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#638#1266#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/example/frontend_search_basic.ts">
+        <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="34" column="44" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
+            <state relative-caret-position="96">
+              <caret line="187" column="20" selection-start-line="187" selection-start-column="20" selection-end-line="187" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/frontend_search_basic.ts">
+        <entry file="file://$PROJECT_DIR$/source/BxChooseResponse.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="27" lean-forward="true" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="113">
+              <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -155,26 +174,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>choose(c</find>
-      <find>getThriftChoiceRequest</find>
-      <find>getChoiceIdOverwrite</find>
-      <find>getRequestContext()</find>
-      <find>getBasicRequestContextParameters</find>
-      <find>getSessionAndProfile</find>
-      <find>getSessionAndProfile()</find>
-      <find>getRequestContextParameters</find>
-      <find>private getUserRecord() {</find>
-      <find>function UserRecord(args)</find>
-      <find>getAccount(checkDev = true) {</find>
-      <find>throwCorrectP13nException</find>
-      <find>getChoiceRequest</find>
-      <find>getAccount</find>
-      <find>getUserRecord</find>
-      <find>getApiKey</find>
-      <find>apiKey</find>
-      <find>ChoiceRequest</find>
-      <find>getP13n</find>
-      <find>transport</find>
       <find>thrift_P13nService</find>
       <find>P13nServiceClient</find>
       <find>.Client</find>
@@ -183,8 +182,28 @@
       <find>chooseRequests</find>
       <find>this.chooseRequests</find>
       <find>send_choose</find>
-      <find>ChoiceInquiry</find>
       <find>thrift.</find>
+      <find>thrift.c</find>
+      <find>thrift</find>
+      <find>ChoiceRequest</find>
+      <find>thrift_types.</find>
+      <find>thrift_types.c</find>
+      <find>choiceRequest</find>
+      <find>ChoiceInquiry</find>
+      <find>.choiceRequest</find>
+      <find>getThriftChoiceRequest(size = 0) {</find>
+      <find>simpleSearchQuery</find>
+      <find>getChoiceRequest</find>
+      <find>.userRecord</find>
+      <find>.userRecord()</find>
+      <find>RequestContext</find>
+      <find>protected getRequestContext() {</find>
+      <find>.RequestContext()</find>
+      <find>getBundleChoiceRequest</find>
+      <find>getIP</find>
+      <find>choose</find>
+      <find>getThriftChoiceRequest</find>
+      <find>getSimpleSearchQuery</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -204,9 +223,9 @@
         <option value="$PROJECT_DIR$/source/BxSearchRequest.ts" />
         <option value="$PROJECT_DIR$/source/BxChooseResponse.ts" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/source/example/frontend_search_basic.ts" />
         <option value="$PROJECT_DIR$/dist/bxthrift/P13nService.js" />
         <option value="$PROJECT_DIR$/source/BxClient.ts" />
+        <option value="$PROJECT_DIR$/source/example/frontend_search_basic.ts" />
       </list>
     </option>
   </component>
@@ -224,7 +243,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-11" />
     <option name="width" value="1346" />
@@ -271,17 +290,6 @@
               <item name="node_modules" type="462c0819:PsiDirectoryNode" />
               <item name="thrift-http" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="bxthrift" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
@@ -423,44 +431,45 @@
       <workItem from="1540893471780" duration="10656000" />
       <workItem from="1540966632636" duration="3362000" />
       <workItem from="1540971542728" duration="17661000" />
-      <workItem from="1541049619983" duration="1831000" />
+      <workItem from="1541049619983" duration="22124000" />
+      <workItem from="1541135895180" duration="15413000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="frontend_search_basic - 2018.10.31 at 19h 08m 39s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 15h 48m 32s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.10.31 at 19h 10m 58s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 15h 48m 35s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.10.31 at 19h 20m 16s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 17h 26m 03s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 29m 02s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 17h 33m 49s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 31m 49s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 17h 34m 31s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 31m 58s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 18h 22m 03s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 35m 58s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 18h 24m 36s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 37m 34s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 19h 11m 53s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 38m 53s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 19h 14m 33s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_search_basic - 2018.11.01 at 11h 38m 55s.xml">
+    <history-entry file="frontend_search_basic - 2018.11.02 at 19h 18m 27s.xml">
       <configuration name="frontend_search_basic" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108821000" />
+    <option name="totallyTimeSpent" value="144527000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -479,9 +488,9 @@
       <window_info id="Structure" order="1" sideWeight="0.51713395" side_tool="true" weight="0.25074404" />
       <window_info id="Favorites" order="2" sideWeight="0.5155483" side_tool="true" weight="0.25297618" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.48772505" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49627978" visible="true" weight="0.47463176" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49627978" visible="true" weight="0.44189852" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32569557" />
@@ -542,24 +551,14 @@
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>6</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/example/frontend_search_basic.ts</url>
-          <line>37</line>
+          <line>35</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/BxChooseResponse.ts</url>
           <line>274</line>
           <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>507</line>
-          <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/node_modules/es-cookie/src/es-cookie.js</url>
@@ -570,16 +569,6 @@
           <url>file://$PROJECT_DIR$/node_modules/es-cookie/src/es-cookie.js</url>
           <line>63</line>
           <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/bxthrift/p13n_types.js</url>
-          <line>1636</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/bxthrift/p13n_types.js</url>
-          <line>1718</line>
-          <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/bxthrift/p13n_types.js</url>
@@ -603,28 +592,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>367</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>354</line>
+          <line>353</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>545</line>
+          <line>547</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>610</line>
+          <line>612</line>
           <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>369</line>
-          <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/bxthrift/P13nService.js</url>
@@ -633,58 +612,119 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
-          <line>781</line>
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
           <line>1100</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_search_basic.ts</url>
-          <line>34</line>
-          <option name="timeStamp" value="124" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
-          <line>785</line>
-          <option name="timeStamp" value="125" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
-          <line>800</line>
-          <option name="timeStamp" value="126" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>551</line>
-          <option name="timeStamp" value="127" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>476</line>
-          <option name="timeStamp" value="128" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>445</line>
+          <line>447</line>
           <option name="timeStamp" value="129" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>492</line>
-          <option name="timeStamp" value="133" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>477</line>
-          <option name="timeStamp" value="134" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/bxthrift/p13n_types.js</url>
           <line>1288</line>
           <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>586</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>572</line>
+          <option name="timeStamp" value="148" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>532</line>
+          <option name="timeStamp" value="150" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>516</line>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxChooseResponse.ts</url>
+          <line>48</line>
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxChooseResponse.ts</url>
+          <line>55</line>
+          <option name="timeStamp" value="166" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxChooseResponse.ts</url>
+          <line>63</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxChooseResponse.ts</url>
+          <line>7</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>367</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
+          <line>795</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>231</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/dist/bxthrift/P13nService.js</url>
+          <line>781</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="183" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/example/frontend_search_basic.ts</url>
+          <line>15</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/example/frontend_search_basic.ts</url>
+          <line>25</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
+          <line>187</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="189" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
+          <line>178</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="190" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
+          <line>184</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
+          <line>369</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="193" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -693,49 +733,69 @@
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>this.request</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>this.request.headers</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>this.request.headers['x-forwarded-for'] ||
+            this.request.connection.remoteAddress ||
+            this.request.socket.remoteAddress ||
+            this.request.connection.socket.remoteAddress;</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>output.writeMessageEnd()</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>output</expression-string>
-        <language-id>JavaScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>choiceRequest</expression-string>
+        <expression-string>choiceResponse</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>requestContext</expression-string>
+        <expression-string>JSON.stringify(choiceResponse)</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>choiceInquiry</expression-string>
+        <expression-string>searchQuery</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>this._timeout</expression-string>
+        <expression-string>this.groupBy</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>thrift_types.ChoiceInquiry</expression-string>
+        <expression-string>this.groupFacets</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>thrift_types.ChoiceInquiry()</expression-string>
+        <expression-string>new thrift_types.SimpleSearchQuery()</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>thrift_types.ChoiceInquiry();</expression-string>
+        <expression-string>thrift_types.SimpleSearchQuery()</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>bxRequest</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>_bxRequest</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -762,13 +822,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/Index.ts" />
     <entry file="file://$PROJECT_DIR$/source/BxAutocompleteRequest.ts" />
-    <entry file="file://$PROJECT_DIR$/source/BxFacets.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/BxData.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -809,20 +862,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxSearchRequest.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxChooseResponse.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="44" column="15" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/BxRecommendationRequest.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -844,31 +883,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="191" column="34" lean-forward="true" selection-start-line="191" selection-start-column="34" selection-end-line="191" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/es-cookie/src/es-cookie.js" />
-    <entry file="file://$PROJECT_DIR$/dist/bxthrift/p13n_types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="1717" column="67" lean-forward="true" selection-start-line="1717" selection-start-column="67" selection-end-line="1717" selection-end-column="67" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/BxClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="198" column="34" selection-start-line="198" selection-start-column="27" selection-end-line="198" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/thrift-http/lib/thrift/connection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -900,48 +915,101 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/bxthrift/p13n_types.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21811">
-          <caret line="1287" column="17" selection-start-line="1287" selection-start-column="4" selection-end-line="1287" selection-end-column="17" />
+        <state relative-caret-position="25993">
+          <caret line="1533" column="21" selection-start-line="1533" selection-start-column="21" selection-end-line="1533" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/bxthrift/P13nService.js">
+    <entry file="file://$PROJECT_DIR$/source/BxFacets.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="805" column="27" lean-forward="true" selection-start-line="805" selection-start-column="27" selection-end-line="805" selection-end-column="27" />
+        <state relative-caret-position="154">
+          <caret line="1124" selection-start-line="1124" selection-end-line="1124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxSortFields.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxSearchRequest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/BxClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="153" column="47" lean-forward="true" selection-start-line="153" selection-start-column="47" selection-end-line="153" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/bxthrift/p13n_types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="1736" selection-start-line="1736" selection-end-line="1736" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/example/frontend_search_basic.ts">
+    <entry file="file://$PROJECT_DIR$/source/BxChooseResponse.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="34" column="44" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
+        <state relative-caret-position="113">
+          <caret line="64" column="22" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/frontend_search_basic.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="27" lean-forward="true" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        <state relative-caret-position="170">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="187" column="20" selection-start-line="187" selection-start-column="20" selection-end-line="187" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/bxthrift/P13nService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="781" column="21" selection-start-line="781" selection-start-column="21" selection-end-line="781" selection-end-column="21" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#638#1266#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/BxClient.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="368" column="43" selection-start-line="368" selection-start-column="43" selection-end-line="368" selection-end-column="43" />
+        <state relative-caret-position="96">
+          <caret line="369" column="47" selection-start-line="369" selection-start-column="24" selection-end-line="369" selection-end-column="54" />
           <folding>
             <element signature="e#193#261#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/example/frontend_search_basic.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="26" column="75" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="75" />
         </state>
       </provider>
     </entry>

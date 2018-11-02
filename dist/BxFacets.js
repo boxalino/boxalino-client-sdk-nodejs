@@ -584,7 +584,7 @@
                     if (Array.isArray(this.facets[fieldName]['selectedValues'])) {
                         this.facets[fieldName]['selectedValues'].forEach(function (value) {
                             if (typeof (facetValues[value]) != "undefined" && facetValues[value] === null) {
-                                var newValue = thrift_types.FacetValue;
+                                var newValue = new thrift_types.FacetValue();
                                 newValue.rangeFromInclusive = null;
                                 newValue.rangeToExclusive = null;
                                 newValue.hierarchyId = null;
@@ -960,7 +960,7 @@
                 this.facetValueArrayCache[hash] = Array(valueLabel, paramValue, fv.hitCount, true, false);
                 return this.facetValueArrayCache[hash];
             }
-            if (facetValue.isArray(new Array)) {
+            if (Array.isArray(facetValue)) {
                 facetValue = facetValue;
             }
             if (keyValues[facetValue] == null && fieldName == this.getCategoryFieldName()) {
@@ -1100,7 +1100,7 @@
                 if (fieldName == this.priceFieldName) {
                     this.selectedPriceValues = this.facetSelectedValue(fieldName, type);
                 }
-                var facetRequest = thrift_types.FacetRequest;
+                var facetRequest = new thrift_types.FacetRequest();
                 facetRequest.fieldName = fieldName;
                 facetRequest.numerical = type == 'ranged' ? true : type == 'numerical' ? true : false;
                 facetRequest.range = type == 'ranged' ? true : false;
@@ -1117,7 +1117,7 @@
             var selectedFacets = Array();
             if (typeof (this.facets[fieldName]['selectedValues']) != "undefined" && (this.facets[fieldName]['selectedValues']) !== null) {
                 this.facets[fieldName]['selectedValues'].forEach(function (value) {
-                    var selectedFacet = thrift_types.FacetValue;
+                    var selectedFacet = new thrift_types.FacetValue();
                     if (option == 'ranged') {
                         var rangedValue = value.split('-');
                         if (rangedValue[0] != '*') {

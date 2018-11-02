@@ -85,7 +85,7 @@
             return this.highlightPost;
         };
         BxAutocompleteRequest.prototype.getAutocompleteQuery = function () {
-            var autocompleteQuery = thrift_types.AutocompleteQuery;
+            var autocompleteQuery = new thrift_types.AutocompleteQuery();
             autocompleteQuery.indexId = this.getIndexId();
             autocompleteQuery.language = this.language;
             autocompleteQuery.queryText = this.queryText;
@@ -97,7 +97,7 @@
         };
         BxAutocompleteRequest.prototype.addPropertyQuery = function (field, hitCount, evaluateTotal) {
             if (evaluateTotal === void 0) { evaluateTotal = false; }
-            var propertyQuery = thrift_types.PropertyQuery;
+            var propertyQuery = new thrift_types.PropertyQuery();
             propertyQuery.name = field;
             propertyQuery.hitCount = hitCount;
             propertyQuery.evaluateTotal = evaluateTotal;
@@ -107,7 +107,7 @@
             this.propertyQueries = Array();
         };
         BxAutocompleteRequest.prototype.getAutocompleteThriftRequest = function (profileid, thriftUserRecord) {
-            var autocompleteRequest = thrift_types.AutocompleteQuery;
+            var autocompleteRequest = new thrift_types.AutocompleteQuery();
             autocompleteRequest.userRecord = thriftUserRecord;
             autocompleteRequest.profileId = profileid;
             autocompleteRequest.choiceId = this.choiceId;

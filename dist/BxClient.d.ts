@@ -53,7 +53,7 @@ export declare class BxClient {
     private getP13n;
     getChoiceRequest(inquiries: any, requestContext?: any): any;
     protected getIP(): any;
-    protected getCurrentURL(): any;
+    protected getCurrentURL(): "" | "https://";
     forwardRequestMapAsContextParameters(filterPrefix?: any, setPrefix?: any): void;
     addRequestContextParameter(name: any, values: any): void;
     resetRequestContextParameter(): void;
@@ -61,8 +61,8 @@ export declare class BxClient {
         'User-Agent': string[];
         'User-Host': any[];
         'User-SessionId': any[];
-        'User-Referer': any[];
-        'User-URL': any[];
+        'User-Referer': string[];
+        'User-URL': string[];
     };
     getRequestContextParameters(): any;
     protected getRequestContext(): any;

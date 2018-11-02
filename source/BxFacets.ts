@@ -544,7 +544,7 @@ export class BxFacets {
                 if (Array.isArray(this.facets[fieldName]['selectedValues'])) {
                     this.facets[fieldName]['selectedValues'].forEach(function (value: any) {
                         if (typeof (facetValues[value]) != "undefined" && facetValues[value] === null) {
-                            let newValue = thrift_types.FacetValue;
+                            let newValue = new thrift_types.FacetValue();
                             newValue.rangeFromInclusive = null;
                             newValue.rangeToExclusive = null;
                             newValue.hierarchyId = null;
@@ -921,7 +921,7 @@ export class BxFacets {
             this.facetValueArrayCache[hash] = Array(valueLabel, paramValue, fv.hitCount, true, false);
             return this.facetValueArrayCache[hash];
         }
-        if (facetValue.isArray(new Array)) {
+        if (Array.isArray(facetValue)) {
             facetValue = facetValue;
         }
         if (keyValues[facetValue] == null && fieldName == this.getCategoryFieldName()) {
@@ -1061,7 +1061,7 @@ export class BxFacets {
             if (fieldName == this.priceFieldName) {
                 this.selectedPriceValues = this.facetSelectedValue(fieldName, type);
             }
-            let facetRequest: any = thrift_types.FacetRequest;
+            let facetRequest: any = new thrift_types.FacetRequest();
             facetRequest.fieldName = fieldName;
             facetRequest.numerical = type == 'ranged' ? true : type == 'numerical' ? true : false;
             facetRequest.range = type == 'ranged' ? true : false;
@@ -1078,7 +1078,7 @@ export class BxFacets {
         let selectedFacets: any = Array();
         if (typeof (this.facets[fieldName]['selectedValues']) != "undefined" && (this.facets[fieldName]['selectedValues']) !== null) {
             this.facets[fieldName]['selectedValues'].forEach(function (value: any) {
-                let selectedFacet: any = thrift_types.FacetValue;
+                let selectedFacet: any = new thrift_types.FacetValue();
                 if (option == 'ranged') {
                     let rangedValue = value.split('-')
                     if (rangedValue[0] != '*') {

@@ -15,9 +15,9 @@
     var thrift_P13nService = require('./bxthrift/P13nService');
     var bxRecommendationRequest = require("./BxRecommendationRequest");
     var bxChooseResponse = require("./BxChooseResponse");
-    var tthrift = require('thrift');
     var thrift = require('thrift-http');
     var btoa = require('btoa');
+    var get_IP = require('ip');
     var BxClient = /** @class */ (function () {
         function BxClient(account, password, domain, isDev, host, request, port, uri, schema, p13n_username, p13n_password, apiKey, apiSecret) {
             if (isDev === void 0) { isDev = false; }
@@ -190,7 +190,7 @@
             return Array(this.sessionId, this.profileId);
         };
         BxClient.prototype.getUserRecord = function () {
-            var userRecord = thrift_types.UserRecord;
+            var userRecord = new thrift_types.UserRecord();
             if (userRecord !== undefined) {
                 userRecord.username = this.getAccount();
                 userRecord.apiKey = this.getApiKey();
@@ -206,8 +206,8 @@
             this.sessionId = spval[0];
             this.profileId = spval[1];
             var options = {
-                transport: tthrift.TBufferedTransport,
-                protocol: tthrift.TJSONProtocol,
+                transport: thrift.TBufferedTransport,
+                protocol: thrift.TJSONProtocol,
                 path: this.uri,
                 https: true,
                 headers: {
@@ -223,7 +223,7 @@
         };
         BxClient.prototype.getChoiceRequest = function (inquiries, requestContext) {
             if (requestContext === void 0) { requestContext = null; }
-            var choiceRequest = thrift_types.ChoiceRequest;
+            var choiceRequest = new thrift_types.ChoiceRequest();
             var spval = this.getSessionAndProfile();
             var profileid = spval[1];
             choiceRequest.userRecord = this.getUserRecord();
@@ -236,7 +236,7 @@
             return choiceRequest;
         };
         BxClient.prototype.getIP = function () {
-            var ip = this.request.remote_ip;
+            var ip = get_IP.address();
             return ip;
         };
         BxClient.prototype.getCurrentURL = function () {
@@ -246,8 +246,8 @@
             if (hostname == "") {
                 return "";
             }
-            //return protocol + '://' + hostname.requesturi;
-            return requesturi;
+            // return requesturi;
+            return "https://";
         };
         BxClient.prototype.forwardRequestMapAsContextParameters = function (filterPrefix, setPrefix) {
             if (filterPrefix === void 0) { filterPrefix = ''; }
@@ -297,7 +297,7 @@
             return params;
         };
         BxClient.prototype.getRequestContext = function () {
-            var requestContext = thrift_types.RequestContext;
+            var requestContext = new thrift_types.RequestContext();
             requestContext.parameters = this.getBasicRequestContextParameters();
             for (var k in this.getRequestContextParameters()) {
                 var v = this.getRequestContextParameters()[k];
@@ -340,6 +340,7 @@
         BxClient.prototype.p13nchoose = function (choiceRequest) {
             try {
                 var choiceResponse = this.getP13n(this._timeout).choose(choiceRequest);
+                console.log(JSON.stringify(choiceResponse));
                 if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                     this.addNotification('bxRequest', choiceRequest);
                     this.addNotification('bxResponse', choiceResponse);
@@ -458,7 +459,8 @@
             var requests = size === 0 ? this.chooseRequests : this.chooseRequests.slice(-size);
             var that = this;
             requests.forEach(function (request) {
-                var choiceInquiry = thrift_types.ChoiceInquiry;
+                var choiceInquiry = new thrift_types.ChoiceInquiry();
+                //let choiceInquiry: any = thrift_types.ChoiceInquiry;
                 choiceInquiry.choiceId = request.getChoiceId();
                 if (choiceInquiries.length == 0 && that.getChoiceIdOverwrite()) {
                     choiceInquiry.choiceId = that.getChoiceIdOverwrite();
@@ -477,7 +479,7 @@
         };
         BxClient.prototype.getBundleChoiceRequest = function (inquiries, requestContext) {
             if (requestContext === void 0) { requestContext = null; }
-            var choiceRequest = thrift_types.ChoiceRequest;
+            var choiceRequest = new thrift_types.ChoiceRequest();
             var spval = this.getSessionAndProfile();
             var profileid = spval[1];
             choiceRequest.userRecord = this.getUserRecord();
@@ -495,7 +497,7 @@
                 var choiceInquiries = Array();
                 bundleChooseRequest.forEach(function (request) {
                     this.addRequest(request);
-                    var choiceInquiry = thrift_types.ChoiceInquiry;
+                    var choiceInquiry = new thrift_types.ChoiceInquiry();
                     choiceInquiry.choiceId = request.getChoiceId();
                     if (this.isTest === true || (this.isDev && this.isTest === null)) {
                         choiceInquiry.choiceId = choiceInquiry.choiceId + "_debugtest";
@@ -508,7 +510,7 @@
                 });
                 bundleRequest.push(this.getBundleChoiceRequest(choiceInquiries, this.getRequestContext()));
             });
-            return thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
+            return new thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
         };
         BxClient.prototype.choose = function (chooseAll, size) {
             if (chooseAll === void 0) { chooseAll = false; }
@@ -520,7 +522,7 @@
                 bundleResponse.responses.forEach(function (choiceResponse) {
                     variants_1 = variants_1.concat(choiceResponse.variants);
                 });
-                response = thrift_types.ChoiceResponse({ 'variants': variants_1 });
+                response = new thrift_types.ChoiceResponse({ 'variants': variants_1 });
             }
             else {
                 response = this.p13nchoose(this.getThriftChoiceRequest(size));
@@ -612,7 +614,7 @@
             return null;
         };
         BxClient.prototype.p13nautocompleteAll = function (requests) {
-            var requestBundle = thrift_types.AutocompleteRequestBundle;
+            var requestBundle = new thrift_types.AutocompleteRequestBundle();
             requestBundle.requests = requests;
             try {
                 var choiceResponse = this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;

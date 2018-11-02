@@ -60,7 +60,7 @@ class BxFilter
 	}
 	
 	getThriftFilter() {
-		let filter: any = thrift_types.Filter()
+		let filter: any =new thrift_types.Filter()
         filter.fieldName = this.fieldName;
         filter.negative = this.negative;
         filter.stringValues = this.values;

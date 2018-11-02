@@ -45,7 +45,7 @@ var BxFilter = /** @class */ (function () {
         this.rangeTo = rangeTo;
     };
     BxFilter.prototype.getThriftFilter = function () {
-        var filter = thrift_types.Filter();
+        var filter = new thrift_types.Filter();
         filter.fieldName = this.fieldName;
         filter.negative = this.negative;
         filter.stringValues = this.values;

@@ -67,7 +67,7 @@ export class BxChooseResponse {
         }
         //autocompletion case (no variants)
         if (response.class.name == 'SearchResult') {
-            let variant: any = thrift.Variant;
+            let variant: any = new thrift.Variant();
             variant.searchResult = response;
             return variant;
         }

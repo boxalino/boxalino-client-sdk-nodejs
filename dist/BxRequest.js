@@ -16,6 +16,12 @@
         function BxRequest(language, choiceId, max, min) {
             if (max === void 0) { max = 10; }
             if (min === void 0) { min = 0; }
+            this.language = null;
+            this.groupBy = null;
+            this.choiceId = null;
+            this.min = null;
+            this.max = null;
+            this.withRelaxation = null;
             this.indexId = null;
             this.requestMap = null;
             this.returnFields = Array();
@@ -165,7 +171,7 @@
             this.groupFacets = groupFacets;
         };
         BxRequest.prototype.getSimpleSearchQuery = function () {
-            var searchQuery = thrift_types.SimpleSearchQuery;
+            var searchQuery = new thrift_types.SimpleSearchQuery();
             searchQuery.indexId = this.getIndexId();
             searchQuery.language = this.getLanguage();
             searchQuery.returnFields = this.getReturnFields();
@@ -196,7 +202,7 @@
             if (role === void 0) { role = 'mainProduct'; }
             if (relatedProducts === void 0) { relatedProducts = Array(); }
             if (relatedProductField === void 0) { relatedProductField = 'id'; }
-            var contextItem = thrift_types.ContextItem;
+            var contextItem = new thrift_types.ContextItem();
             contextItem.indexId = this.getIndexId();
             contextItem.fieldName = fieldName;
             contextItem.contextItemId = contextItemId;
@@ -221,14 +227,14 @@
                     return 0;
                 });
                 var basketItem = basketContent.shift();
-                var contextItem_1 = thrift_types.ContextItem;
+                var contextItem_1 = new thrift_types.ContextItem();
                 contextItem_1.indexId = this.getIndexId();
                 contextItem_1.fieldName = fieldName;
                 contextItem_1.contextItemId = basketItem['id'];
                 contextItem_1.role = role;
                 this.contextItems.push(contextItem_1);
                 basketContent.forEach(function (basketItem) {
-                    contextItem_1 = thrift_types.ContextItem;
+                    contextItem_1 = new thrift_types.ContextItem();
                     contextItem_1.indexId = this.getIndexId();
                     contextItem_1.fieldName = fieldName;
                     contextItem_1.contextItemId = basketItem['id'];

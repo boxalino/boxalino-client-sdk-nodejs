@@ -48,7 +48,7 @@
             var sortFields = Array();
             var tempSortFields = this.getSortFields();
             tempSortFields.forEach(function (field) {
-                sortFields.push(thrift_types.SortField({ 'fieldName': field, 'reverse': this.isFieldReverse(field) }));
+                sortFields.push(new thrift_types.SortField({ 'fieldName': field, 'reverse': this.isFieldReverse(field) }));
             });
             return sortFields;
         };

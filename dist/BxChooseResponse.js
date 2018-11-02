@@ -79,7 +79,7 @@
             }
             //autocompletion case (no variants)
             if (response.class.name == 'SearchResult') {
-                var variant = thrift.Variant;
+                var variant = new thrift.Variant();
                 variant.searchResult = response;
                 return variant;
             }

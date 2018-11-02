@@ -93,7 +93,7 @@ class BxAutocompleteRequest {
     }
 
     private getAutocompleteQuery() {
-        let autocompleteQuery: any = thrift_types.AutocompleteQuery;
+        let autocompleteQuery: any = new thrift_types.AutocompleteQuery();
         autocompleteQuery.indexId = this.getIndexId();
         autocompleteQuery.language = this.language;
         autocompleteQuery.queryText = this.queryText;
@@ -106,7 +106,7 @@ class BxAutocompleteRequest {
 
 
     addPropertyQuery(field: any, hitCount: any, evaluateTotal: any = false) {
-        let propertyQuery: any = thrift_types.PropertyQuery;
+        let propertyQuery: any = new thrift_types.PropertyQuery();
         propertyQuery.name = field;
         propertyQuery.hitCount = hitCount;
         propertyQuery.evaluateTotal = evaluateTotal;
@@ -118,7 +118,7 @@ class BxAutocompleteRequest {
     }
 
     getAutocompleteThriftRequest(profileid: any, thriftUserRecord: any) {
-        let autocompleteRequest = thrift_types.AutocompleteQuery;
+        let autocompleteRequest =new thrift_types.AutocompleteQuery();
         autocompleteRequest.userRecord = thriftUserRecord;
         autocompleteRequest.profileId = profileid;
         autocompleteRequest.choiceId = this.choiceId;

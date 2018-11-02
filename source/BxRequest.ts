@@ -2,12 +2,12 @@ import * as bxFacets from "./BxFacets";
 import * as bxSortFields from "./BxSortFields";
 let  thrift_types = require('./bxthrift/p13n_types');
 export class BxRequest {
-	protected language: any;
-	protected groupBy: any;
-	protected choiceId: any;
-	protected min: any;
-	protected max: any;
-	protected withRelaxation: any;
+	protected language: any= null;
+	protected groupBy: any= null;
+	protected choiceId: any= null;
+	protected min: any= null;
+	protected max: any= null;
+	protected withRelaxation: any= null;
 
 	protected indexId: any = null;
 	protected requestMap: any = null;
@@ -185,7 +185,7 @@ export class BxRequest {
 		this.groupFacets = groupFacets;
 	}
 	getSimpleSearchQuery() {
-		let searchQuery = thrift_types.SimpleSearchQuery;
+		let searchQuery = new thrift_types.SimpleSearchQuery();
 		searchQuery.indexId = this.getIndexId();
 		searchQuery.language = this.getLanguage();
 		searchQuery.returnFields = this.getReturnFields();
@@ -215,7 +215,7 @@ export class BxRequest {
 
 	protected contextItems = Array();
 	setProductContext(fieldName: any, contextItemId: any, role: any = 'mainProduct', relatedProducts: any = Array(), relatedProductField: any = 'id') {
-		let contextItem: any = thrift_types.ContextItem;
+		let contextItem: any = new thrift_types.ContextItem();
 		contextItem.indexId = this.getIndexId();
 		contextItem.fieldName = fieldName;
 		contextItem.contextItemId = contextItemId;
@@ -236,14 +236,14 @@ export class BxRequest {
 				return 0;
 			});
 			let basketItem = basketContent.shift();
-			let contextItem = thrift_types.ContextItem;
+			let contextItem = new thrift_types.ContextItem();
 			contextItem.indexId = this.getIndexId();
 			contextItem.fieldName = fieldName;
 			contextItem.contextItemId = basketItem['id'];
 			contextItem.role = role;
 			this.contextItems.push(contextItem);
 			basketContent.forEach(function(basketItem:any){
-				contextItem = thrift_types.ContextItem;
+				contextItem = new thrift_types.ContextItem();
 				contextItem.indexId = this.getIndexId();
 				contextItem.fieldName = fieldName;
 				contextItem.contextItemId = basketItem['id'];

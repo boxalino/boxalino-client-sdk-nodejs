@@ -25,12 +25,6 @@
         frontend_search_basic.prototype.frontendSearchBasic = function (account, password, isDev, host, queryText) {
             this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
             try {
-                var myInit = {
-                    method: 'GET',
-                    host: "localhost",
-                    REMOTE_ADDR: "127.0.0.1",
-                    protocol: "http"
-                };
                 var _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
                 var language = "en"; // a valid language code (e.g.: "en", "fr", "de", "it", ...)
                 var hitCount = 10; //a maximum number of search result to return in one page
@@ -38,8 +32,11 @@
                 var bxRequest = new bxSearchRequest.BxSearchRequest(language, queryText, hitCount);
                 //add the request
                 _bxClient.addRequest(bxRequest);
+                // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
+                //console.log("=------------------=");
                 //make the query to Boxalino server and get back the response for all requests
                 var bxResponse = _bxClient.getResponse();
+                // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
                 //indicate the search made with the number of results found
                 var logs = Array();
                 logs.push("Results for query \"" + queryText + "\" (" + bxResponse.getTotalHitCount().toString() + "):");

@@ -13,13 +13,7 @@ export class frontend_search_basic {
     public frontendSearchBasic(account: any, password: any, isDev: any, host: any, queryText: any) {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
-            var myInit = {
-                method: 'GET',
-                host: "localhost",
-                REMOTE_ADDR: "127.0.0.1",
-                protocol: "http"
-            };
-            let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host,request);
+            let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
 
             let language: any = "en"; // a valid language code (e.g.: "en", "fr", "de", "it", ...)
 
@@ -30,9 +24,13 @@ export class frontend_search_basic {
 
             //add the request
             _bxClient.addRequest(bxRequest);
+           // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
+            //console.log("=------------------=");
 
             //make the query to Boxalino server and get back the response for all requests
             let bxResponse: any = _bxClient.getResponse();
+
+           // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
 
             //indicate the search made with the number of results found
             let logs: any = Array();
