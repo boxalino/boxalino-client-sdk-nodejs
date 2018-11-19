@@ -74,11 +74,11 @@
                 this.schema = 'https';
             }
             this.p13n_username = p13n_username;
-            if (this.p13n_username == null) {
+            if (this.p13n_username == "") {
                 this.p13n_username = "boxalino";
             }
             this.p13n_password = p13n_password;
-            if (this.p13n_password == null) {
+            if (this.p13n_password == "") {
                 this.p13n_password = "tkZ8EXfzeZc6SdXZntCU";
             }
             this.domain = domain;
@@ -201,24 +201,15 @@
         BxClient.prototype.getP13n = function (timeout, useCurlIfAvailable) {
             if (timeout === void 0) { timeout = 2; }
             if (useCurlIfAvailable === void 0) { useCurlIfAvailable = true; }
-            var client;
             var spval = this.getSessionAndProfile();
             this.sessionId = spval[0];
             this.profileId = spval[1];
-            var options = {
-                transport: thrift.TBufferedTransport,
-                protocol: thrift.TJSONProtocol,
-                path: this.uri,
-                https: true,
+            var transport = thrift.createHttpConnection("https://cdn.bx-cloud.com/p13n.web/p13n", {
                 headers: {
-                    "Authorization": "Basic " + btoa(this.p13n_username + ":" + this.p13n_password),
-                    "profileId": this.profileId
-                }
-            };
-            var connection = thrift.createHttpConnection(this.host, "443", options);
-            client = thrift.createHttpClient(thrift_P13nService.Client, connection);
-            // tclient.myServiceFunction();
-            //client = thrift_P13nService.Client(tclient);
+                    "Authorization": "Basic " + btoa("boxalino_automated_tests2:boxalino_automated_tests2")
+                },
+            });
+            var client = new thrift_P13nService.Client(new thrift.TCompactProtocol(transport));
             return client;
         };
         BxClient.prototype.getChoiceRequest = function (inquiries, requestContext) {
@@ -280,7 +271,8 @@
                 'User-Host': [this.getIP()],
                 'User-SessionId': [sessionid],
                 'User-Referer': [this.getCurrentURL()],
-                'User-URL': [this.getCurrentURL()]
+                'User-URL': [this.getCurrentURL()],
+                'X-BX-PROFILEID': [profileid]
             };
         };
         BxClient.prototype.getRequestContextParameters = function () {
@@ -340,7 +332,7 @@
         BxClient.prototype.p13nchoose = function (choiceRequest) {
             try {
                 var choiceResponse = this.getP13n(this._timeout).choose(choiceRequest);
-                console.log(JSON.stringify(choiceResponse));
+                // console.log(JSON.stringify(choiceResponse));
                 if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                     this.addNotification('bxRequest', choiceRequest);
                     this.addNotification('bxResponse', choiceResponse);
@@ -405,7 +397,7 @@
             request.setDefaultIndexId(this.getAccount());
             request.setDefaultRequestMap(this.requestMap);
             this.chooseRequests.push(request);
-            return (this.chooseRequests.indexOf()) - 1;
+            return (this.chooseRequests.length) - 1;
         };
         BxClient.prototype.addBundleRequest = function (requests) {
             requests.forEach(function (request) {

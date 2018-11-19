@@ -9,13 +9,13 @@ export class BxRequest {
 	protected max: any= null;
 	protected withRelaxation: any= null;
 
-	protected indexId: any = null;
+	protected indexId: any = "";
 	protected requestMap: any = null;
 	protected returnFields: any = Array();
 	protected offset: any = 0;
 	protected queryText: any = "";
-	protected bxFacets: any = new bxFacets.BxFacets();
-	protected bxSortFields: any = new bxSortFields.BxSortFields();
+	protected bxFacets: any = null;
+	protected bxSortFields: any = null;
 	protected bxFilters: any = Array();
 	protected orFilters: any = false;
 	protected hitsGroupsAsHits: any = null;
@@ -146,16 +146,17 @@ export class BxRequest {
 
 	setIndexId(indexId: any) {
 		this.indexId = indexId;
-		this.contextItems.forEach(function (k: any) {
-			let contextItem: any = this.contextItems[k];
-			if (contextItem.indexId == null) {
-				this.contextItems[k].indexId = indexId;
+		let that:any=this;
+		this.contextItems.forEach(function (v:any,k: any) {
+			let contextItem: any = that.contextItems[k];
+			if (contextItem.indexId == "" || contextItem.indexId == null) {
+                that.contextItems[k].indexId = indexId;
 			}
 		});
 	}
 
 	setDefaultIndexId(indexId: any) {
-		if (this.indexId == null) {
+		if (this.indexId == "") {
 			this.setIndexId(indexId);
 		}
 	}
@@ -215,7 +216,7 @@ export class BxRequest {
 
 	protected contextItems = Array();
 	setProductContext(fieldName: any, contextItemId: any, role: any = 'mainProduct', relatedProducts: any = Array(), relatedProductField: any = 'id') {
-		let contextItem: any = new thrift_types.ContextItem();
+		let contextItem: any = new  thrift_types.ContextItem();
 		contextItem.indexId = this.getIndexId();
 		contextItem.fieldName = fieldName;
 		contextItem.contextItemId = contextItemId;

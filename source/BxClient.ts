@@ -71,11 +71,11 @@ export class BxClient {
             this.schema = 'https';
         }
         this.p13n_username = p13n_username;
-        if (this.p13n_username == null) {
+        if (this.p13n_username == "") {
             this.p13n_username = "boxalino";
         }
         this.p13n_password = p13n_password;
-        if (this.p13n_password == null) {
+        if (this.p13n_password == "") {
             this.p13n_password = "tkZ8EXfzeZc6SdXZntCU";
         }
         this.domain = domain;
@@ -211,24 +211,15 @@ export class BxClient {
     }
 
     private getP13n(timeout: any = 2, useCurlIfAvailable: any = true) {
-        let client: any;
         let spval: any = this.getSessionAndProfile();
         this.sessionId = spval[0];
         this.profileId = spval[1];
-        var options = {
-            transport: thrift.TBufferedTransport,
-            protocol: thrift.TJSONProtocol,
-            path: this.uri,
-            https: true,
-            headers: {
-                "Authorization": "Basic " + btoa(this.p13n_username + ":" + this.p13n_password),
-                "profileId": this.profileId
-            }
-        };
-        var connection = thrift.createHttpConnection(this.host, "443",  options);
-        client = thrift.createHttpClient(thrift_P13nService.Client, connection);
-       // tclient.myServiceFunction();
-        //client = thrift_P13nService.Client(tclient);
+        var transport= thrift.createHttpConnection("https://cdn.bx-cloud.com/p13n.web/p13n",{
+            headers:{
+                "Authorization": "Basic " + btoa( "boxalino_automated_tests2:boxalino_automated_tests2" )
+            },
+        });
+        var  client =new thrift_P13nService.Client(new thrift.TCompactProtocol(transport));
         return client;
     }
 
@@ -300,7 +291,8 @@ export class BxClient {
             'User-Host': [this.getIP()],
             'User-SessionId': [sessionid],
             'User-Referer': [this.getCurrentURL()],
-            'User-URL': [this.getCurrentURL()]
+            'User-URL': [this.getCurrentURL()],
+            'X-BX-PROFILEID':[profileid]
         }
     }
 
@@ -433,7 +425,7 @@ export class BxClient {
         request.setDefaultIndexId(this.getAccount());
         request.setDefaultRequestMap(this.requestMap);
         this.chooseRequests.push(request);
-        return (this.chooseRequests.indexOf()) - 1;
+        return (this.chooseRequests.length) - 1;
     }
 
     addBundleRequest(requests: any) {

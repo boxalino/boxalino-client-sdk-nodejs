@@ -4,12 +4,11 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./BxFacets", "./BxSortFields"], factory);
+        define(["require", "exports", "./BxSortFields"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var bxFacets = require("./BxFacets");
     var bxSortFields = require("./BxSortFields");
     var thrift_types = require('./bxthrift/p13n_types');
     var BxRequest = /** @class */ (function () {
@@ -22,13 +21,13 @@
             this.min = null;
             this.max = null;
             this.withRelaxation = null;
-            this.indexId = null;
+            this.indexId = "";
             this.requestMap = null;
             this.returnFields = Array();
             this.offset = 0;
             this.queryText = "";
-            this.bxFacets = new bxFacets.BxFacets();
-            this.bxSortFields = new bxSortFields.BxSortFields();
+            this.bxFacets = null;
+            this.bxSortFields = null;
             this.bxFilters = Array();
             this.orFilters = false;
             this.hitsGroupsAsHits = null;
@@ -135,15 +134,16 @@
         };
         BxRequest.prototype.setIndexId = function (indexId) {
             this.indexId = indexId;
-            this.contextItems.forEach(function (k) {
-                var contextItem = this.contextItems[k];
-                if (contextItem.indexId == null) {
-                    this.contextItems[k].indexId = indexId;
+            var that = this;
+            this.contextItems.forEach(function (v, k) {
+                var contextItem = that.contextItems[k];
+                if (contextItem.indexId == "" || contextItem.indexId == null) {
+                    that.contextItems[k].indexId = indexId;
                 }
             });
         };
         BxRequest.prototype.setDefaultIndexId = function (indexId) {
-            if (this.indexId == null) {
+            if (this.indexId == "") {
                 this.setIndexId(indexId);
             }
         };

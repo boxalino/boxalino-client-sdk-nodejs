@@ -63,6 +63,7 @@ export declare class BxClient {
         'User-SessionId': any[];
         'User-Referer': string[];
         'User-URL': string[];
+        'X-BX-PROFILEID': any[];
     };
     getRequestContextParameters(): any;
     protected getRequestContext(): any;
