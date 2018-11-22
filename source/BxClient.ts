@@ -203,7 +203,7 @@ export class BxClient {
        var client =new thrift_P13nService.Client(new thrift.TFramedTransport(connection), thrift.TCompactProtocol);
        return client;
     }
-
+    
     getChoiceRequest(inquiries: any, requestContext: any = null) {
 
         let choiceRequest: any = new thrift_types.ChoiceRequest();
