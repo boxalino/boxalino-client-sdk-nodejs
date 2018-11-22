@@ -1,7 +1,7 @@
 var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
-var thrift_types = require('./bxthrift/p13n_types');
-var thrift_P13nService = require('./bxthrift/P13nService');
+var thrift_types = require('./bxthrift/p13n_types.js');
+var thrift_P13nService = require('./bxthrift/P13nService.js');
 import * as bxRecommendationRequest from './BxRecommendationRequest'
 import * as bxChooseResponse from './BxChooseResponse'
 var thrift = require('thrift-http');
@@ -12,8 +12,8 @@ export class BxClient {
     private password: string;
     private isDev: boolean;
     private host: string;
-    private apiKey: string;
-    private apiSecret: string;
+    private apiKey: any=null;
+    private apiSecret: any=null;
     private port: number;
     private uri: string;
     private schema: string;
@@ -45,7 +45,7 @@ export class BxClient {
     private request: any = null;
     private choiceIdOverwrite: any = "owbx_choice_id";
 
-    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "cdn.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: string = "", apiSecret: string = "") {
+    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "api.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
         this.account = account;
         this.password = password;
         this.request = request
@@ -190,7 +190,7 @@ export class BxClient {
         this.profileId = spval[1];
         var connection= thrift.createHttpConnection(this.host, this.port, {
            transport: thrift.TBufferedTransport,
-           protocol: thrift.TJSONProtocol,
+           protocol: thrift.TCompactProtocol,
            path: this.uri,
            https : true,
            headers:{
@@ -200,10 +200,10 @@ export class BxClient {
                "Authorization": "Basic " + btoa(this.p13n_username + ":" + this.p13n_password)
            },
        });
-       var client =new thrift_P13nService.Client(new thrift.TFramedTransport(connection), thrift.TCompactProtocol);
+       var client = new thrift.createHttpClient(thrift_P13nService, connection);
        return client;
     }
-    
+
     getChoiceRequest(inquiries: any, requestContext: any = null) {
 
         let choiceRequest: any = new thrift_types.ChoiceRequest();
@@ -336,7 +336,8 @@ export class BxClient {
 
     private p13nchoose(choiceRequest: any) {
         try {
-            let choiceResponse: any = this.getP13n(this._timeout).choose(choiceRequest);
+            let client = this.getP13n(this._timeout);
+            let choiceResponse: any = client.choose(choiceRequest);
 
             if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                 this.addNotification('bxRequest', choiceRequest);
@@ -365,6 +366,7 @@ export class BxClient {
                 this.addNotification('bxRequest', choiceRequest);
                 this.addNotification('bxResponse', choiceResponse);
             }
+
             return choiceResponse;
         } catch (e) {
             this.throwCorrectP13nException(e);
@@ -512,7 +514,7 @@ export class BxClient {
         return new thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
     }
 
-    protected choose(chooseAll: any = false, size: any = 0) {
+    public choose(chooseAll: any = false, size: any = 0) {
         let response: any;
         if (chooseAll) {
             let bundleResponse: any = this.p13nchooseAll(this.getThriftBundleChoiceRequest());
@@ -688,5 +690,4 @@ export class BxClient {
             return value;
         }
     }
-
 }
