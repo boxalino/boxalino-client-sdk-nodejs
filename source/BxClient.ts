@@ -214,12 +214,20 @@ export class BxClient {
         let spval: any = this.getSessionAndProfile();
         this.sessionId = spval[0];
         this.profileId = spval[1];
-        var transport= thrift.createHttpConnection("https://cdn.bx-cloud.com/p13n.web/p13n",{
+        var transport= thrift.createHttpConnection("https://cdn.bx-cloud.com",443, {
+            transport: thrift.TBufferedTransport,
+            protocol: thrift.TJSONProtocol,
+            path: "/p13n.web/p13n",
+            https : true,
             headers:{
-                "Authorization": "Basic " + btoa( "boxalino_automated_tests2:boxalino_automated_tests2" )
+                "Accept": "application/x-thrift",
+                "User-Agent": "PHP/THttpClient",
+                "Content-Type": "application/x-thrift",
+                "X-BX-PROFILEID":  this.profileId,
+                "Authorization": "Basic " + btoa( "boxalino:tkZ8EXfzeZc6SdXZntCU" )
             },
         });
-        var  client =new thrift_P13nService.Client(new thrift.TCompactProtocol(transport));
+        var  client =new thrift_P13nService.Client(new thrift.TCompactProtocol(transport),  new thrift.TCompactProtocol(transport));
         return client;
     }
 
