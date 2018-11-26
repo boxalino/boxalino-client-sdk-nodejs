@@ -15,17 +15,11 @@ export class frontend_recommendations_similar {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
 
-
             let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
-
             let language: any = "en"; // a valid language code (e.g.: "en", "fr", "de", "it", ...)
-
             let choiceId: any = "similar"; //the recommendation choice id (standard choice ids are: "similar" => similar products on product detail page, "complementary" => complementary products on product detail page, "basket" => cross-selling recommendations on basket page, "search"=>search results, "home" => home page personalized suggestions, "category" => category page suggestions, "navigation" => navigation product listing pages suggestions)
-
             let itemFieldId: any = "id"; // the field you want to use to define the id of the product (normally id, but could also be a group id if you have a difference between group id and sku)
-
             let itemFieldIdValue: any = "1940"; //the product id the user is currently looking at
-
             let hitCount: any = 10; //a maximum number of search result to return in one page
 
             //create search request
@@ -35,14 +29,11 @@ export class frontend_recommendations_similar {
             bxRequest.setProductContext(itemFieldId, itemFieldIdValue);
             //add the request
             _bxClient.addRequest(bxRequest);
-            // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
-            //console.log("=------------------=");
             //make the query to Boxalino server and get back the response for all requests
             this.bxResponse = await _bxClient.getResponse();
-            //  console.log(JSON.parse(JSON.stringify(_bxClient.getThriftChoiceRequest())));
+            
             //indicate the search made with the number of results found
             let logs: any = Array();
-
             //loop on the search response hit ids and print them
             for (let i in this.bxResponse.getHitIds()) {
                 let id = this.bxResponse.getHitIds()[i];

@@ -1,4 +1,3 @@
-
 var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
 var thrift_types = require('./bxthrift/p13n_types.js');
@@ -335,13 +334,10 @@ export class BxClient {
         throw e;
     }
 
-
     private async p13nchoose(choiceRequest: any) {
         try {
             let client = this.getP13n(this._timeout);
             let choiceResponse: any = null;
-
-
             choiceResponse = await client.choose(choiceRequest);
             if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                 this.addNotification('bxRequest', choiceRequest);
@@ -378,9 +374,10 @@ export class BxClient {
         }
     }
 
-    private p13nchooseAll(choiceRequestBundle: any) {
+    private async p13nchooseAll(choiceRequestBundle: any) {
         try {
-            let bundleChoiceResponse: any = this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
+            let bundleChoiceResponse: any = null;
+            bundleChoiceResponse =  await this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
                 && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
@@ -530,9 +527,9 @@ export class BxClient {
             response = new thrift_types.ChoiceResponse({ 'variants': variants });
         } else {
             response = await this.p13nchoose(this.getThriftChoiceRequest(size));
-                if (size > 0) {
-                    response.variants = this.chooseResponses.variants.concat(response.variants);
-                }
+            if (size > 0) {
+                response.variants = this.chooseResponses.variants.concat(response.variants);
+            }
         }
         this.chooseResponses = response;
     }
@@ -542,16 +539,16 @@ export class BxClient {
         this.chooseResponses = null;
     }
 
-   async getResponse(chooseAll = false) {
+    async getResponse(chooseAll = false) {
         let _chResponseSize: any = 0
         if (this.chooseResponses !== null) {
             _chResponseSize = this.chooseResponses.variants.length;
         }
         let size: any = this.chooseRequests.length - _chResponseSize;
         if (this.chooseResponses == null) {
-          await this.choose(chooseAll);
+            await this.choose(chooseAll);
         } else if (size) {
-            this.choose(chooseAll, size);
+            await this.choose(chooseAll, size);
         }
         let bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
         bxChooseResponseData.setNotificationMode(this.getNotificationMode());
@@ -601,7 +598,7 @@ export class BxClient {
         }
     }
 
-    autocomplete() {
+    async autocomplete() {
         let spval: any = this.getSessionAndProfile();
         let profileid: any = spval[1];
 
@@ -612,7 +609,7 @@ export class BxClient {
         });
         let i: any = -1;
 
-        let tempArrayBxAuto: any = this.p13nautocompleteAll(p13nrequests)
+        let tempArrayBxAuto: any = await this.p13nautocompleteAll(p13nrequests)
         this.autocompleteResponses = tempArrayBxAuto.map(function (this: any) {
             this.autocompletePartail(this.request, ++i);
         });
@@ -626,11 +623,12 @@ export class BxClient {
         return null;
     }
 
-    private p13nautocompleteAll(requests: any) {
+    private async p13nautocompleteAll(requests: any) {
         let requestBundle: any = new thrift_types.AutocompleteRequestBundle();
         requestBundle.requests = requests;
         try {
-            let choiceResponse = this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
+            let choiceResponse: any = null;
+            choiceResponse = await this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
                 if (!this.debugOutputActive) {

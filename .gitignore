@@ -1,0 +1,5 @@
+./.vscode
+./.idea
+./.nyc-output
+./node_modules
+./dist
