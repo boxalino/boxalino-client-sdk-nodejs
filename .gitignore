@@ -1,6 +1,6 @@
 #IDE configs
-./.vscode
-./.idea
+.vscode
+.idea
 npm-debug.log
 
 # nyc test coverage
