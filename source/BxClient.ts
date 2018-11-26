@@ -46,7 +46,7 @@ export class BxClient {
     private request: any = null;
     private choiceIdOverwrite: any = "owbx_choice_id";
 
-    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "api.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
+    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "cdn.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
         this.account = account;
         this.password = password;
         this.request = request
