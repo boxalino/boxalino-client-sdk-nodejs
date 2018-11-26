@@ -1,3 +1,4 @@
+
 var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
 var thrift_types = require('./bxthrift/p13n_types.js');
@@ -334,11 +335,14 @@ export class BxClient {
         throw e;
     }
 
-    private p13nchoose(choiceRequest: any) {
+
+    private async p13nchoose(choiceRequest: any) {
         try {
             let client = this.getP13n(this._timeout);
-            let choiceResponse: any = client.choose(choiceRequest);
+            let choiceResponse: any = null;
 
+
+            choiceResponse = await client.choose(choiceRequest);
             if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                 this.addNotification('bxRequest', choiceRequest);
                 this.addNotification('bxResponse', choiceResponse);
@@ -368,6 +372,7 @@ export class BxClient {
             }
 
             return choiceResponse;
+
         } catch (e) {
             this.throwCorrectP13nException(e);
         }
@@ -514,7 +519,7 @@ export class BxClient {
         return new thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
     }
 
-    public choose(chooseAll: any = false, size: any = 0) {
+    public async choose(chooseAll: any = false, size: any = 0) {
         let response: any;
         if (chooseAll) {
             let bundleResponse: any = this.p13nchooseAll(this.getThriftBundleChoiceRequest());
@@ -524,10 +529,10 @@ export class BxClient {
             });
             response = new thrift_types.ChoiceResponse({ 'variants': variants });
         } else {
-            response = this.p13nchoose(this.getThriftChoiceRequest(size));
-            if (size > 0) {
-                response.variants = this.chooseResponses.variants.concat(response.variants);
-            }
+            response = await this.p13nchoose(this.getThriftChoiceRequest(size));
+                if (size > 0) {
+                    response.variants = this.chooseResponses.variants.concat(response.variants);
+                }
         }
         this.chooseResponses = response;
     }
@@ -537,14 +542,14 @@ export class BxClient {
         this.chooseResponses = null;
     }
 
-    getResponse(chooseAll = false) {
+   async getResponse(chooseAll = false) {
         let _chResponseSize: any = 0
         if (this.chooseResponses !== null) {
             _chResponseSize = this.chooseResponses.variants.length;
         }
         let size: any = this.chooseRequests.length - _chResponseSize;
         if (this.chooseResponses == null) {
-            this.choose(chooseAll);
+          await this.choose(chooseAll);
         } else if (size) {
             this.choose(chooseAll, size);
         }
@@ -674,9 +679,10 @@ export class BxClient {
         this.notifications[type].push(notification);
     }
 
-    getNotifications() {
+    async getNotifications() {
         let final: any = this.notifications;
-        final['response'] = this.getResponse().getNotifications();
+        let resp:any=  await this.getResponse();
+        final['response'] = resp.getNotifications();
         return final;
     }
 

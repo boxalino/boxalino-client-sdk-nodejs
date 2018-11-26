@@ -10,15 +10,15 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     require("mocha");
-    var assert = require("assert");
-    var _frontendSearchBasic = require("../dist/example/frontend_search_basic");
-    describe("frontend_search_basic", function () {
-        var account = "boxalino_automated_tests2"; // your account name
-        var password = "boxalino_automated_tests2"; // your account password
-        var isDev = false;
-        var bxHost = "cdn.bx-cloud.com";
-        it("test", function () {
-            var response = new _frontendSearchBasic.frontend_search_basic().frontendSearchBasic(account, password, isDev, bxHost, "women");
+    const assert = require("assert");
+    const _frontendSearchBasic = require("../dist/example/frontend_search_basic");
+    describe("frontend_search_basic", () => {
+        let account = "boxalino_automated_tests2"; // your account name
+        let password = "boxalino_automated_tests2"; // your account password
+        let isDev = false;
+        let bxHost = "cdn.bx-cloud.com";
+        it("test", () => {
+            let response = new _frontendSearchBasic.frontend_search_basic().frontendSearchBasic(account, password, isDev, bxHost, "women");
             assert.ok(response);
             console.log("dsfds");
         });

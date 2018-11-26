@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "csv-parser": "^2.1.0",
+    "es6-promise": "^4.2.5",
+    "es6-shim": "^0.35.4",
     "js-cookie": "^2.2.0",
     "md5-typescript": "^1.0.5",
     "node-zip": "^1.1.1",

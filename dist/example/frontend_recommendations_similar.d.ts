@@ -6,5 +6,6 @@ export declare class frontend_recommendations_similar {
     isDev: any;
     bxHost: any;
     host: any;
-    frontendRecommendationsSimilar(account: any, password: any, isDev: any, host: any): void;
+    bxResponse: any;
+    frontendRecommendationsSimilar(account: any, password: any, isDev: any, host: any): Promise<void>;
 }

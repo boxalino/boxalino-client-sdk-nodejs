@@ -1,3 +1,38 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -11,8 +46,8 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var Cookies = require('js-cookie');
     var secureRandom = require('securerandom');
-    var thrift_types = require('./bxthrift/p13n_types');
-    var thrift_P13nService = require('./bxthrift/P13nService');
+    var thrift_types = require('./bxthrift/p13n_types.js');
+    var thrift_P13nService = require('./bxthrift/P13nService.js');
     var bxRecommendationRequest = require("./BxRecommendationRequest");
     var bxChooseResponse = require("./BxChooseResponse");
     var thrift = require('thrift-http');
@@ -21,16 +56,18 @@
     var BxClient = /** @class */ (function () {
         function BxClient(account, password, domain, isDev, host, request, port, uri, schema, p13n_username, p13n_password, apiKey, apiSecret) {
             if (isDev === void 0) { isDev = false; }
-            if (host === void 0) { host = null; }
-            if (request === void 0) { request = null; }
-            if (port === void 0) { port = null; }
-            if (uri === void 0) { uri = null; }
-            if (schema === void 0) { schema = null; }
-            if (p13n_username === void 0) { p13n_username = null; }
-            if (p13n_password === void 0) { p13n_password = null; }
+            if (host === void 0) { host = "api.bx-cloud.com"; }
+            if (request === void 0) { request = {}; }
+            if (port === void 0) { port = 443; }
+            if (uri === void 0) { uri = "/p13n.web/p13n"; }
+            if (schema === void 0) { schema = "https"; }
+            if (p13n_username === void 0) { p13n_username = "boxalino"; }
+            if (p13n_password === void 0) { p13n_password = "tkZ8EXfzeZc6SdXZntCU"; }
             if (apiKey === void 0) { apiKey = null; }
             if (apiSecret === void 0) { apiSecret = null; }
-            this.isTest = null;
+            this.apiKey = null;
+            this.apiSecret = null;
+            this.isTest = false;
             this.debugOutput = '';
             this.debugOutputActive = false;
             this.autocompleteRequests = null;
@@ -43,7 +80,7 @@
             this.sessionId = null;
             this.profileId = null;
             this.requestMap = Array();
-            this.socketHost = null;
+            this.socketHost = "";
             this.socketPort = null;
             this.socketSendTimeout = null;
             this.socketRecvTimeout = null;
@@ -58,38 +95,15 @@
             // }
             this.isDev = isDev;
             this.host = host;
-            if (this.host == null) {
-                this.host = "cdn.bx-cloud.com";
-            }
             this.port = port;
-            if (this.port == null) {
-                this.port = 443;
-            }
             this.uri = uri;
-            if (this.uri == null) {
-                this.uri = '/p13n.web/p13n';
-            }
+            ;
             this.schema = schema;
-            if (this.schema == null) {
-                this.schema = 'https';
-            }
             this.p13n_username = p13n_username;
-            if (this.p13n_username == "") {
-                this.p13n_username = "boxalino";
-            }
             this.p13n_password = p13n_password;
-            if (this.p13n_password == "") {
-                this.p13n_password = "tkZ8EXfzeZc6SdXZntCU";
-            }
             this.domain = domain;
             this.apiKey = apiKey;
-            if (apiKey === null || apiKey === "") {
-                this.apiKey = null;
-            }
             this.apiSecret = apiSecret;
-            if (apiSecret === null || apiSecret === "") {
-                this.apiSecret = null;
-            }
         }
         BxClient.prototype.setHost = function (host) {
             this.host = host;
@@ -202,14 +216,20 @@
             if (timeout === void 0) { timeout = 2; }
             if (useCurlIfAvailable === void 0) { useCurlIfAvailable = true; }
             var spval = this.getSessionAndProfile();
-            this.sessionId = spval[0];
             this.profileId = spval[1];
-            var transport = thrift.createHttpConnection("https://cdn.bx-cloud.com/p13n.web/p13n", {
+            var connection = thrift.createHttpConnection(this.host, this.port, {
+                transport: thrift.TBufferedTransport,
+                protocol: thrift.TCompactProtocol,
+                path: this.uri,
+                https: true,
                 headers: {
-                    "Authorization": "Basic " + btoa("boxalino_automated_tests2:boxalino_automated_tests2")
+                    "Accept": "application/x-thrift",
+                    "Content-Type": "application/x-thrift",
+                    "X-BX-PROFILEID": this.profileId,
+                    "Authorization": "Basic " + btoa(this.p13n_username + ":" + this.p13n_password)
                 },
             });
-            var client = new thrift_P13nService.Client(new thrift.TCompactProtocol(transport));
+            var client = new thrift.createHttpClient(thrift_P13nService, connection);
             return client;
         };
         BxClient.prototype.getChoiceRequest = function (inquiries, requestContext) {
@@ -237,8 +257,7 @@
             if (hostname == "") {
                 return "";
             }
-            // return requesturi;
-            return "https://";
+            return protocol + "://" + hostname + requesturi;
         };
         BxClient.prototype.forwardRequestMapAsContextParameters = function (filterPrefix, setPrefix) {
             if (filterPrefix === void 0) { filterPrefix = ''; }
@@ -270,8 +289,6 @@
                 'User-Agent': ['Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36'],
                 'User-Host': [this.getIP()],
                 'User-SessionId': [sessionid],
-                'User-Referer': [this.getCurrentURL()],
-                'User-URL': [this.getCurrentURL()],
                 'X-BX-PROFILEID': [profileid]
             };
         };
@@ -313,7 +330,7 @@
                 var parts = e.message.split('choice not found');
                 pieces = parts[1].split('	at ');
                 var choiceId = pieces[0].trim().replace(':', '');
-                throw new Error("Configuration not live on account " + this.getAccount() + ": choice choiceId doesn't exist. NB: If you get a message indicating that the choice doesn't exist, go to http://intelligence.bx-cloud.com, log in your account and make sure that the choice id you want to use is published.");
+                throw new Error("Configuration not live on account " + this.getAccount() + ": choice " + choiceId + " doesn't exist. NB: If you get a message indicating that the choice doesn't exist, go to http://intelligence.bx-cloud.com, log in your account and make sure that the choice id you want to use is published.");
             }
             if (e.toString().indexOf('Solr returned status 404') !== false) {
                 throw new Error("Data not live on account " + this.getAccount() + ": index returns status 404. Please publish your data first, like in example backend_data_basic.php.");
@@ -322,7 +339,7 @@
                 var parts = e.message.split('undefined field');
                 pieces = parts[1].split('	at ');
                 var field = pieces[0].replace(':', '');
-                throw new Error("You request in your filter or facets a non-existing field of your account " + this.getAccount() + ": field field doesn't exist.");
+                throw new Error("You request in your filter or facets a non-existing field of your account " + this.getAccount() + ": field " + field + " doesn't exist.");
             }
             if (e.toString().indexOf('All choice variants are excluded') !== false) {
                 throw new Error("You have an invalid configuration for with a choice defined, but having no defined strategies. This is a quite unusual case, please contact support@boxalino.com to get support.");
@@ -330,53 +347,59 @@
             throw e;
         };
         BxClient.prototype.p13nchoose = function (choiceRequest) {
-            try {
-                var choiceResponse = this.getP13n(this._timeout).choose(choiceRequest);
-                // console.log(JSON.stringify(choiceResponse));
-                if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
-                    this.addNotification('bxRequest', choiceRequest);
-                    this.addNotification('bxResponse', choiceResponse);
-                }
-                if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
-                    var debug_1 = true;
-                    if ((typeof (this.requestMap['dev_bx_choice']) != "undefined" && this.requestMap['dev_bx_choice'] !== null)) {
-                        debug_1 = false;
-                        choiceRequest.inquiries.forEach(function (inquiry) {
-                            if (inquiry.choiceId == this.requestMap['dev_bx_choice']) {
-                                debug_1 = true;
-                                return;
+            return __awaiter(this, void 0, void 0, function () {
+                var client, choiceResponse, debug_1, e_1;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            client = this.getP13n(this._timeout);
+                            choiceResponse = null;
+                            return [4 /*yield*/, client.choose(choiceRequest)];
+                        case 1:
+                            choiceResponse = _a.sent();
+                            if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
+                                this.addNotification('bxRequest', choiceRequest);
+                                this.addNotification('bxResponse', choiceResponse);
                             }
-                        });
+                            if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
+                                debug_1 = true;
+                                if ((typeof (this.requestMap['dev_bx_choice']) != "undefined" && this.requestMap['dev_bx_choice'] !== null)) {
+                                    debug_1 = false;
+                                    choiceRequest.inquiries.forEach(function (inquiry) {
+                                        if (inquiry.choiceId == this.requestMap['dev_bx_choice']) {
+                                            debug_1 = true;
+                                            return;
+                                        }
+                                    });
+                                }
+                                if (debug_1) {
+                                    this.debugOutput = "<pre><h1>Choice Request</h1>" + choiceRequest.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
+                                    if (!this.debugOutputActive) {
+                                        console.log(this.debugOutput);
+                                        return [2 /*return*/];
+                                    }
+                                }
+                            }
+                            if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
+                                this.addNotification('bxRequest', choiceRequest);
+                                this.addNotification('bxResponse', choiceResponse);
+                            }
+                            return [2 /*return*/, choiceResponse];
+                        case 2:
+                            e_1 = _a.sent();
+                            this.throwCorrectP13nException(e_1);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
                     }
-                    if (debug_1) {
-                        // ini_set('xdebug.var_display_max_children', -1);
-                        // ini_set('xdebug.var_display_max_data', -1);
-                        // ini_set('xdebug.var_display_max_depth', -1);
-                        this.debugOutput = "<pre><h1>Choice Request</h1>" + choiceRequest.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
-                        if (!this.debugOutputActive) {
-                            console.log(this.debugOutput);
-                            return;
-                        }
-                    }
-                }
-                if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
-                    this.addNotification('bxRequest', choiceRequest);
-                    this.addNotification('bxResponse', choiceResponse);
-                }
-                return choiceResponse;
-            }
-            catch (e) {
-                this.throwCorrectP13nException(e);
-            }
+                });
+            });
         };
         BxClient.prototype.p13nchooseAll = function (choiceRequestBundle) {
             try {
                 var bundleChoiceResponse = this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
                 if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
                     && this.requestMap['dev_bx_disp'] == 'true') {
-                    // ini_set('xdebug.var_display_max_children', -1);
-                    // ini_set('xdebug.var_display_max_data', -1);
-                    // ini_set('xdebug.var_display_max_depth', -1);
                     this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
                     if (!this.debugOutputActive) {
                         console.log(this.debugOutput);
@@ -438,7 +461,6 @@
             if (size === void 0) { size = 0; }
             if (this.chooseRequests.length == 0 && this.autocompleteRequests.length > 0) {
                 var spval = this.getSessionAndProfile();
-                var sessionid = spval[0];
                 var profileid_1 = spval[1];
                 var userRecord_1 = this.getUserRecord();
                 var tempArray = this.autocompleteRequests;
@@ -507,22 +529,32 @@
         BxClient.prototype.choose = function (chooseAll, size) {
             if (chooseAll === void 0) { chooseAll = false; }
             if (size === void 0) { size = 0; }
-            var response;
-            if (chooseAll) {
-                var bundleResponse = this.p13nchooseAll(this.getThriftBundleChoiceRequest());
-                var variants_1 = Array();
-                bundleResponse.responses.forEach(function (choiceResponse) {
-                    variants_1 = variants_1.concat(choiceResponse.variants);
+            return __awaiter(this, void 0, void 0, function () {
+                var response, bundleResponse, variants_1;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!chooseAll) return [3 /*break*/, 1];
+                            bundleResponse = this.p13nchooseAll(this.getThriftBundleChoiceRequest());
+                            variants_1 = Array();
+                            bundleResponse.responses.forEach(function (choiceResponse) {
+                                variants_1 = variants_1.concat(choiceResponse.variants);
+                            });
+                            response = new thrift_types.ChoiceResponse({ 'variants': variants_1 });
+                            return [3 /*break*/, 3];
+                        case 1: return [4 /*yield*/, this.p13nchoose(this.getThriftChoiceRequest(size))];
+                        case 2:
+                            response = _a.sent();
+                            if (size > 0) {
+                                response.variants = this.chooseResponses.variants.concat(response.variants);
+                            }
+                            _a.label = 3;
+                        case 3:
+                            this.chooseResponses = response;
+                            return [2 /*return*/];
+                    }
                 });
-                response = new thrift_types.ChoiceResponse({ 'variants': variants_1 });
-            }
-            else {
-                response = this.p13nchoose(this.getThriftChoiceRequest(size));
-                if (size > 0) {
-                    response.variants = this.chooseResponses.variants.concat(response.variants);
-                }
-            }
-            this.chooseResponses = response;
+            });
         };
         BxClient.prototype.flushResponses = function () {
             this.autocompleteResponses = null;
@@ -530,20 +562,33 @@
         };
         BxClient.prototype.getResponse = function (chooseAll) {
             if (chooseAll === void 0) { chooseAll = false; }
-            var _chResponseSize = 0;
-            if (this.chooseResponses !== null) {
-                _chResponseSize = this.chooseResponses.variants.length;
-            }
-            var size = this.chooseRequests.length - _chResponseSize;
-            if (this.chooseResponses == null) {
-                this.choose(chooseAll);
-            }
-            else if (size) {
-                this.choose(chooseAll, size);
-            }
-            var bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
-            bxChooseResponseData.setNotificationMode(this.getNotificationMode());
-            return bxChooseResponseData;
+            return __awaiter(this, void 0, void 0, function () {
+                var _chResponseSize, size, bxChooseResponseData;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _chResponseSize = 0;
+                            if (this.chooseResponses !== null) {
+                                _chResponseSize = this.chooseResponses.variants.length;
+                            }
+                            size = this.chooseRequests.length - _chResponseSize;
+                            if (!(this.chooseResponses == null)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.choose(chooseAll)];
+                        case 1:
+                            _a.sent();
+                            return [3 /*break*/, 3];
+                        case 2:
+                            if (size) {
+                                this.choose(chooseAll, size);
+                            }
+                            _a.label = 3;
+                        case 3:
+                            bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
+                            bxChooseResponseData.setNotificationMode(this.getNotificationMode());
+                            return [2 /*return*/, bxChooseResponseData];
+                    }
+                });
+            });
         };
         BxClient.prototype.getNotificationMode = function () {
             return (typeof (this.requestMap['dev_bx_notifications']) != "undefined" && this.requestMap['dev_bx_notifications'] !== null) && this.requestMap['dev_bx_notifications'] == 'true';
@@ -559,6 +604,7 @@
         };
         BxClient.prototype.enhanceAutoCompleterequest = function (request) {
             request.setDefaultIndexId(this.getAccount());
+            return this;
         };
         BxClient.prototype.p13nautocomplete = function (autocompleteRequest) {
             try {
@@ -585,7 +631,6 @@
         };
         BxClient.prototype.autocomplete = function () {
             var spval = this.getSessionAndProfile();
-            var sessionid = spval[0];
             var profileid = spval[1];
             var userRecord = this.getUserRecord();
             var tempArray = this.autocompleteRequests;
@@ -611,9 +656,6 @@
             try {
                 var choiceResponse = this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
                 if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
-                    // ini_set('xdebug.var_display_max_children', -1);
-                    // ini_set('xdebug.var_display_max_data', -1);
-                    // ini_set('xdebug.var_display_max_depth', -1);
                     this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
                     if (!this.debugOutputActive) {
                         console.log(this.debugOutput);
@@ -656,9 +698,20 @@
             this.notifications[type].push(notification);
         };
         BxClient.prototype.getNotifications = function () {
-            var final = this.notifications;
-            final['response'] = this.getResponse().getNotifications();
-            return final;
+            return __awaiter(this, void 0, void 0, function () {
+                var final, resp;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            final = this.notifications;
+                            return [4 /*yield*/, this.getResponse()];
+                        case 1:
+                            resp = _a.sent();
+                            final['response'] = resp.getNotifications();
+                            return [2 /*return*/, final];
+                    }
+                });
+            });
         };
         BxClient.prototype.finalNotificationCheck = function (force, requestMapKey) {
             if (force === void 0) { force = false; }

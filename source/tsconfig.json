@@ -8,6 +8,13 @@
     "strictNullChecks": true,
     "removeComments": false,
     "moduleResolution": "node",
-    "declaration": true
-  }
+    "declaration": true,
+    "lib": ["dom", "es2017"]
+  },
+  "exclude": [
+    "source",
+    "node_modules",
+    "bower_components",
+    "dist"
+  ]
 }

@@ -32,7 +32,7 @@ export declare class BxClient {
     private notifications;
     private request;
     private choiceIdOverwrite;
-    constructor(account: any, password: any, domain: any, isDev?: any, host?: any, request?: any, port?: any, uri?: any, schema?: any, p13n_username?: any, p13n_password?: any, apiKey?: any, apiSecret?: any);
+    constructor(account: string, password: string, domain: string, isDev?: boolean, host?: string, request?: {}, port?: number, uri?: string, schema?: string, p13n_username?: string, p13n_password?: string, apiKey?: any, apiSecret?: any);
     setHost(host: any): void;
     setApiKey(apiKey: any): void;
     setApiSecret(apiSecret: any): void;
@@ -42,9 +42,9 @@ export declare class BxClient {
     getChoiceIdOverwrite(): any;
     getRequestMap(): any;
     addToRequestMap(key: any, value: any): void;
-    getAccount(checkDev?: boolean): any;
-    getUsername(): any;
-    getPassword(): any;
+    getAccount(checkDev?: boolean): string;
+    getUsername(): string;
+    getPassword(): string;
     getApiKey(): any;
     getApiSecret(): any;
     setSessionAndProfile(sessionId: any, profileId: any): void;
@@ -53,7 +53,7 @@ export declare class BxClient {
     private getP13n;
     getChoiceRequest(inquiries: any, requestContext?: any): any;
     protected getIP(): any;
-    protected getCurrentURL(): "" | "https://";
+    protected getCurrentURL(): string;
     forwardRequestMapAsContextParameters(filterPrefix?: any, setPrefix?: any): void;
     addRequestContextParameter(name: any, values: any): void;
     resetRequestContextParameter(): void;
@@ -61,8 +61,6 @@ export declare class BxClient {
         'User-Agent': string[];
         'User-Host': any[];
         'User-SessionId': any[];
-        'User-Referer': string[];
-        'User-URL': string[];
         'X-BX-PROFILEID': any[];
     };
     getRequestContextParameters(): any;
@@ -79,9 +77,9 @@ export declare class BxClient {
     getThriftChoiceRequest(size?: number): any;
     getBundleChoiceRequest(inquiries: any, requestContext?: any): any;
     getThriftBundleChoiceRequest(): any;
-    protected choose(chooseAll?: any, size?: any): void;
+    choose(chooseAll?: any, size?: any): Promise<void>;
     flushResponses(): void;
-    getResponse(chooseAll?: boolean): bxChooseResponse.BxChooseResponse;
+    getResponse(chooseAll?: boolean): Promise<bxChooseResponse.BxChooseResponse>;
     getNotificationMode(): boolean;
     setAutocompleteRequest(request: any): void;
     setAutocompleteRequests(requests: any): void;
@@ -96,6 +94,6 @@ export declare class BxClient {
     setDebugOutputActive(debugOutputActive: any): void;
     notifyWarning(warning: any): void;
     addNotification(type: any, notification: any): void;
-    getNotifications(): any;
+    getNotifications(): Promise<any>;
     finalNotificationCheck(force?: boolean, requestMapKey?: string): any;
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="245" />
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="486" />
+    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="246" />
+    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="488" />
     <bookmark url="file://$PROJECT_DIR$/dist/bxthrift/P13nService.js" />
-    <bookmark url="file://$PROJECT_DIR$/source/BxClient.ts" line="359" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4280fa9-9487-4cff-a464-11f86663de73" name="Default Changelist" comment="" />
@@ -21,210 +20,33 @@
     <SUITE FILE_PATH="coverage/Boxalino$tests_frontend_search_basic_ts.dat" NAME="tests\frontend_search_basic.ts Coverage Results" MODIFIED="1540474840711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Boxalino$frontend_search_basic.dat" NAME="frontend_search_basic Coverage Results" MODIFIED="1540816779778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-826604421">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="15" />
-          <entry key="project.open.time.112" value="1" />
-          <entry key="project.open.time.115" value="1" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.122" value="1" />
-          <entry key="project.open.time.32" value="1" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.44" value="2" />
-          <entry key="project.open.time.48" value="1" />
-          <entry key="project.open.time.50" value="1" />
-          <entry key="project.open.time.51" value="1" />
-          <entry key="project.open.time.52" value="2" />
-          <entry key="project.open.time.59" value="1" />
-          <entry key="project.open.time.8" value="3" />
-          <entry key="project.opened" value="17" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="js" value="42" />
-          <entry key="json" value="7" />
-          <entry key="mocha" value="2" />
-          <entry key="ts" value="99" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="44" />
-          <entry key="TypeScript" value="99" />
-          <entry key="tsconfig" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts">
-        <counts>
-          <entry key="TypeScriptServerServiceImpl" value="17" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="js" value="600" />
-          <entry key="json" value="34" />
-          <entry key="ts" value="1374" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="600" />
-          <entry key="TypeScript" value="1374" />
-          <entry key="tsconfig" value="33" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="1475590918">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.118" value="1" />
-          <entry key="project.open.time.51" value="1" />
-          <entry key="project.open.time.53" value="1" />
-          <entry key="project.open.time.56" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="js" value="37" />
-          <entry key="md" value="2" />
-          <entry key="rb" value="1" />
-          <entry key="ts" value="42" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JavaScript" value="37" />
-          <entry key="PLAIN_TEXT" value="3" />
-          <entry key="TypeScript" value="42" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts">
-        <counts>
-          <entry key="TypeScriptServerServiceImpl" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="js" value="170" />
-          <entry key="ts" value="1171" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JavaScript" value="170" />
-          <entry key="TypeScript" value="1171" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="Boxalino" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/BxClient.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="222" column="22" selection-start-line="222" selection-start-column="22" selection-end-line="222" selection-end-column="22" />
+            <state relative-caret-position="121">
+              <caret line="531" column="23" selection-start-line="531" selection-start-column="23" selection-end-line="531" selection-end-column="23" />
               <folding>
-                <element signature="e#193#261#0" expanded="true" />
+                <element signature="e#200#268#0" expanded="true" />
+                <element signature="e#13378#13539#0" />
+                <element signature="e#13705#14678#0" />
+                <element signature="e#14847#15008#0" />
+                <element signature="n#!!block;n#p13nchooseAll#0;n#BxClient#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/BxAutocompleteRequest.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/bxthrift/P13nService.js">
+        <entry file="file://$PROJECT_DIR$/source/BxParametrizedRequest.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="1084" column="38" selection-start-line="1084" selection-start-column="31" selection-end-line="1084" selection-end-column="38" />
+            <state relative-caret-position="-816">
               <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#335#539#0" />
-                <element signature="e#638#1266#0" />
-                <element signature="e#1328#1661#0" />
-                <element signature="e#1711#2185#0" />
-                <element signature="e#2288#3084#0" />
-                <element signature="e#3148#3697#0" />
-                <element signature="e#3748#3923#0" />
-                <element signature="e#4028#4648#0" />
-                <element signature="e#4713#5021#0" />
-                <element signature="e#5074#5554#0" />
-                <element signature="e#5663#6465#0" />
-                <element signature="e#6532#7084#0" />
-                <element signature="e#7137#7371#0" />
-                <element signature="e#7480#8123#0" />
-                <element signature="e#8190#8548#0" />
-                <element signature="e#8603#9082#0" />
-                <element signature="e#9195#9996#0" />
-                <element signature="e#10065#10619#0" />
-                <element signature="e#10673#10853#0" />
-                <element signature="e#10964#11586#0" />
-                <element signature="e#11654#11969#0" />
-                <element signature="e#12025#12505#0" />
-                <element signature="e#12620#13422#0" />
-                <element signature="e#13492#14047#0" />
-                <element signature="e#14104#14285#0" />
-                <element signature="e#14402#15028#0" />
-                <element signature="e#16079#16887#0" />
-                <element signature="e#16960#17518#0" />
-                <element signature="e#17299#17452#0" />
-                <element signature="e#19651#20453#0" />
-                <element signature="e#20523#21078#0" />
-                <element signature="e#21504#21926#0" />
-                <element signature="e#21995#22282#0" />
-                <element signature="e#22356#22941#0" />
-                <element signature="e#23010#23424#0" />
-                <element signature="e#23489#23768#0" />
-                <element signature="e#23845#24436#0" />
-                <element signature="e#24519#24961#0" />
-                <element signature="e#25040#25347#0" />
-                <element signature="e#25426#26021#0" />
-                <element signature="e#26094#26516#0" />
-                <element signature="e#26585#26872#0" />
-                <element signature="e#28121#28412#0" />
-                <element signature="e#28495#29098#0" />
-                <element signature="e#28625#28749#0" />
-                <element signature="e#29183#29629#0" />
-                <element signature="e#33273#35034#0" />
-                <element signature="e#37016#38815#0" />
-                <element signature="e#38905#40738#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/bxthrift/p13n_types.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="4823" column="27" selection-start-line="4823" selection-start-column="27" selection-end-line="4823" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#1#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -233,8 +55,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
+            <state relative-caret-position="121">
               <caret line="207" column="11" selection-start-line="207" selection-start-column="11" selection-end-line="207" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/BxData.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="369">
+              <caret line="661" lean-forward="true" selection-start-line="661" selection-end-line="661" />
             </state>
           </provider>
         </entry>
@@ -242,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+            <state relative-caret-position="121">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -256,6 +102,33 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/BxFacets.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="486" column="20" selection-start-line="486" selection-start-column="20" selection-end-line="486" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -273,19 +146,15 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getChoiceRequest</find>
-      <find>.userRecord</find>
       <find>.userRecord()</find>
       <find>RequestContext</find>
       <find>protected getRequestContext() {</find>
       <find>.RequestContext()</find>
       <find>getBundleChoiceRequest</find>
       <find>getIP</find>
-      <find>choose</find>
       <find>getThriftChoiceRequest</find>
       <find>getSimpleSearchQuery</find>
       <find>queryText</find>
-      <find>p13nchoose</find>
       <find>getP13n</find>
       <find>client</find>
       <find>FacetRequests</find>
@@ -303,16 +172,18 @@
       <find>ttypes</find>
       <find>thrift_P13nService</find>
       <find>process_autocompleteAll</find>
+      <find>defer</find>
+      <find>choose</find>
+      <find>addNotification</find>
+      <find>p13nchoose</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tsconfig.json" />
         <option value="$PROJECT_DIR$/source/Main.ts" />
         <option value="$PROJECT_DIR$/tests/Main.ts" />
         <option value="$PROJECT_DIR$/source/Index.ts" />
-        <option value="$PROJECT_DIR$/source/tsconfig.json" />
         <option value="$PROJECT_DIR$/tests/Index.ts" />
         <option value="$PROJECT_DIR$/source/BxAutocompleteRequest.ts" />
         <option value="$PROJECT_DIR$/source/BxFacets.ts" />
@@ -326,26 +197,15 @@
         <option value="$PROJECT_DIR$/tests/frontend_search_basic.ts" />
         <option value="$PROJECT_DIR$/dist/example/frontend_recommendations_similar.d.ts" />
         <option value="$PROJECT_DIR$/dist/example/frontend_recommendations_similar.js" />
-        <option value="$PROJECT_DIR$/tests/frontend_recommendations_similar.ts" />
-        <option value="$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts" />
         <option value="$PROJECT_DIR$/source/BxRequest.ts" />
+        <option value="$PROJECT_DIR$/source/BxData.ts" />
+        <option value="$PROJECT_DIR$/source/tsconfig.json" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
         <option value="$PROJECT_DIR$/source/BxClient.ts" />
+        <option value="$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts" />
+        <option value="$PROJECT_DIR$/tests/frontend_recommendations_similar.ts" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
@@ -358,34 +218,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="bxthrift" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Boxalino" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Boxalino" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -397,7 +231,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
-    <property name="ts.external.directory.path" value="E:\Github\Boxalino-Node\Boxalino\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="D:\boxalino-client-sdk-nodejs-master\node_modules\typescript\lib" />
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
@@ -419,12 +253,13 @@
     </option>
   </component>
   <component name="RunManager" selected="Mocha.frontend_recommendations_similar">
-    <configuration name="frontend_recommendations_similar.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="frontend_recommendations_similar.js" working-dir="$PROJECT_DIR$/dist/example">
+    <configuration name="frontend_recommendations_similar.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="frontend_recommendations_similar.js" working-dir="$PROJECT_DIR$/dist/example">
       <method v="2" />
     </configuration>
-    <configuration name="frontend_recommendations_similar" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="frontend_recommendations_similar" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -436,7 +271,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="frontend_recommendations_similar.test" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="frontend_recommendations_similar.test" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -451,7 +286,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="frontend_search_basic" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="frontend_search_basic" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -465,7 +300,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="tests\frontend_search_basic.ts" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="tests\frontend_search_basic.ts" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -479,9 +314,9 @@
     <list>
       <item itemvalue="Mocha.frontend_search_basic" />
       <item itemvalue="Mocha.tests\frontend_search_basic.ts" />
-      <item itemvalue="Node.js.frontend_recommendations_similar.js" />
       <item itemvalue="Mocha.frontend_recommendations_similar" />
       <item itemvalue="Mocha.frontend_recommendations_similar.test" />
+      <item itemvalue="Node.js.frontend_recommendations_similar.js" />
     </list>
     <recent_temporary>
       <list>
@@ -529,43 +364,46 @@
       <workItem from="1542348421786" duration="17828000" />
       <workItem from="1542607699337" duration="390000" />
       <workItem from="1542627037381" duration="4956000" />
+      <workItem from="1543082646741" duration="7040000" />
+      <workItem from="1543090078513" duration="363000" />
+      <workItem from="1543127294109" duration="16954000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 17h 32m 48s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 05m 48s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 17h 49m 12s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 10m 17s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 17h 56m 32s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 19m 53s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 03m 28s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 21m 24s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 09m 16s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 22m 06s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 09m 36s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 36m 08s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 10m 06s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 37m 04s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 20m 00s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 39m 40s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 21m 28s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 41m 50s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="frontend_recommendations_similar - 2018.11.19 at 18h 22m 43s.xml">
+    <history-entry file="frontend_recommendations_similar - 2018.11.25 at 03h 42m 16s.xml">
       <configuration name="frontend_recommendations_similar" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218673000" />
+    <option name="totallyTimeSpent" value="243030000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -577,23 +415,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4844517" visible="true" weight="0.25297618" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4844517" visible="true" weight="0.25285172" />
       <window_info id="Structure" order="1" sideWeight="0.51713395" side_tool="true" weight="0.25074404" />
       <window_info id="Favorites" order="2" sideWeight="0.5155483" side_tool="true" weight="0.25297618" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.48772505" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49627978" visible="true" weight="0.44026187" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.487214" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49627978" weight="0.44010767" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32569557" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3243607" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TypeScript" order="9" sideWeight="0.49627978" weight="0.29623568" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.44844517" />
+      <window_info anchor="bottom" id="TypeScript" order="9" sideWeight="0.49627978" weight="0.29475102" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.44818303" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5037202" side_tool="true" weight="0.47463176" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -636,129 +473,34 @@
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.rb" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>15</line>
-          <option name="timeStamp" value="201" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>218</line>
-          <option name="timeStamp" value="202" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>43</line>
-          <option name="timeStamp" value="203" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>44</line>
-          <option name="timeStamp" value="204" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>359</line>
-          <option name="timeStamp" value="206" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>147</line>
-          <option name="timeStamp" value="207" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>33</line>
-          <option name="timeStamp" value="208" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>158</line>
-          <option name="timeStamp" value="209" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>150</line>
-          <option name="timeStamp" value="210" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>38</line>
-          <option name="timeStamp" value="212" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts</url>
-          <line>40</line>
-          <option name="timeStamp" value="213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>25</line>
-          <option name="timeStamp" value="214" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>427</line>
-          <option name="timeStamp" value="215" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>495</line>
-          <option name="timeStamp" value="216" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxRequest.ts</url>
-          <line>207</line>
-          <option name="timeStamp" value="217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>284</line>
-          <option name="timeStamp" value="218" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>214</line>
-          <option name="timeStamp" value="219" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>363</line>
-          <option name="timeStamp" value="221" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/node_modules/thrift/lib/nodejs/lib/thrift/http_connection.js</url>
-          <line>247</line>
-          <option name="timeStamp" value="229" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>222</line>
+          <url>file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts</url>
+          <line>9</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="237" />
+          <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>221</line>
+          <url>file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts</url>
+          <line>10</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="238" />
+          <option name="timeStamp" value="272" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/source/BxClient.ts</url>
-          <line>223</line>
+          <url>file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts</url>
+          <line>12</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="239" />
+          <option name="timeStamp" value="274" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts</url>
+          <line>11</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="275" />
         </line-breakpoint>
       </breakpoints>
-      <breakpoints-dialog>
-        <breakpoints-dialog />
-      </breakpoints-dialog>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -784,6 +526,26 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>_froentendSimilar.bxResponse.getHitIds()</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>bxResponse.getHitIds()</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>await client.choose(choiceRequest)</expression-string>
+        <language-id>TypeScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>&quot;Basic &quot; + btoa( &quot;boxalino_automated_tests2:boxalino_automated_tests2&quot; )</expression-string>
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -808,56 +570,9 @@
         <language-id>TypeScript</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>thrift.createClient(new thrift_P13nService.Client(transport), transport)</expression-string>
-        <language-id>TypeScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>thrift.createClient(new thrift_P13nService.Client(transport))</expression-string>
-        <language-id>TypeScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>new thrift_P13nService.Client(transport)</expression-string>
-        <language-id>TypeScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>new thrift_P13nService(transport)</expression-string>
-        <language-id>TypeScript</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/Index.ts" />
-    <entry file="file://$PROJECT_DIR$/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Index.ts" />
-    <entry file="file://$PROJECT_DIR$/source/BxAutocompleteRequest.ts" />
-    <entry file="file://$PROJECT_DIR$/source/BxData.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mocha/bin/options.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mocha/bin/mocha">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -895,27 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
           <caret line="19" column="60" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxFacets.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="1124" selection-start-line="1124" selection-end-line="1124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxSortFields.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxSearchRequest.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -1011,13 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxChooseResponse.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/samchon/templates/service/User.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1038">
@@ -1056,13 +743,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Boxalino-Client-SDK-in-Ruby/lib/BxClient.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="184" column="64" selection-start-line="184" selection-start-column="38" selection-end-line="184" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Boxalino-Client-SDK-in-Ruby/lib/BxClient.rb" />
     <entry file="file://$PROJECT_DIR$/node_modules/thrift-http/lib/thrift/create_client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-306" />
@@ -1085,27 +766,10 @@
     <entry file="file://$PROJECT_DIR$/dist/BxAutocompleteRequest.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/bxthrift/p13n_types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="4823" column="27" selection-start-line="4823" selection-start-column="27" selection-end-line="4823" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/bxthrift/P13nService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="1084" column="38" selection-start-line="1084" selection-start-column="31" selection-end-line="1084" selection-end-column="38" />
+        <state relative-caret-position="3247">
+          <caret line="787" column="14" selection-start-line="787" selection-start-column="14" selection-end-line="787" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#335#539#0" />
@@ -1139,7 +803,6 @@
             <element signature="e#17299#17452#0" />
             <element signature="e#19651#20453#0" />
             <element signature="e#20523#21078#0" />
-            <element signature="e#21504#21926#0" />
             <element signature="e#21995#22282#0" />
             <element signature="e#22356#22941#0" />
             <element signature="e#23010#23424#0" />
@@ -1161,6 +824,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/bxthrift/p13n_types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81923">
+          <caret line="4823" column="27" selection-start-line="4823" selection-start-column="27" selection-end-line="4823" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxAutocompleteRequest.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxAutocompleteResponse.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxChooseResponse.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxFilter.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxSearchRequest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxSortFields.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxFacets.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="486" column="20" selection-start-line="486" selection-start-column="20" selection-end-line="486" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/BxRecommendationRequest.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1168,29 +895,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxParametrizedRequest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-816">
+          <folding>
+            <element signature="e#1#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxData.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="661" lean-forward="true" selection-start-line="661" selection-end-line="661" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="207" column="11" selection-start-line="207" selection-start-column="11" selection-end-line="207" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/BxClient.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="531" column="23" selection-start-line="531" selection-start-column="23" selection-end-line="531" selection-end-column="23" />
+          <folding>
+            <element signature="e#200#268#0" expanded="true" />
+            <element signature="e#13378#13539#0" />
+            <element signature="e#13705#14678#0" />
+            <element signature="e#14847#15008#0" />
+            <element signature="n#!!block;n#p13nchooseAll#0;n#BxClient#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/example/frontend_recommendations_similar.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        <state relative-caret-position="121">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxRequest.ts">
+    <entry file="file://$PROJECT_DIR$/tests/frontend_recommendations_similar.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="207" column="11" selection-start-line="207" selection-start-column="11" selection-end-line="207" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/BxClient.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="222" column="22" selection-start-line="222" selection-start-column="22" selection-end-line="222" selection-end-column="22" />
+        <state relative-caret-position="238">
+          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
           <folding>
-            <element signature="e#193#261#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
