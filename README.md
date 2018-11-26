@@ -6,8 +6,21 @@ The Boxalino Client SDK provides a simple and efficient usage of Boxalino Search
 
 The Boxalino Client SDK are particularly interesting for integrators of Boxalino technologies and provides the following advantages compare to using the underlying API directly.
 
+## Install
+Install it manually
+``` 
+npm install boxalino
+```
+or define this package as a dependency in your setup.
+
 ## Usage
 Example snippets on how the library can be used are to be found in examples folder
+In your code, add the boxalino library by:
+
+```
+var boxalino = require('boxalino').Boxalino;
+var bxClient = boxalino.BxClient(account, password, isDev, host);
+```
 
 ## Thrift
 This package contains server-generated files for Apache Thrift 0.10.0 version which are located under bxthrift folder

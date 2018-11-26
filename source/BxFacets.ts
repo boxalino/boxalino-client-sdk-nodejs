@@ -1,4 +1,5 @@
-let  thrift_types = require('./bxthrift/p13n_types');
+let thrift_types = require('./bxthrift/p13n_types');
+
 export class BxFacets {
     public facets: any = Array();
     protected searchResult: any;
@@ -898,10 +899,10 @@ export class BxFacets {
 
     protected getFacetValueArray(fieldName: any, facetValue: any) {
         let fv: any;
-        let from:any;
+        let from: any;
         let to: any;
         let paramValue: any;
-        let valueLabel: any ;
+        let valueLabel: any;
         let hash: any = fieldName + ' - ' + facetValue;
 
         if (typeof (this.facetValueArrayCache[hash]) != "undefined" && this.facetValueArrayCache[hash] !== null) {
@@ -982,7 +983,7 @@ export class BxFacets {
         return this.getFacetValueLabel(this.getPriceFieldName(), facetValue);
     }
     getFacetValueLabel(fieldName: any, facetValue: any) {
-        let tempFacetVal=this.getFacetValueArray(fieldName, facetValue);
+        let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label: any = tempFacetVal[0];
         let parameterValue: any = tempFacetVal[1];
         let hitCount: any = tempFacetVal[2];
@@ -996,7 +997,7 @@ export class BxFacets {
         return this.getFacetValueCount(this.getPriceFieldName(), facetValue);
     }
     getFacetValueCount(fieldName: any, facetValue: any) {
-        let tempFacetVal=this.getFacetValueArray(fieldName, facetValue);
+        let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
         let hitCount = tempFacetVal[2];
@@ -1004,7 +1005,7 @@ export class BxFacets {
         return hitCount;
     }
     isFacetValueHidden(fieldName: any, facetValue: any) {
-        let tempFacetVal=this.getFacetValueArray(fieldName, facetValue);
+        let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
         let hitCount = tempFacetVal[2];
@@ -1019,7 +1020,7 @@ export class BxFacets {
         return this.getFacetValueParameterValue(this.getPriceFieldName(), facetValue);
     }
     getFacetValueParameterValue(fieldName: any, facetValue: any) {
-        let tempFacetVal=this.getFacetValueArray(fieldName, facetValue);
+        let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
         let hitCount = tempFacetVal[2];
@@ -1030,7 +1031,7 @@ export class BxFacets {
         return this.isFacetValueSelected(this.getPriceFieldName(), facetValue);
     }
     isFacetValueSelected(fieldName: any, facetValue: any) {
-        let tempFacetVal=this.getFacetValueArray(fieldName, facetValue);
+        let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
         let hitCount = tempFacetVal[2];

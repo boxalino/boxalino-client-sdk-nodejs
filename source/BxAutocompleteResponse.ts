@@ -1,5 +1,5 @@
 import {Md5} from "md5-typescript";
-import * as bxChooseResponse from "./BxChooseResponse";
+import {BxChooseResponse} from "./BxChooseResponse";
 
 class BxAutocompleteResponse {
 	private response: any;
@@ -109,7 +109,7 @@ class BxAutocompleteResponse {
 	getBxSearchResponse(textualSuggestion: any = null) {
 		let suggestionHit: any = this.getTextualSuggestionHit(textualSuggestion);
 		let searchResult: any = textualSuggestion == null ? this.getResponse().prefixSearchResult : suggestionHit.searchResult;
-		return new bxChooseResponse.BxChooseResponse(searchResult, this.bxAutocompleteRequest.getBxSearchRequest())
+		return new BxChooseResponse(searchResult, this.bxAutocompleteRequest.getBxSearchRequest())
 	}
 
 	getPropertyHits(field: any) {

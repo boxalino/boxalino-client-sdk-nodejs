@@ -1,31 +1,31 @@
-let  thrift_types = require('./bxthrift/p13n_types');
-import * as bxSearchRequest from "./BxSearchRequest";
+let thrift_types = require('./bxthrift/p13n_types');
+import {BxSearchRequest} from "./BxSearchRequest";
 
-class BxAutocompleteRequest {
-    protected language: any;
-    protected queryText: any;
-    protected choiceId: any;
-    protected textualSuggestionsHitCount: any;
+export class BxAutocompleteRequest {
+    protected language: string;
+    protected queryText: string;
+    protected choiceId: string;
+    protected textualSuggestionsHitCount: number;
     protected bxSearchRequest: any;
-    protected highlight: any;
-    protected highlightPre: any;
-    protected highlightPost: any;
+    protected highlight: boolean = true;
+    protected highlightPre: string;
+    protected highlightPost: string;
     private propertyQueries: any = Array();
 
     protected indexId = null;
 
-    constructor(language: any, queryText: any, textualSuggestionsHitCount: any, productSuggestionHitCount: any = 5, autocompleteChoiceId: any = 'autocomplete', searchChoiceId: any = 'search', highlight: any = true, highlightPre: any = '<em>', highlightPost: any = '</em>') {
+    constructor(language: string, queryText: string, textualSuggestionsHitCount: number, productSuggestionHitCount: number = 5, autocompleteChoiceId: string = 'autocomplete', searchChoiceId: string = 'search', highlight: boolean = true, highlightPre: string = '<em>', highlightPost: string = '</em>') {
         language = language;
         queryText = queryText;
         textualSuggestionsHitCount = textualSuggestionsHitCount;
         highlight = highlight;
         highlightPre = highlightPre;
         highlightPost = highlightPost;
-        if (autocompleteChoiceId == null) {
+        if (autocompleteChoiceId == null || autocompleteChoiceId=="") {
             autocompleteChoiceId = 'autocomplete';
         }
         let choiceId: any = autocompleteChoiceId;
-        this.bxSearchRequest = new bxSearchRequest.BxSearchRequest(language, queryText, productSuggestionHitCount, searchChoiceId);
+        this.bxSearchRequest = new BxSearchRequest(language, queryText, productSuggestionHitCount, searchChoiceId);
     }
     getBxSearchRequest() {
         return this.bxSearchRequest;
@@ -118,7 +118,7 @@ class BxAutocompleteRequest {
     }
 
     getAutocompleteThriftRequest(profileid: any, thriftUserRecord: any) {
-        let autocompleteRequest =new thrift_types.AutocompleteQuery();
+        let autocompleteRequest = new thrift_types.AutocompleteQuery();
         autocompleteRequest.userRecord = thriftUserRecord;
         autocompleteRequest.profileId = profileid;
         autocompleteRequest.choiceId = this.choiceId;
@@ -126,7 +126,7 @@ class BxAutocompleteRequest {
         autocompleteRequest.searchChoiceId = this.bxSearchRequest.getChoiceId();
         autocompleteRequest.autocompleteQuery = this.getAutocompleteQuery();
 
-        if (this.propertyQueries.length > 0 ){
+        if (this.propertyQueries.length > 0) {
             autocompleteRequest.propertyQueries = this.propertyQueries;
         }
         return autocompleteRequest;

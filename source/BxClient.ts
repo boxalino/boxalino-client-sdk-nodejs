@@ -2,11 +2,12 @@ var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
 var thrift_types = require('./bxthrift/p13n_types.js');
 var thrift_P13nService = require('./bxthrift/P13nService.js');
-import * as bxRecommendationRequest from './BxRecommendationRequest'
-import * as bxChooseResponse from './BxChooseResponse'
 var thrift = require('thrift-http');
 var btoa = require('btoa');
 var get_IP = require('ip');
+import {BxRecommendationRequest} from './BxRecommendationRequest'
+import {BxChooseResponse} from './BxChooseResponse'
+
 export class BxClient {
     private account: string;
     private password: string;
@@ -271,6 +272,8 @@ export class BxClient {
             'User-Agent': ['Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36'],
             'User-Host': [this.getIP()],
             'User-SessionId': [sessionid],
+            'User-Referer': [this.getCurrentURL()],
+            'User-URL': [this.getCurrentURL()],
             'X-BX-PROFILEID': [profileid]
         }
     }
@@ -435,7 +438,7 @@ export class BxClient {
     getRecommendationRequests() {
         let requests: any = Array();
         this.chooseRequests.forEach(function (request: any) {
-            if (request instanceof bxRecommendationRequest.BxRecommendationRequest) {
+            if (request instanceof BxRecommendationRequest) {
                 requests.push(request);
             }
         });
@@ -550,7 +553,7 @@ export class BxClient {
         } else if (size) {
             await this.choose(chooseAll, size);
         }
-        let bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
+        let bxChooseResponseData = new BxChooseResponse(this.chooseResponses, this.chooseRequests);
         bxChooseResponseData.setNotificationMode(this.getNotificationMode());
         return bxChooseResponseData;
     }

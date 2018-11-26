@@ -1,5 +1,6 @@
 let thrift = require('thrift');
-import * as bxFacets from "./BxFacets";
+import {BxFacets} from "./BxFacets";
+
 export class BxChooseResponse {
     private response: any;
     private bxRequests: any;
@@ -199,7 +200,7 @@ export class BxChooseResponse {
     }
 
     getSearchHitFieldValues(searchResult: any, fields: any = null) {
-        let fieldValues = new Object();
+        let fieldValues: any = {};
         if (searchResult) {
             let hits = searchResult.hits;
             if (searchResult.hits == null) {
@@ -219,7 +220,7 @@ export class BxChooseResponse {
                     if (typeof (item.values[field]) != "undefined" && item.values[field] !== null) {
                         if (item.values[field] !== null && item.values[field] !== "") {
                             if(!fieldValues.hasOwnProperty(item.values['id'][0])) {
-                                let key = item.values['id'][0];
+                                let key: string = item.values['id'][0];
                                 fieldValues[key]= Array();
                             }
                             fieldValues[item.values['id'][0]][field] = item.values[field][0];
@@ -254,7 +255,7 @@ export class BxChooseResponse {
         let searchResult: any = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);
         let facets: any = this.getRequestFacets(choice);
         if (facets === "" || searchResult === null) {
-            return new bxFacets.BxFacets();
+            return new BxFacets();
         }
         facets.setSearchResults(searchResult);
         return facets;

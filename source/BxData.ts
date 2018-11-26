@@ -1,6 +1,7 @@
 import samchon = require("samchon");
 var csv = require('csv-parser');
 import fs = require('fs');
+import { BxClient } from "./BxClient";
 var zip = require('node-zip');
 var tmp = require('tmp');
 var request = require('request');
@@ -12,22 +13,21 @@ export class BxData {
     URL_ZIP = '/frontend/dbmind/en/dbmind/api/data/push';
     URL_EXECUTE_TASK = '/frontend/dbmind/en/dbmind/files/task/execute';
 
-    private bxClient: any = "";
-    private languages: any = "";
-    private isDev: any = "";
-    private isDelta: any = "";
+    private bxClient: BxClient;
+    private languages: any = [];
+    private isDev: boolean = false;
+    private isDelta:  boolean = false;
     private sources: any = Array();
-    private delimiter: any = ',';
+    private delimiter: string = ',';
     private sourceIdContainers: any = Array();
     private globalValidate = true
     private ftpSources: any = Array();
     private httpSources: any = Array();
 
     private host = 'http://di1.bx-cloud.com';
-
     private owner = 'bx_client_data_api';
 
-    constructor(bxClient: any, languages: any = Array(), isDev: any = false, isDelta: any = false) {
+    constructor(bxClient: BxClient, languages: any = Array(), isDev: boolean = false, isDelta: boolean = false) {
         this.bxClient = bxClient;
         this.languages = languages;
         this.isDev = isDev;
@@ -182,17 +182,6 @@ export class BxData {
                         }
                     }
                 });
-            // if ((handle = @fopen(this.sources[container][sourceId]['filePath'], "r")) !== FALSE) {
-            //     var count: any = 1;
-            //     this.sources[container][sourceId]['rows'] = Array();
-            //     while ((data = fgetcsv(handle, 2000, this.delimiter)) !== FALSE) {
-            //         this.sources[container][sourceId]['rows'][] = data;
-            //         if (count++ >= maxRow) {
-            //             break;
-            //         }
-            //     }
-            //     fclose(handle);
-            // }
         }
         if ((typeof (this.sources[container][sourceId]['rows'][row]) != "undefined" && this.sources[container][sourceId]['rows'][row] !== null)) {
             return this.sources[container][sourceId]['rows'][row];
@@ -615,16 +604,7 @@ export class BxData {
         let url: any = this.host + this.URL_ZIP
         return this.callAPI(fields, url, temporaryFilePath, timeout);
     }
-
-    // protected getCurlFile(filename, type) {
-    //     try {
-    //         if (class_exists('CURLFile')) {
-    //             return new \CURLFile(filename, type);
-    //         }
-    //     } catch (e) { }
-    //     return "@filename;type=type";
-    // }
-
+    
     getTaskExecuteUrl(taskName: any) {
         return this.host + this.URL_EXECUTE_TASK + '?iframeAccount=' + this.bxClient.getAccount() + '&task_process=' + taskName;
     }
