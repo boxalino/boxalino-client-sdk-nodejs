@@ -1,5 +1,15 @@
+#IDE configs
 ./.vscode
 ./.idea
-./.nyc-output
-./node_modules
-./dist
+
+# nyc test coverage
+.nyc_output
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
