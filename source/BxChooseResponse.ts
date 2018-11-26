@@ -90,6 +90,7 @@ export class BxChooseResponse {
         });
         return null;
     }
+
     getVariantSearchResult(variant: any, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let correctedResult: any;
         if (variant == null) {
@@ -101,6 +102,7 @@ export class BxChooseResponse {
         }
         return (typeof (correctedResult) != "undefined" && correctedResult !== null) ? correctedResult : searchResult;
     }
+
     getSearchResultHitVariable(searchResult: any, hitId: any, field: any) {
         if (searchResult) {
             if (searchResult.hits) {
@@ -119,6 +121,7 @@ export class BxChooseResponse {
         }
         return null;
     }
+
     getSearchResultHitFieldValue(searchResult: any, hitId: any, fieldName: any = '') {
         if (searchResult && fieldName != '') {
             if (searchResult.hits) {
@@ -137,6 +140,7 @@ export class BxChooseResponse {
         }
         return null;
     }
+
     getSearchResultHitIds(searchResult: any, fieldId: any = 'id') {
         let ids: any = Array();
         if (searchResult) {
@@ -155,23 +159,28 @@ export class BxChooseResponse {
         }
         return ids;
     }
+
     getHitExtraInfo(choice: any = null, hitId: any = 0, info_key: any = '', default_value: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let extraInfo: any = this.getSearchResultHitVariable(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, 'extraInfo');
         return ((typeof (extraInfo[info_key]) != "undefined" && extraInfo[info_key] !== null) ? extraInfo[info_key] : (default_value != '' ? default_value : null));
     }
+
     getHitVariable(choice: any = null, hitId: any = 0, field: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitVariable(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, field);
     }
+    
     getHitFieldValue(choice: any = null, hitId: any = 0, fieldName: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitFieldValue(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, fieldName);
     }
+
     getHitIds(choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, fieldId: any = 'id', discardIfSubPhrases: any = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitIds(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), fieldId);
     }
+
     retrieveHitFieldValues(item: any, field: any, fields: any, hits: any) {
         let fieldValues: any = Array();
         this.bxRequests.forEach(function (bxRequest: any) {
@@ -179,6 +188,7 @@ export class BxChooseResponse {
         })
         return fieldValues;
     }
+
     Array_keys(input: any) {
         let output = new Array();
         let counter = 0;
@@ -187,8 +197,9 @@ export class BxChooseResponse {
         }
         return output;
     }
+
     getSearchHitFieldValues(searchResult: any, fields: any = null) {
-        let fieldValues = Array();
+        let fieldValues = new Object();
         if (searchResult) {
             let hits = searchResult.hits;
             if (searchResult.hits == null) {
@@ -207,7 +218,11 @@ export class BxChooseResponse {
                 finalFields.forEach(function (field: any) {
                     if (typeof (item.values[field]) != "undefined" && item.values[field] !== null) {
                         if (item.values[field] !== null && item.values[field] !== "") {
-                            fieldValues[item.values['id'][0]][field] = item.values[field];
+                            if(!fieldValues.hasOwnProperty(item.values['id'][0])) {
+                                let key = item.values['id'][0];
+                                fieldValues[key]= Array();
+                            }
+                            fieldValues[item.values['id'][0]][field] = item.values[field][0];
                         }
                     }
                     if (fieldValues[item.values['id'][0]][field] === null) {
@@ -218,6 +233,7 @@ export class BxChooseResponse {
         }
         return fieldValues;
     }
+
     getRequestFacets(choice: any = null) {
         if (choice == null) {
             if (typeof (this.bxRequests[0]) != "undefined" && this.bxRequests[0] !== null) {
@@ -232,6 +248,7 @@ export class BxChooseResponse {
         });
         return null;
     }
+    
     getFacets(choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let searchResult: any = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);

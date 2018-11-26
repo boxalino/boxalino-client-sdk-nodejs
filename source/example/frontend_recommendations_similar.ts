@@ -21,7 +21,7 @@ export class frontend_recommendations_similar {
             let itemFieldId: any = "id"; // the field you want to use to define the id of the product (normally id, but could also be a group id if you have a difference between group id and sku)
             let itemFieldIdValue: any = "1940"; //the product id the user is currently looking at
             let hitCount: any = 10; //a maximum number of search result to return in one page
-
+            let fields: any = ["discountedPrice", "id", "title"];
             //create search request
             let bxRequest = new bxRecommendationRequest.BxRecommendationRequest(language, choiceId, hitCount);
 
@@ -38,6 +38,16 @@ export class frontend_recommendations_similar {
             for (let i in this.bxResponse.getHitIds()) {
                 let id = this.bxResponse.getHitIds()[i];
                 logs.push("" + i + ": returned id " + id + "");
+            }
+
+            let productContent: any = this.bxResponse.getHitFieldValues(fields);
+            //productContent = Object(productID=>Array(field=>value, field=>value), productID2=>Array(field=>value, field=>value),..)
+            for (let i in productContent) {
+                logs.push(" " + i + ": ");
+                let productData: any = productContent[i];
+                for(let matchedFields in productData) {
+                    logs.push(matchedFields + "="+ productData[matchedFields]);
+                }
             }
             if (typeof (print) === "undefined" || print !== null || print) {
                 console.log(logs.join("<br/>"));
