@@ -1,14 +1,12 @@
-exports.Boxalino = require('.');
-
-exports.BxClient = require('./BxClient');
-exports.BxAutocompleteRequest = require('./BxAutocompleteRequest');
-exports.BxAutocompleteResponse = require('./BxAutocompleteResponse');
-exports.BxChooseResponse = require('./BxChooseResponse');
-exports.BxData = require('./BxData');
-exports.BxFacets = require('./BxFacets');
-exports.BxFilter = require('./BxFilter');
-exports.BxParametreizedRequest = require('./BxParametrizedRequest');
-exports.BxRecommendationRequest = require('./BxRecommendationRequest');
-exports.BxRequest = require('./BxRequest');
-exports.BxSearchRequest = require('./BxSearchRequest');
-exports.BxSortFields = require('./BxSortFields');
+export * from "./BxClient";
+export * from "./BxAutocompleteRequest";
+export * from "./BxAutocompleteResponse";
+export * from "./BxChooseResponse";
+export * from "./BxData";
+export * from "./BxFacets";
+export * from "./BxParametrizedRequest";
+export * from "./BxFilter";
+export * from "./BxRecommendationRequest";
+export * from "./BxRequest";
+export * from "./BxSortFields";
+export * from "./BxSearchRequest";

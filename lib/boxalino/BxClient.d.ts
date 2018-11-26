@@ -61,6 +61,8 @@ export declare class BxClient {
         'User-Agent': string[];
         'User-Host': any[];
         'User-SessionId': any[];
+        'User-Referer': string[];
+        'User-URL': string[];
         'X-BX-PROFILEID': any[];
     };
     getRequestContextParameters(): any;
