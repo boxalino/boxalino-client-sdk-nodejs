@@ -85,7 +85,7 @@ export declare class BxClient {
     setAutocompleteRequests(requests: any): void;
     private enhanceAutoCompleterequest;
     private p13nautocomplete;
-    autocomplete(): void;
+    autocomplete(): Promise<void>;
     getAutocompleteResponse(): any;
     private p13nautocompleteAll;
     getAutocompleteResponses(): any;

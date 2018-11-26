@@ -238,7 +238,7 @@
         };
         BxChooseResponse.prototype.getSearchHitFieldValues = function (searchResult, fields) {
             if (fields === void 0) { fields = null; }
-            var fieldValues = Array();
+            var fieldValues = new Object();
             if (searchResult) {
                 var hits_1 = searchResult.hits;
                 if (searchResult.hits == null) {
@@ -257,7 +257,11 @@
                     finalFields.forEach(function (field) {
                         if (typeof (item.values[field]) != "undefined" && item.values[field] !== null) {
                             if (item.values[field] !== null && item.values[field] !== "") {
-                                fieldValues[item.values['id'][0]][field] = item.values[field];
+                                if (!fieldValues.hasOwnProperty(item.values['id'][0])) {
+                                    var key = item.values['id'][0];
+                                    fieldValues[key] = Array();
+                                }
+                                fieldValues[item.values['id'][0]][field] = item.values[field][0];
                             }
                         }
                         if (fieldValues[item.values['id'][0]][field] === null) {

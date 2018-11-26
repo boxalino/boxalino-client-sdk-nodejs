@@ -24,10 +24,10 @@ export declare class BxChooseResponse {
     getHitIds(choice?: any, considerRelaxation?: any, count?: any, maxDistance?: any, fieldId?: any, discardIfSubPhrases?: any): any;
     retrieveHitFieldValues(item: any, field: any, fields: any, hits: any): any;
     Array_keys(input: any): any[];
-    getSearchHitFieldValues(searchResult: any, fields?: any): any[];
+    getSearchHitFieldValues(searchResult: any, fields?: any): Object;
     getRequestFacets(choice?: any): any;
     getFacets(choice?: any, considerRelaxation?: any, count?: any, maxDistance?: any, discardIfSubPhrases?: any): any;
-    getHitFieldValues(fields: any, choice?: any, considerRelaxation?: any, count?: any, maxDistance?: any, discardIfSubPhrases?: any): any[];
+    getHitFieldValues(fields: any, choice?: any, considerRelaxation?: any, count?: any, maxDistance?: any, discardIfSubPhrases?: any): Object;
     getFirstHitFieldValue(field?: any, returnOneValue?: any, hitIndex?: any, choice?: any, count?: any, maxDistance?: any): any;
     getTotalHitCount(choice?: any, considerRelaxation?: any, count?: any, maxDistance?: any, discardIfSubPhrases?: any): any;
     areResultsCorrected(choice?: any, count?: any, maxDistance?: any): boolean;
@@ -39,7 +39,7 @@ export declare class BxChooseResponse {
     getSubPhraseSearchResult(queryText: any, choice?: any, count?: any): null;
     getSubPhraseTotalHitCount(queryText: any, choice?: any, count?: any): any;
     getSubPhraseHitIds(queryText: any, choice?: any, count?: any, fieldId?: any): any;
-    getSubPhraseHitFieldValues(queryText: any, fields: any, choice?: any, considerRelaxation?: any, count?: any): any[];
+    getSubPhraseHitFieldValues(queryText: any, fields: any, choice?: any, considerRelaxation?: any, count?: any): Object;
     toJson(fields: any): string;
     getSearchResultExtraInfo(searchResult: any, extraInfoKey: any, defaultExtraInfoValue?: any): any;
     mergeJourneyParams(parentParams: any, childParams: any): any;

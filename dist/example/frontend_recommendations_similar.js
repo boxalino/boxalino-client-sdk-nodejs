@@ -60,7 +60,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         }
         frontend_recommendations_similar.prototype.frontendRecommendationsSimilar = function (account, password, isDev, host) {
             return __awaiter(this, void 0, void 0, function () {
-                var _bxClient, language, choiceId, itemFieldId, itemFieldIdValue, hitCount, bxRequest, _a, logs, i, id, e_1, exception;
+                var _bxClient, language, choiceId, itemFieldId, itemFieldIdValue, hitCount, fields, bxRequest, _a, logs, i, id, productContent, i, productData, matchedFields, e_1, exception;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
@@ -74,19 +74,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             itemFieldId = "id";
                             itemFieldIdValue = "1940";
                             hitCount = 10;
+                            fields = ["discountedPrice", "id", "title"];
                             bxRequest = new bxRecommendationRequest.BxRecommendationRequest(language, choiceId, hitCount);
                             //indicate the product the user is looking at now (reference of what the recommendations need to be similar to)
                             bxRequest.setProductContext(itemFieldId, itemFieldIdValue);
                             //add the request
                             _bxClient.addRequest(bxRequest);
-                            // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
-                            //console.log("=------------------=");
                             //make the query to Boxalino server and get back the response for all requests
                             _a = this;
                             return [4 /*yield*/, _bxClient.getResponse()];
                         case 2:
-                            // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
-                            //console.log("=------------------=");
                             //make the query to Boxalino server and get back the response for all requests
                             _a.bxResponse = _b.sent();
                             logs = Array();
@@ -94,6 +91,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             for (i in this.bxResponse.getHitIds()) {
                                 id = this.bxResponse.getHitIds()[i];
                                 logs.push("" + i + ": returned id " + id + "");
+                            }
+                            productContent = this.bxResponse.getHitFieldValues(fields);
+                            //productContent = Object(productID=>Array(field=>value, field=>value), productID2=>Array(field=>value, field=>value),..)
+                            for (i in productContent) {
+                                logs.push(" " + i + ": ");
+                                productData = productContent[i];
+                                for (matchedFields in productData) {
+                                    logs.push(matchedFields + "=" + productData[matchedFields]);
+                                }
                             }
                             if (typeof (print) === "undefined" || print !== null || print) {
                                 console.log(logs.join("<br/>"));

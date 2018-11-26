@@ -32,11 +32,8 @@
                 var bxRequest = new bxSearchRequest.BxSearchRequest(language, queryText, hitCount);
                 //add the request
                 _bxClient.addRequest(bxRequest);
-                // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
-                //console.log("=------------------=");
                 //make the query to Boxalino server and get back the response for all requests
                 var bxResponse = _bxClient.getResponse();
-                // console.log(JSON.stringify(_bxClient.getThriftChoiceRequest()));
                 //indicate the search made with the number of results found
                 var logs = Array();
                 logs.push("Results for query \"" + queryText + "\" (" + bxResponse.getTotalHitCount().toString() + "):");

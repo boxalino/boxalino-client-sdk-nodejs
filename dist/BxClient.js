@@ -396,25 +396,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             });
         };
         BxClient.prototype.p13nchooseAll = function (choiceRequestBundle) {
-            try {
-                var bundleChoiceResponse = this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
-                if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
-                    && this.requestMap['dev_bx_disp'] == 'true') {
-                    this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
-                    if (!this.debugOutputActive) {
-                        console.log(this.debugOutput);
-                        return;
+            return __awaiter(this, void 0, void 0, function () {
+                var bundleChoiceResponse, e_2;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            bundleChoiceResponse = null;
+                            return [4 /*yield*/, this.getP13n(this._timeout).chooseAll(choiceRequestBundle)];
+                        case 1:
+                            bundleChoiceResponse = _a.sent();
+                            if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
+                                && this.requestMap['dev_bx_disp'] == 'true') {
+                                this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
+                                if (!this.debugOutputActive) {
+                                    console.log(this.debugOutput);
+                                    return [2 /*return*/];
+                                }
+                            }
+                            if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
+                                this.addNotification('bxRequest', choiceRequestBundle);
+                                this.addNotification('bxResponse', bundleChoiceResponse);
+                            }
+                            return [2 /*return*/, bundleChoiceResponse];
+                        case 2:
+                            e_2 = _a.sent();
+                            this.throwCorrectP13nException(e_2);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
                     }
-                }
-                if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
-                    this.addNotification('bxRequest', choiceRequestBundle);
-                    this.addNotification('bxResponse', bundleChoiceResponse);
-                }
-                return bundleChoiceResponse;
-            }
-            catch (e) {
-                this.throwCorrectP13nException(e);
-            }
+                });
+            });
         };
         BxClient.prototype.addRequest = function (request) {
             request.setDefaultIndexId(this.getAccount());
@@ -576,13 +588,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             return [4 /*yield*/, this.choose(chooseAll)];
                         case 1:
                             _a.sent();
-                            return [3 /*break*/, 3];
+                            return [3 /*break*/, 4];
                         case 2:
-                            if (size) {
-                                this.choose(chooseAll, size);
-                            }
-                            _a.label = 3;
+                            if (!size) return [3 /*break*/, 4];
+                            return [4 /*yield*/, this.choose(chooseAll, size)];
                         case 3:
+                            _a.sent();
+                            _a.label = 4;
+                        case 4:
                             bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
                             bxChooseResponseData.setNotificationMode(this.getNotificationMode());
                             return [2 /*return*/, bxChooseResponseData];
@@ -630,17 +643,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             }
         };
         BxClient.prototype.autocomplete = function () {
-            var spval = this.getSessionAndProfile();
-            var profileid = spval[1];
-            var userRecord = this.getUserRecord();
-            var tempArray = this.autocompleteRequests;
-            var p13nrequests = tempArray.map(function () {
-                this.getAutocompleteThriftRequest(profileid, userRecord);
-            });
-            var i = -1;
-            var tempArrayBxAuto = this.p13nautocompleteAll(p13nrequests);
-            this.autocompleteResponses = tempArrayBxAuto.map(function () {
-                this.autocompletePartail(this.request, ++i);
+            return __awaiter(this, void 0, void 0, function () {
+                var spval, profileid, userRecord, tempArray, p13nrequests, i, tempArrayBxAuto;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            spval = this.getSessionAndProfile();
+                            profileid = spval[1];
+                            userRecord = this.getUserRecord();
+                            tempArray = this.autocompleteRequests;
+                            p13nrequests = tempArray.map(function () {
+                                this.getAutocompleteThriftRequest(profileid, userRecord);
+                            });
+                            i = -1;
+                            return [4 /*yield*/, this.p13nautocompleteAll(p13nrequests)];
+                        case 1:
+                            tempArrayBxAuto = _a.sent();
+                            this.autocompleteResponses = tempArrayBxAuto.map(function () {
+                                this.autocompletePartail(this.request, ++i);
+                            });
+                            return [2 /*return*/];
+                    }
+                });
             });
         };
         BxClient.prototype.getAutocompleteResponse = function () {
@@ -651,26 +675,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             return null;
         };
         BxClient.prototype.p13nautocompleteAll = function (requests) {
-            var requestBundle = new thrift_types.AutocompleteRequestBundle();
-            requestBundle.requests = requests;
-            try {
-                var choiceResponse = this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
-                if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
-                    this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
-                    if (!this.debugOutputActive) {
-                        console.log(this.debugOutput);
-                        return;
+            return __awaiter(this, void 0, void 0, function () {
+                var requestBundle, choiceResponse, e_3;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            requestBundle = new thrift_types.AutocompleteRequestBundle();
+                            requestBundle.requests = requests;
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, 3, , 4]);
+                            choiceResponse = null;
+                            return [4 /*yield*/, this.getP13n(this._timeout).autocompleteAll(requestBundle).responses];
+                        case 2:
+                            choiceResponse = _a.sent();
+                            if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
+                                this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
+                                if (!this.debugOutputActive) {
+                                    console.log(this.debugOutput);
+                                    return [2 /*return*/];
+                                }
+                            }
+                            if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
+                                this.addNotification('bxRequest', requestBundle);
+                                this.addNotification('bxResponse', choiceResponse);
+                            }
+                            return [2 /*return*/, choiceResponse];
+                        case 3:
+                            e_3 = _a.sent();
+                            this.throwCorrectP13nException(e_3);
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
                     }
-                }
-                if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
-                    this.addNotification('bxRequest', requestBundle);
-                    this.addNotification('bxResponse', choiceResponse);
-                }
-                return choiceResponse;
-            }
-            catch (e) {
-                this.throwCorrectP13nException(e);
-            }
+                });
+            });
         };
         BxClient.prototype.getAutocompleteResponses = function () {
             if (!this.autocompleteResponses) {
