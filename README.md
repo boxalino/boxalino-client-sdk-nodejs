@@ -15,10 +15,19 @@ or define this package as a dependency in your setup.
 
 ## Usage
 Example snippets on how the library can be used are to be found in examples folder
-In your code, add the boxalino library by:
+If used in typescript file, you can import the library via:
+```
+import "boxalino";
+```
+or request targeted classes depending on your extension use:
+```
+import {BxClient, BxChooseResponse, BxRecommendationRequest} from "boxalino";
+```
+
+In a js code, use the boxalino library by:
 
 ```
-var boxalino = require('boxalino').Boxalino;
+var boxalino = require('boxalino');
 var bxClient = boxalino.BxClient(account, password, isDev, host);
 ```
 
