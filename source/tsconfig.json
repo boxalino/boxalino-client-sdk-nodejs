@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "../lib/boxalino",
+    "outDir": "../dist",
     "module": "umd",
     "target": "es5",
     "sourceMap": true,

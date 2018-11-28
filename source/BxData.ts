@@ -1,7 +1,6 @@
 import samchon = require("samchon");
 var csv = require('csv-parser');
 import fs = require('fs');
-import { BxClient } from "./BxClient";
 var zip = require('node-zip');
 var tmp = require('tmp');
 var request = require('request');
@@ -13,10 +12,10 @@ export class BxData {
     URL_ZIP = '/frontend/dbmind/en/dbmind/api/data/push';
     URL_EXECUTE_TASK = '/frontend/dbmind/en/dbmind/files/task/execute';
 
-    private bxClient: BxClient;
-    private languages: any = [];
+    private bxClient: any = "";
+    private languages: string[] = Array();
     private isDev: boolean = false;
-    private isDelta:  boolean = false;
+    private isDelta: boolean = false;
     private sources: any = Array();
     private delimiter: string = ',';
     private sourceIdContainers: any = Array();
@@ -25,16 +24,17 @@ export class BxData {
     private httpSources: any = Array();
 
     private host = 'http://di1.bx-cloud.com';
+
     private owner = 'bx_client_data_api';
 
-    constructor(bxClient: BxClient, languages: any = Array(), isDev: boolean = false, isDelta: boolean = false) {
+    constructor(bxClient: any, languages: string[] = Array(), isDev: boolean = false, isDelta: boolean = false) {
         this.bxClient = bxClient;
         this.languages = languages;
         this.isDev = isDev;
         this.isDelta = isDelta;
     }
 
-    setLanguages(languages: any) {
+    setLanguages(languages: string[]) {
         this.languages = languages;
     }
 
@@ -42,31 +42,31 @@ export class BxData {
         return this.languages;
     }
 
-    setDelimiter(delimiter: any) {
+    setDelimiter(delimiter: string) {
         this.delimiter = delimiter;
     }
 
-    addMainXmlItemFile(filePath: any, itemIdColumn: any, xPath: any = '', encoding: any = 'UTF-8', sourceId: any = 'item_vals', container: any = 'products', validate: any = true) {
-        var sourceKey: any = this.addXMLItemFile(filePath, itemIdColumn, xPath, encoding, sourceId, container, validate);
+    addMainXmlItemFile(filePath: string, itemIdColumn: string, xPath: string = '', encoding: string = 'UTF-8', sourceId: string = 'item_vals', container: string = 'products', validate: boolean = true) {
+        var sourceKey: string = this.addXMLItemFile(filePath, itemIdColumn, xPath, encoding, sourceId, container, validate);
         this.addSourceIdField(sourceKey, itemIdColumn, 'XML', null, validate);
         this.addSourceStringField(sourceKey, "bx_item_id", itemIdColumn, null, validate);
         return sourceKey;
     }
-    addMainCSVItemFile(filePath: any, itemIdColumn: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\"", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = 'item_vals', container: any = 'products', validate: any = true) {
-        var sourceKey: any = this.addCSVItemFile(filePath, itemIdColumn, encoding, delimiter, enclosure, escape, lineSeparator, sourceId, container, validate);
+    addMainCSVItemFile(filePath: string, itemIdColumn: string, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\"", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: string = 'item_vals', container: string = 'products', validate: boolean = true) {
+        var sourceKey: string = this.addCSVItemFile(filePath, itemIdColumn, encoding, delimiter, enclosure, escape, lineSeparator, sourceId, container, validate);
         this.addSourceIdField(sourceKey, itemIdColumn, 'CSV', null, validate);
         this.addSourceStringField(sourceKey, "bx_item_id", itemIdColumn, null, validate);
         return sourceKey;
     }
 
-    addMainCSVCustomerFile(filePath: any, itemIdColumn: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\&", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = 'customers', container: any = 'customers', validate: any = true) {
-        var sourceKey: any = this.addCSVItemFile(filePath, itemIdColumn, encoding, delimiter, enclosure, escape, lineSeparator, sourceId, container, validate);
+    addMainCSVCustomerFile(filePath: string, itemIdColumn: string, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\&", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: string = 'customers', container: string = 'customers', validate: boolean = true) {
+        var sourceKey: string = this.addCSVItemFile(filePath, itemIdColumn, encoding, delimiter, enclosure, escape, lineSeparator, sourceId, container, validate);
         this.addSourceIdField(sourceKey, itemIdColumn, 'CSV', null, validate);
         this.addSourceStringField(sourceKey, "bx_customer_id", itemIdColumn, null, validate);
         return sourceKey;
     }
 
-    addCSVItemFile(filePath: any, itemIdColumn: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\&", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = null, container: any = 'products', validate: any = true, maxLength: any = 23) {
+    addCSVItemFile(filePath: string, itemIdColumn: string, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\&", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: any = null, container: string = 'products', validate: boolean = true, maxLength: number = 23) {
         var params: any = Array({ 'itemIdColumn': itemIdColumn, 'encoding': encoding, 'delimiter': delimiter, 'enclosure': enclosure, 'escape': escape, 'lineSeparator': lineSeparator });
         if (sourceId == null) {
             sourceId = this.getSourceIdFromFileNameFromPath(filePath, container, maxLength, true);
@@ -74,14 +74,14 @@ export class BxData {
         return this.addSourceFile(filePath, sourceId, container, 'item_data_file', 'CSV', params, validate);
     }
 
-    addXMLItemFile(filePath: any, itemIdColumn: any, xPath: any, encoding: any = 'UTF-8', sourceId: any = null, container: any = 'products', validate: any = true, maxLength: any = 23) {
+    addXMLItemFile(filePath: string, itemIdColumn: string, xPath: any, encoding: string = 'UTF-8', sourceId: string, container: string = 'products', validate: boolean = true, maxLength: number = 23) {
         var params: any = Array({ 'itemIdColumn': itemIdColumn, 'encoding': encoding, 'baseXPath': xPath });
         if (sourceId == null) {
             sourceId = this.getSourceIdFromFileNameFromPath(filePath, container, maxLength, true);
         }
         return this.addSourceFile(filePath, sourceId, container, 'item_data_file', 'XML', params, validate);
     }
-    addCSVCustomerFile(filePath: any, itemIdColumn: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\&", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = null, container: any = 'customers', validate: any = true, maxLength: any = 23) {
+    addCSVCustomerFile(filePath: string, itemIdColumn: string, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\&", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: string, container: string = 'customers', validate: boolean = true, maxLength: number = 23) {
         var params: any = Array({ 'itemIdColumn': itemIdColumn, 'encoding': encoding, 'delimiter': delimiter, 'enclosure': enclosure, 'escape': escape, 'lineSeparator': lineSeparator });
         if (sourceId == null) {
             sourceId = this.getSourceIdFromFileNameFromPath(filePath, container, maxLength, true);
@@ -89,12 +89,12 @@ export class BxData {
         return this.addSourceFile(filePath, sourceId, container, 'item_data_file', 'CSV', params, validate);
     }
 
-    addCategoryFile(filePath: any, categoryIdColumn: any, parentIdColumn: any, categoryLabelColumns: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\&", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = 'resource_categories', container: any = 'products', validate: any = true) {
+    addCategoryFile(filePath: string, categoryIdColumn: string, parentIdColumn: string, categoryLabelColumns: any, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\&", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: string = 'resource_categories', container: string = 'products', validate: boolean = true) {
         var params = Array({ 'referenceIdColumn': categoryIdColumn, 'parentIdColumn': parentIdColumn, 'labelColumns': categoryLabelColumns, 'encoding': encoding, 'delimiter': delimiter, 'enclosure': enclosure, 'escape': escape, 'lineSeparator': lineSeparator });
         return this.addSourceFile(filePath, sourceId, container, 'hierarchical', 'CSV', params, validate);
     }
 
-    addResourceFile(filePath: any, categoryIdColumn: any, labelColumns: any, encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = "\&", escape: any = "\\\\", lineSeparator: any = "\\n", sourceId: any = null, container: any = 'products', validate: any = true, maxLength: any = 23) {
+    addResourceFile(filePath: string, categoryIdColumn: string, labelColumns: any, encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = "\&", escape: string = "\\\\", lineSeparator: string = "\\n", sourceId: string, container: string = 'products', validate: boolean = true, maxLength: number = 23) {
         var params: any = Array({ 'referenceIdColumn': categoryIdColumn, 'labelColumns': labelColumns, 'encoding': encoding, 'delimiter': delimiter, 'enclosure': enclosure, 'escape': escape, 'lineSeparator': lineSeparator });
         if (sourceId == null) {
             sourceId = 'resource_' + this.getSourceIdFromFileNameFromPath(filePath, container, maxLength, true);
@@ -113,14 +113,14 @@ export class BxData {
      * @return string
      * @throws Error
      */
-    addExtraTableToEntity(filePath: any, container: any, column: any, columns: any, maxLength: any = 23) {
+    addExtraTableToEntity(filePath: string, container: string, column: string, columns: any, maxLength: number = 23) {
         var params: any = { 'referenceIdColumn': column, 'labelColumns': columns, 'encoding': 'UTF-8', 'delimiter': ',', 'enclosure': '"', 'escape': "\\\\", 'lineSeparator': "\\n" };
         var sourceId: any = this.getSourceIdFromFileNameFromPath(filePath, container, maxLength, true);
 
         return this.addSourceFile(filePath, sourceId, container, 'resource', 'CSV', params);
     }
 
-    setCSVTransactionFile(filePath: any, orderIdColumn: any, productIdColumn: any, customerIdColumn: any, orderDateIdColumn: any, totalOrderValueColumn: any, productListPriceColumn: any, productDiscountedPriceColumn: any, productIdField: any = 'bx_item_id', customerIdField: any = 'bx_customer_id', productsContainer: any = 'products', customersContainer: any = 'customers', format: any = 'CSV', encoding: any = 'UTF-8', delimiter: any = ',', enclosure: any = '"', escape: any = "\\\\", lineSeparator: any = "\\n", container: any = 'transactions', sourceId: any = 'transactions', validate: any = true) {
+    setCSVTransactionFile(filePath: string, orderIdColumn: string, productIdColumn: string, customerIdColumn: string, orderDateIdColumn: string, totalOrderValueColumn: string, productListPriceColumn: string, productDiscountedPriceColumn: string, productIdField: string = 'bx_item_id', customerIdField: string = 'bx_customer_id', productsContainer: string = 'products', customersContainer: string = 'customers', format: string = 'CSV', encoding: string = 'UTF-8', delimiter: string = ',', enclosure: string = '"', escape: string = "\\\\", lineSeparator: string = "\\n", container: string = 'transactions', sourceId: string = 'transactions', validate: boolean = true) {
 
         var params: any = Array({ 'encoding': encoding, 'delimiter': delimiter, 'enclosure': enclosure, 'escape': escape, 'lineSeparator': lineSeparator });
 
@@ -138,8 +138,8 @@ export class BxData {
         return this.addSourceFile(filePath, sourceId, container, 'transactions', format, params, validate);
     }
 
-    addSourceFile(filePath: any, sourceId: any, container: any, type: any, format: any = 'CSV', params: any = Array(), validate: any = true) {
-        var langSize: any = this.getLanguages();
+    addSourceFile(filePath: string, sourceId: string, container: string, type: string, format: string = 'CSV', params: any = Array(), validate: boolean = true) {
+        var langSize: string[] = this.getLanguages();
         if (langSize.length == 0) {
             throw new Error("trying to add a source before having declared the languages with method setLanguages");
         }
@@ -157,15 +157,15 @@ export class BxData {
         return this.encodesourceKey(container, sourceId);
     }
 
-    decodeSourceKey(sourceKey: any) {
+    decodeSourceKey(sourceKey: string) {
         return sourceKey.split('-');
     }
 
-    encodesourceKey(container: any, sourceId: any) {
+    encodesourceKey(container: string, sourceId: string) {
         return container + '-' + sourceId;
     }
 
-    getSourceCSVRow(container: any, sourceId: any, row: any = 0, maxRow: any = 2) {
+    getSourceCSVRow(container: string, sourceId: string, row: number = 0, maxRow: number = 2) {
         if (this.sources[container][sourceId]['rows'] === null) {
             let data: any = Array();
             fs.createReadStream(this.sources[container][sourceId]['filePath'])
@@ -182,6 +182,17 @@ export class BxData {
                         }
                     }
                 });
+            // if ((handle = @fopen(this.sources[container][sourceId]['filePath'], "r")) !== FALSE) {
+            //     var count: any = 1;
+            //     this.sources[container][sourceId]['rows'] = Array();
+            //     while ((data = fgetcsv(handle, 2000, this.delimiter)) !== FALSE) {
+            //         this.sources[container][sourceId]['rows'][] = data;
+            //         if (count++ >= maxRow) {
+            //             break;
+            //         }
+            //     }
+            //     fclose(handle);
+            // }
         }
         if ((typeof (this.sources[container][sourceId]['rows'][row]) != "undefined" && this.sources[container][sourceId]['rows'][row] !== null)) {
             return this.sources[container][sourceId]['rows'][row];
@@ -189,11 +200,11 @@ export class BxData {
         return null;
     }
 
-    setGlobalValidate(globalValidate: any) {
+    setGlobalValidate(globalValidate: boolean) {
         this.globalValidate = globalValidate;
     }
 
-    validateSource(container: any, sourceId: any) {
+    validateSource(container: string, sourceId: string) {
         if (!this.globalValidate) {
             return;
         }
@@ -205,7 +216,7 @@ export class BxData {
         }
     }
 
-    validateColumnExistance(container: any, sourceId: any, col: any) {
+    validateColumnExistance(container: string, sourceId: string, col: string) {
         if (!this.globalValidate) {
             return;
         }
@@ -215,52 +226,52 @@ export class BxData {
         }
     }
 
-    addSourceIdField(sourceKey: any, col: any, format: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceIdField(sourceKey: string, col: string, format: string, referenceSourceKey: string|null, validate: boolean = true) {
         var id_field: any = format == 'CSV' ? 'bx_id' : 'id';
         this.addSourceField(sourceKey, id_field, "id", false, col, referenceSourceKey, validate);
     }
 
-    addSourceTitleField(sourceKey: any, colMap: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceTitleField(sourceKey: string, colMap: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, "bx_title", "title", true, colMap, referenceSourceKey, validate);
     }
 
-    addSourceDescriptionField(sourceKey: any, colMap: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceDescriptionField(sourceKey: string, colMap: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, "bx_description", "body", true, colMap, referenceSourceKey, validate);
     }
 
-    addSourceListPriceField(sourceKey: any, col: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceListPriceField(sourceKey: string, col: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, "bx_listprice", "price", false, col, referenceSourceKey, validate);
     }
 
-    addSourceDiscountedPriceField(sourceKey: any, col: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceDiscountedPriceField(sourceKey: string, col: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, "bx_discountedprice", "discounted", false, col, referenceSourceKey, validate);
     }
 
-    addSourceLocalizedTextField(sourceKey: any, fieldName: any, colMap: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceLocalizedTextField(sourceKey: string, fieldName: string, colMap: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, fieldName, "text", true, colMap, referenceSourceKey, validate);
     }
 
-    addSourceStringField(sourceKey: any, fieldName: any, col: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceStringField(sourceKey: string, fieldName: string, col: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, fieldName, "string", false, col, referenceSourceKey, validate);
     }
 
-    addSourceNumberField(sourceKey: any, fieldName: any, col: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceNumberField(sourceKey: string, fieldName: string, col: string, referenceSourceKey: string | null, validate: boolean = true) {
         this.addSourceField(sourceKey, fieldName, "number", false, col, referenceSourceKey, validate);
     }
 
-    setCategoryField(sourceKey: any, col: any, referenceSourceKey: any = "resource_categories", validate: any = true) {
+    setCategoryField(sourceKey: string, col: string, referenceSourceKey: string = "resource_categories", validate: boolean = true) {
         if (referenceSourceKey == "resource_categories") {
             var decodeKey = this.decodeSourceKey(sourceKey);
-            var container: any = decodeKey[0];
+            var container: string = decodeKey[0];
             referenceSourceKey = this.encodesourceKey(container, referenceSourceKey);
         }
         this.addSourceField(sourceKey, "category", "hierarchical", false, col, referenceSourceKey, validate);
     }
 
-    addSourceField(sourceKey: any, fieldName: any, type: any, localized: any, colMap: any, referenceSourceKey: any = null, validate: any = true) {
+    addSourceField(sourceKey: string, fieldName: string, type: string, localized: boolean, colMap: any, referenceSourceKey: string | null, validate: boolean = true) {
         var decodeKey = this.decodeSourceKey(sourceKey);
-        var container: any = decodeKey[0];
-        var sourceId: any = decodeKey[1];
+        var container: string = decodeKey[0];
+        var sourceId: string = decodeKey[1];
         if (this.sources[container][sourceId]['fields'] === null) {
             this.sources[container][sourceId]['fields'] = Array();
         }
@@ -293,15 +304,15 @@ export class BxData {
         }
     }
 
-    setFieldIsMultiValued(sourceKey: any, fieldName: any, multiValued: any = true) {
+    setFieldIsMultiValued(sourceKey: string, fieldName: string, multiValued: boolean = true) {
         this.addFieldParameter(sourceKey, fieldName, 'multiValued', multiValued ? 'true' : 'false');
     }
 
-    addSourceCustomerGuestProperty(sourceKey: any, parameterValue: any) {
+    addSourceCustomerGuestProperty(sourceKey: string, parameterValue: string) {
         this.addSourceParameter(sourceKey, "guest_property_id", parameterValue);
     }
 
-    addSourceParameter(sourceKey: any, parameterName: any, parameterValue: any) {
+    addSourceParameter(sourceKey: string, parameterName: string, parameterValue: string) {
         var decodeKey = this.decodeSourceKey(sourceKey);
         var container: any = decodeKey[0];
         var sourceId: any = decodeKey[1];
@@ -311,7 +322,7 @@ export class BxData {
         this.sources[container][sourceId][parameterName] = parameterValue;
     }
 
-    addFieldParameter(sourceKey: any, fieldName: any, parameterName: any, parameterValue: any) {
+    addFieldParameter(sourceKey: string, fieldName: string, parameterName: string, parameterValue: string) {
         var decodeKey = this.decodeSourceKey(sourceKey);
         var container: any = decodeKey[0];
         var sourceId: any = decodeKey[1];
@@ -324,7 +335,7 @@ export class BxData {
         this.sources[container][sourceId]['fields'][fieldName]['fieldParameters'][parameterName] = parameterValue;
     }
 
-    setFtpSource(sourceKey: any, host: any = "di1.bx-cloud.com", port: any = 21, user: any = null, password: any = null, remoteDir: any = '/sources/production', protocol: any = 0, type: any = 0, logontype: any = 1,
+    setFtpSource(sourceKey: string, host: string = "di1.bx-cloud.com", port: number = 21, user: string | null, password: string | null, remoteDir: string = '/sources/production', protocol: number = 0, type: number = 0, logontype: number = 1,
         timezoneoffset = 0, pasvMode = 'MODE_DEFAULT', maximumMultipeConnections = 0, encodingType = 'Auto', bypassProxy = 0, syncBrowsing = 0) {
 
         if (user == null) {
@@ -359,7 +370,7 @@ export class BxData {
         this.ftpSources[sourceId] = params;
     }
 
-    setHttpSource(sourceKey: any, webDirectory: any, user: any = null, password: any = null, header: any = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0') {
+    setHttpSource(sourceKey: string, webDirectory: string, user: string | null, password: string | null, header: string = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0') {
 
         if (user === null) {
             user = this.bxClient.getAccount(false);
@@ -376,8 +387,8 @@ export class BxData {
         params['Header'] = header;
 
         var decodeKey = this.decodeSourceKey(sourceKey);
-        var container: any = decodeKey[0];
-        var sourceId: any = decodeKey[1];
+        var container: string = decodeKey[0];
+        var sourceId: string = decodeKey[1];
 
         this.httpSources[sourceId] = params;
     }
@@ -385,7 +396,7 @@ export class BxData {
     getXML() {
         let xml: samchon.library.XML = new samchon.library.XML();
         xml.setTag("languages");
-        this.getLanguages().forEach(function (lang: any) {
+        this.getLanguages().forEach(function (lang: string) {
             xml.setTag("language");
             xml.setProperty('id', lang);
         });
@@ -411,8 +422,8 @@ export class BxData {
         return xml;
     }
 
-    protected callAPI(fields: any, url: any, temporaryFilePath: any = null, timeout: any = 60) {
-        let responseBody: any;
+    protected callAPI(fields: any, url: string, temporaryFilePath: any = null, timeout: number = 60) {
+        let responseBody: string="";
         request.post({
             url: url,
             form: { fields }
@@ -426,7 +437,7 @@ export class BxData {
         return responseBody;
     }
 
-    checkResponseBody(responseBody: any, url: any) {
+    checkResponseBody(responseBody: string, url: string) {
         if (responseBody == null) {
             throw new Error("API response of call to url is empty string, this is an error!");
         }
@@ -493,11 +504,11 @@ export class BxData {
         return this.callAPI(fields, url);
     }
 
-    alreadyExistingSourceId(sourceId: any, container: any) {
+    alreadyExistingSourceId(sourceId: string, container: string) {
         return (typeof (this.sources[container][sourceId]) != "undefined" && this.sources[container][sourceId] !== null);
     }
 
-    getUnusedSourceIdPostFix(sourceId: any, container: any) {
+    getUnusedSourceIdPostFix(sourceId: string, container: string) {
         let postFix: any = 2;
         let sorcContainer: any = this.sources[container];
         sorcContainer.forEach(function (sid: any) {
@@ -512,7 +523,7 @@ export class BxData {
         return postFix;
     }
 
-    getSourceIdFromFileNameFromPath(filePath: any, container: any, maxLength: any = 23, withoutExtension: any = false) {
+    getSourceIdFromFileNameFromPath(filePath: string, container: string, maxLength: number = 23, withoutExtension: boolean = false) {
         let sourceId: any = this.getFileNameFromPath(filePath, withoutExtension);
         let shortened: any = false;
         if (sourceId.length > maxLength) {
@@ -529,7 +540,7 @@ export class BxData {
         return sourceId;
     }
 
-    getFileNameFromPath(filePath: any, withoutExtension: any = false) {
+    getFileNameFromPath(filePath: string, withoutExtension: boolean = false) {
         let parts: any = filePath.split('/');
         let file: any = parts[parts.length - 1];
         if (withoutExtension) {
@@ -560,7 +571,7 @@ export class BxData {
         return files;
     }
 
-    createZip(temporaryFilePath: any = null, name: any = 'bxdata.zip', clearFiles: any = true) {
+    createZip(temporaryFilePath: string | null, name: string = 'bxdata.zip', clearFiles: boolean = true) {
         if (temporaryFilePath === null) {
             temporaryFilePath = tmp.dirSync() + '/bxclient';
         }
@@ -569,7 +580,7 @@ export class BxData {
             fs.mkdirSync(temporaryFilePath);
         }
 
-        let zipFilePath: any = temporaryFilePath + '/' + name;
+        let zipFilePath: string = temporaryFilePath + '/' + name;
 
         if (this.file_exists(zipFilePath)) {
             fs.unlinkSync(zipFilePath);
@@ -587,7 +598,7 @@ export class BxData {
         return zipFilePath;
     }
 
-    pushData(temporaryFilePath: any = null, timeout: any = 60, clearFiles: any = true) {
+    pushData(temporaryFilePath: string | null, timeout: number = 60, clearFiles: boolean = true) {
 
         var zipFile = this.createZip(temporaryFilePath, 'bxdata.zip', clearFiles);
 
@@ -604,12 +615,21 @@ export class BxData {
         let url: any = this.host + this.URL_ZIP
         return this.callAPI(fields, url, temporaryFilePath, timeout);
     }
-    
-    getTaskExecuteUrl(taskName: any) {
+
+    // protected getCurlFile(filename, type) {
+    //     try {
+    //         if (class_exists('CURLFile')) {
+    //             return new \CURLFile(filename, type);
+    //         }
+    //     } catch (e) { }
+    //     return "@filename;type=type";
+    // }
+
+    getTaskExecuteUrl(taskName: string) {
         return this.host + this.URL_EXECUTE_TASK + '?iframeAccount=' + this.bxClient.getAccount() + '&task_process=' + taskName;
     }
 
-    publishChoices(isTest: any = false, taskName: any = "generate_optimization") {
+    publishChoices(isTest: boolean = false, taskName: string = "generate_optimization") {
 
         if (this.isDev) {
             taskName = taskName + '_dev';
@@ -621,17 +641,17 @@ export class BxData {
         this.file_get_contents(url);
     }
 
-    prepareCorpusIndex(taskName: any = "corpus") {
+    prepareCorpusIndex(taskName: string = "corpus") {
         let url: any = this.getTaskExecuteUrl(taskName);
         this.file_get_contents(url);
     }
 
-    prepareAutocompleteIndex(fields: any, taskName: any = "autocomplete") {
+    prepareAutocompleteIndex(fields: any, taskName: string = "autocomplete") {
         let url: any = this.getTaskExecuteUrl(taskName);
         this.file_get_contents(url);
     }
 
-    private file_get_contents(url: any) {
+    private file_get_contents(url: string) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "url", true);
         xhr.onload = function () {
