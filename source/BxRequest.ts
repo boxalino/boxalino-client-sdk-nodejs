@@ -1,12 +1,13 @@
-import * as bxFacets from "./BxFacets";
-import * as bxSortFields from "./BxSortFields";
+import {BxFacets} from "./BxFacets";
+import {BxSortFields} from "./BxSortFields";
 let  thrift_types = require('./bxthrift/p13n_types');
+
 export class BxRequest {
-	protected language: any= null;
-	protected groupBy: any= null;
-	protected choiceId: any= null;
-	protected min: any= null;
-	protected max: any= null;
+	protected language: string;
+	protected groupBy: string;
+	protected choiceId: string;
+	protected min: any;
+	protected max: any;
 	protected withRelaxation: any= null;
 
 	protected indexId: any = "";
@@ -22,7 +23,7 @@ export class BxRequest {
 	protected groupFacets: any = null;
 	protected requestContextParameters: any = Array();
 
-	constructor(language: any, choiceId: any, max: any = 10, min: any = 0) {
+	constructor(language: string, choiceId: string, max: any = 10, min: any = 0) {
 		if (choiceId == '') {
 			throw new Error('BxRequest created with null choiceId');
 		}
@@ -113,7 +114,7 @@ export class BxRequest {
 
 	addSortField(field: any, reverse: any = false) {
 		if (this.bxSortFields == null) {
-			this.bxSortFields = new bxSortFields.BxSortFields();
+			this.bxSortFields = new BxSortFields();
 		}
 		this.bxSortFields.push(field, reverse);
 	}

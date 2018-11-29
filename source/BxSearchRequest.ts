@@ -1,8 +1,8 @@
-import * as bxRequestModule from "./BxRequest";
+import {BxRequest} from "./BxRequest";
 
-export class BxSearchRequest extends bxRequestModule.BxRequest{
+export class BxSearchRequest extends BxRequest{
 
-    constructor(language: string, queryText: string, max: number = 10, choiceId: string ="") {
+    constructor(language: string, queryText: string, max: any = 10, choiceId: any = null) {
         if (choiceId == null) {
             choiceId = 'search';
         }

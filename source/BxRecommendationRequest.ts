@@ -1,5 +1,5 @@
-import * as bxRequest from "./BxRequest";
+import {BxRequest} from "./BxRequest";
 
-export class BxRecommendationRequest extends bxRequest.BxRequest {
+export class BxRecommendationRequest extends BxRequest {
 
 }
