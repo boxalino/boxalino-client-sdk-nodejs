@@ -8,8 +8,8 @@ export class BxSortFields {
         }
     }
     /**
-     * @param field name od field to sort by (i.e. discountedPrice / title)
-     * @param reverse true for ASC, false for DESC
+     * field name od field to sort by (i.e. discountedPrice / title)
+     * reverse true for ASC, false for DESC
      */
     push(field: any, reverse: any = false) {
         this.sorts[field] = reverse;

@@ -1,46 +1,44 @@
+let thrift_types = require('./bxthrift/p13n_types');
 import {BxSearchRequest} from "./BxSearchRequest";
 
-let  thrift_types = require('./bxthrift/p13n_types');
-import * as bxSearchRequest from "./BxSearchRequest";
-
-class BxAutocompleteRequest {
+export class BxAutocompleteRequest {
     protected language: string;
     protected queryText: string;
     protected choiceId: string;
     protected textualSuggestionsHitCount: number;
-    protected bxSearchRequest: BxSearchRequest;
-    protected highlight: string;
+    protected bxSearchRequest: any;
+    protected highlight: boolean = true;
     protected highlightPre: string;
     protected highlightPost: string;
-    private propertyQueries: string[] = Array();
+    private propertyQueries: any = Array();
 
     protected indexId = null;
 
-    constructor(language: string, queryText: string, textualSuggestionsHitCount: string, productSuggestionHitCount: number = 5, autocompleteChoiceId: string = 'autocomplete', searchChoiceId: string = 'search', highlight: boolean = true, highlightPre: string = '<em>', highlightPost: string = '</em>') {
+    constructor(language: string, queryText: string, textualSuggestionsHitCount: number, productSuggestionHitCount: number = 5, autocompleteChoiceId: string = 'autocomplete', searchChoiceId: string = 'search', highlight: boolean = true, highlightPre: string = '<em>', highlightPost: string = '</em>') {
         language = language;
         queryText = queryText;
         textualSuggestionsHitCount = textualSuggestionsHitCount;
         highlight = highlight;
         highlightPre = highlightPre;
         highlightPost = highlightPost;
-        if (autocompleteChoiceId == null) {
+        if (autocompleteChoiceId == null || autocompleteChoiceId=="") {
             autocompleteChoiceId = 'autocomplete';
         }
-        this.choiceId = autocompleteChoiceId;
-        this.bxSearchRequest = new bxSearchRequest.BxSearchRequest(language, queryText, productSuggestionHitCount, searchChoiceId);
+        let choiceId: any = autocompleteChoiceId;
+        this.bxSearchRequest = new BxSearchRequest(language, queryText, productSuggestionHitCount, searchChoiceId);
     }
     getBxSearchRequest() {
         return this.bxSearchRequest;
     }
 
-    setBxSearchRequest(bxSearchRequest: BxSearchRequest) {
+    setBxSearchRequest(bxSearchRequest: any) {
         bxSearchRequest = bxSearchRequest;
     }
     getLanguage() {
         return this.language;
     }
 
-    setLanguage(language: string) {
+    setLanguage(language: any) {
         language = language;
     }
 
@@ -48,7 +46,7 @@ class BxAutocompleteRequest {
         return this.queryText;
     }
 
-    setQuerytext(queryText: string) {
+    setQuerytext(queryText: any) {
         queryText = queryText;
     }
 
@@ -56,7 +54,7 @@ class BxAutocompleteRequest {
         return this.choiceId;
     }
 
-    setChoiceId(choiceId: string) {
+    setChoiceId(choiceId: any) {
         choiceId = choiceId;
     }
 
@@ -64,18 +62,18 @@ class BxAutocompleteRequest {
         return this.textualSuggestionsHitCount;
     }
 
-    setTextualSuggestionHitCount(textualSuggestionsHitCount: string) {
+    setTextualSuggestionHitCount(textualSuggestionsHitCount: any) {
         textualSuggestionsHitCount = textualSuggestionsHitCount;
     }
     getIndexId() {
         return this.indexId;
     }
 
-    setIndexId(indexId: string) {
+    setIndexId(indexId: any) {
         indexId = indexId;
     }
 
-    setDefaultIndexId(indexId: string) {
+    setDefaultIndexId(indexId: any) {
         if (indexId == null) {
             this.setIndexId(indexId);
         }
@@ -107,7 +105,7 @@ class BxAutocompleteRequest {
     }
 
 
-    addPropertyQuery(field: string, hitCount: number, evaluateTotal: boolean = false) {
+    addPropertyQuery(field: any, hitCount: any, evaluateTotal: any = false) {
         let propertyQuery: any = new thrift_types.PropertyQuery();
         propertyQuery.name = field;
         propertyQuery.hitCount = hitCount;
@@ -119,8 +117,8 @@ class BxAutocompleteRequest {
         this.propertyQueries = Array();
     }
 
-    getAutocompleteThriftRequest(profileid: string, thriftUserRecord: any) {
-        let autocompleteRequest =new thrift_types.AutocompleteQuery();
+    getAutocompleteThriftRequest(profileid: any, thriftUserRecord: any) {
+        let autocompleteRequest = new thrift_types.AutocompleteQuery();
         autocompleteRequest.userRecord = thriftUserRecord;
         autocompleteRequest.profileId = profileid;
         autocompleteRequest.choiceId = this.choiceId;
@@ -128,7 +126,7 @@ class BxAutocompleteRequest {
         autocompleteRequest.searchChoiceId = this.bxSearchRequest.getChoiceId();
         autocompleteRequest.autocompleteQuery = this.getAutocompleteQuery();
 
-        if (this.propertyQueries.length > 0 ){
+        if (this.propertyQueries.length > 0) {
             autocompleteRequest.propertyQueries = this.propertyQueries;
         }
         return autocompleteRequest;

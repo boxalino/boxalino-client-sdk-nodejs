@@ -1,13 +1,13 @@
-
 var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
 var thrift_types = require('./bxthrift/p13n_types.js');
 var thrift_P13nService = require('./bxthrift/P13nService.js');
-import * as bxRecommendationRequest from './BxRecommendationRequest'
-import * as bxChooseResponse from './BxChooseResponse'
 var thrift = require('thrift-http');
 var btoa = require('btoa');
 var get_IP = require('ip');
+import {BxRecommendationRequest} from './BxRecommendationRequest'
+import {BxChooseResponse} from './BxChooseResponse'
+
 export class BxClient {
     private account: string;
     private password: string;
@@ -23,7 +23,7 @@ export class BxClient {
     private domain: string;
     private isTest: boolean = false;
     private debugOutput: any = '';
-    private debugOutputActive: boolean = false;
+    private debugOutputActive: any = false;
     private autocompleteRequests: any = null;
     private autocompleteResponses: any = null;
     private chooseRequests: any = Array();
@@ -44,9 +44,9 @@ export class BxClient {
 
     private notifications: any = Array();
     private request: any = null;
-    private choiceIdOverwrite: string = "owbx_choice_id";
+    private choiceIdOverwrite: any = "owbx_choice_id";
 
-    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "api.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
+    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "cdn.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
         this.account = account;
         this.password = password;
         this.request = request
@@ -81,7 +81,7 @@ export class BxClient {
         this.isTest = isTest;
     }
 
-    setSocket(socketHost: string, socketPort: number = 4040, socketSendTimeout: number = 1000, socketRecvTimeout: number = 1000) {
+    setSocket(socketHost: any, socketPort: any = 4040, socketSendTimeout: any = 1000, socketRecvTimeout: any = 1000) {
         this.socketHost = socketHost;
         this.socketPort = socketPort;
         this.socketSendTimeout = socketSendTimeout;
@@ -130,7 +130,7 @@ export class BxClient {
         return this.apiSecret;
     }
 
-    setSessionAndProfile(sessionId: string, profileId: string) {
+    setSessionAndProfile(sessionId: any, profileId: any) {
         this.sessionId = sessionId;
         this.profileId = profileId;
     }
@@ -187,7 +187,7 @@ export class BxClient {
     }
 
     private getP13n(timeout: any = 2, useCurlIfAvailable: any = true) {
-        let spval: string[] = this.getSessionAndProfile();
+        let spval: any = this.getSessionAndProfile();
         this.profileId = spval[1];
         var connection= thrift.createHttpConnection(this.host, this.port, {
            transport: thrift.TBufferedTransport,
@@ -208,7 +208,7 @@ export class BxClient {
     getChoiceRequest(inquiries: any, requestContext: any = null) {
 
         let choiceRequest: any = new thrift_types.ChoiceRequest();
-        let spval: string[] = this.getSessionAndProfile();
+        let spval: any = this.getSessionAndProfile();
         let profileid = spval[1];
 
         choiceRequest.userRecord = this.getUserRecord();
@@ -223,14 +223,14 @@ export class BxClient {
     }
 
     protected getIP() {
-        let ip: string = get_IP.address();
+        let ip: any = get_IP.address();
         return ip;
     }
 
     protected getCurrentURL() {
-        let protocol: string = this.request.protocol;
-        let hostname: string = this.request.host;
-        let requesturi: string = this.request.url;
+        let protocol: any = this.request.protocol;
+        let hostname: any = this.request.host;
+        let requesturi: any = this.request.url;
         if (hostname == "") {
             return "";
         }
@@ -251,7 +251,7 @@ export class BxClient {
         }
     }
 
-    addRequestContextParameter(name: string, values: string[]) {
+    addRequestContextParameter(name: any, values: any) {
         if (!Array.isArray(values)) {
             values = Array(values);
         }
@@ -264,14 +264,16 @@ export class BxClient {
 
 
     protected getBasicRequestContextParameters() {
-        let spval: string[] = this.getSessionAndProfile();
-        let sessionid: string = spval[0];
-        let profileid: string = spval[1];
+        let spval: any = this.getSessionAndProfile();
+        let sessionid: any = spval[0];
+        let profileid: any = spval[1];
 
         return {
             'User-Agent': ['Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36'],
             'User-Host': [this.getIP()],
             'User-SessionId': [sessionid],
+            'User-Referer': [this.getCurrentURL()],
+            'User-URL': [this.getCurrentURL()],
             'X-BX-PROFILEID': [profileid]
         }
     }
@@ -335,13 +337,10 @@ export class BxClient {
         throw e;
     }
 
-
     private async p13nchoose(choiceRequest: any) {
         try {
             let client = this.getP13n(this._timeout);
             let choiceResponse: any = null;
-
-
             choiceResponse = await client.choose(choiceRequest);
             if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
                 this.addNotification('bxRequest', choiceRequest);
@@ -378,9 +377,10 @@ export class BxClient {
         }
     }
 
-    private p13nchooseAll(choiceRequestBundle: any) {
+    private async p13nchooseAll(choiceRequestBundle: any) {
         try {
-            let bundleChoiceResponse: any = this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
+            let bundleChoiceResponse: any = null;
+            bundleChoiceResponse =  await this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
                 && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
@@ -426,7 +426,7 @@ export class BxClient {
         return this.chooseRequests[index];
     }
 
-    getChoiceIdRecommendationRequest(choiceId: string) {
+    getChoiceIdRecommendationRequest(choiceId: any) {
         this.chooseRequests.forEach(function (request: any) {
             if (request.getChoiceId() == choiceId) {
                 return request;
@@ -438,7 +438,7 @@ export class BxClient {
     getRecommendationRequests() {
         let requests: any = Array();
         this.chooseRequests.forEach(function (request: any) {
-            if (request instanceof bxRecommendationRequest.BxRecommendationRequest) {
+            if (request instanceof BxRecommendationRequest) {
                 requests.push(request);
             }
         });
@@ -447,8 +447,8 @@ export class BxClient {
 
     getThriftChoiceRequest(size = 0) {
         if (this.chooseRequests.length == 0 && this.autocompleteRequests.length > 0) {
-            let spval: string[] = this.getSessionAndProfile();
-            let profileid: string = spval[1];
+            let spval: any = this.getSessionAndProfile();
+            let profileid: any = spval[1];
             let userRecord: any = this.getUserRecord();
             let tempArray: any = this.autocompleteRequests;
             let p13nrequests: any = tempArray.map(function (this: any) {
@@ -484,8 +484,8 @@ export class BxClient {
     getBundleChoiceRequest(inquiries: any, requestContext: any = null) {
         let choiceRequest: any = new thrift_types.ChoiceRequest();
 
-        let spval: string[] = this.getSessionAndProfile();
-        let profileid: string = spval[1];
+        let spval: any = this.getSessionAndProfile();
+        let profileid: any = spval[1];
 
         choiceRequest.userRecord = this.getUserRecord();
         choiceRequest.profileId = profileid;
@@ -519,7 +519,7 @@ export class BxClient {
         return new thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
     }
 
-    public async choose(chooseAll: boolean = false, size: number = 0) {
+    public async choose(chooseAll: any = false, size: any = 0) {
         let response: any;
         if (chooseAll) {
             let bundleResponse: any = this.p13nchooseAll(this.getThriftBundleChoiceRequest());
@@ -530,9 +530,9 @@ export class BxClient {
             response = new thrift_types.ChoiceResponse({ 'variants': variants });
         } else {
             response = await this.p13nchoose(this.getThriftChoiceRequest(size));
-                if (size > 0) {
-                    response.variants = this.chooseResponses.variants.concat(response.variants);
-                }
+            if (size > 0) {
+                response.variants = this.chooseResponses.variants.concat(response.variants);
+            }
         }
         this.chooseResponses = response;
     }
@@ -542,18 +542,18 @@ export class BxClient {
         this.chooseResponses = null;
     }
 
-   async getResponse(chooseAll = false) {
+    async getResponse(chooseAll = false) {
         let _chResponseSize: any = 0
         if (this.chooseResponses !== null) {
             _chResponseSize = this.chooseResponses.variants.length;
         }
         let size: any = this.chooseRequests.length - _chResponseSize;
         if (this.chooseResponses == null) {
-          await this.choose(chooseAll);
+            await this.choose(chooseAll);
         } else if (size) {
-            this.choose(chooseAll, size);
+            await this.choose(chooseAll, size);
         }
-        let bxChooseResponseData = new bxChooseResponse.BxChooseResponse(this.chooseResponses, this.chooseRequests);
+        let bxChooseResponseData = new BxChooseResponse(this.chooseResponses, this.chooseRequests);
         bxChooseResponseData.setNotificationMode(this.getNotificationMode());
         return bxChooseResponseData;
     }
@@ -601,18 +601,18 @@ export class BxClient {
         }
     }
 
-    autocomplete() {
-        let spval: string[] = this.getSessionAndProfile();
-        let profileid: string = spval[1];
+    async autocomplete() {
+        let spval: any = this.getSessionAndProfile();
+        let profileid: any = spval[1];
 
         let userRecord: any = this.getUserRecord();
         let tempArray: any = this.autocompleteRequests;
         let p13nrequests: any = tempArray.map(function (this: any) {
             this.getAutocompleteThriftRequest(profileid, userRecord);
         });
-        let i: number = -1;
+        let i: any = -1;
 
-        let tempArrayBxAuto: any = this.p13nautocompleteAll(p13nrequests)
+        let tempArrayBxAuto: any = await this.p13nautocompleteAll(p13nrequests)
         this.autocompleteResponses = tempArrayBxAuto.map(function (this: any) {
             this.autocompletePartail(this.request, ++i);
         });
@@ -626,11 +626,12 @@ export class BxClient {
         return null;
     }
 
-    private p13nautocompleteAll(requests: any) {
+    private async p13nautocompleteAll(requests: any) {
         let requestBundle: any = new thrift_types.AutocompleteRequestBundle();
         requestBundle.requests = requests;
         try {
-            let choiceResponse = this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
+            let choiceResponse: any = null;
+            choiceResponse = await this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
                 if (!this.debugOutputActive) {
@@ -655,7 +656,7 @@ export class BxClient {
         return this.autocompleteResponses;
     }
 
-    setTimeout(timeout: number) {
+    setTimeout(timeout: any) {
         this._timeout = timeout;
         return this;
     }
@@ -664,7 +665,7 @@ export class BxClient {
         return this.debugOutput;
     }
 
-    setDebugOutputActive(debugOutputActive: boolean) {
+    setDebugOutputActive(debugOutputActive: any) {
         this.debugOutputActive = debugOutputActive;
     }
 
