@@ -6,31 +6,31 @@ export class BxRequest {
 	protected language: string;
 	protected groupBy: string;
 	protected choiceId: string;
-	protected min: any;
-	protected max: any;
-	protected withRelaxation: any= null;
+	protected min: number;
+	protected max: number;
+	protected withRelaxation: boolean= false;
 
-	protected indexId: any = "";
+	protected indexId: string = "";
 	protected requestMap: any = null;
 	protected returnFields: any = Array();
-	protected offset: any = 0;
-	protected queryText: any = "";
+	protected offset: number = 0;
+	protected queryText: string = "";
 	protected bxFacets: any = null;
 	protected bxSortFields: any = null;
 	protected bxFilters: any = Array();
-	protected orFilters: any = false;
+	protected orFilters: boolean = false;
 	protected hitsGroupsAsHits: any = null;
 	protected groupFacets: any = null;
 	protected requestContextParameters: any = Array();
 
-	constructor(language: string, choiceId: string, max: any = 10, min: any = 0) {
+	constructor(language: string, choiceId: string, max: number = 10, min: number = 0) {
 		if (choiceId == '') {
 			throw new Error('BxRequest created with null choiceId');
 		}
 		this.language = language;
 		this.choiceId = choiceId;
-		this.min = parseFloat(min);
-		this.max = parseFloat(max);
+		this.min = min;
+		this.max = max;
 		if (this.max == 0) {
 			this.max = 1;
 		}
@@ -41,7 +41,7 @@ export class BxRequest {
 		return this.withRelaxation;
 	}
 
-	setWithRelaxation(withRelaxation: any) {
+	setWithRelaxation(withRelaxation: boolean) {
 		this.withRelaxation = withRelaxation;
 	}
 
@@ -57,7 +57,7 @@ export class BxRequest {
 		return this.offset;
 	}
 
-	setOffset(offset: any) {
+	setOffset(offset: number) {
 		this.offset = offset;
 	}
 
@@ -65,7 +65,7 @@ export class BxRequest {
 		return this.queryText;
 	}
 
-	setQuerytext(queryText: any) {
+	setQuerytext(queryText: string) {
 		this.queryText = queryText;
 	}
 
@@ -112,7 +112,7 @@ export class BxRequest {
 		this.orFilters = orFilters;
 	}
 
-	addSortField(field: any, reverse: any = false) {
+	addSortField(field: string, reverse: boolean = false) {
 		if (this.bxSortFields == null) {
 			this.bxSortFields = new BxSortFields();
 		}
@@ -131,21 +131,21 @@ export class BxRequest {
 		return this.max;
 	}
 
-	setMax(max: any) {
+	setMax(max: number) {
 		this.max = max;
 	}
 	getMin() {
 		return this.min;
 	}
 
-	setMin(min: any) {
+	setMin(min: number) {
 		this.min = min;
 	}
 	getIndexId() {
 		return this.indexId;
 	}
 
-	setIndexId(indexId: any) {
+	setIndexId(indexId: string) {
 		this.indexId = indexId;
 		let that:any=this;
 		this.contextItems.forEach(function (v:any,k: any) {
@@ -156,7 +156,7 @@ export class BxRequest {
 		});
 	}
 
-	setDefaultIndexId(indexId: any) {
+	setDefaultIndexId(indexId: string) {
 		if (this.indexId == "") {
 			this.setIndexId(indexId);
 		}
@@ -171,13 +171,13 @@ export class BxRequest {
 		return this.language;
 	}
 
-	setLanguage(language: any) {
+	setLanguage(language: string) {
 		this.language = language;
 	}
 	getGroupBy() {
 		return this.groupBy;
 	}
-	setGroupBy(groupBy: any) {
+	setGroupBy(groupBy: string) {
 		this.groupBy = groupBy;
 	}
 	setHitsGroupsAsHits(groupsAsHits: any) {
@@ -216,7 +216,7 @@ export class BxRequest {
 	}
 
 	protected contextItems = Array();
-	setProductContext(fieldName: any, contextItemId: any, role: any = 'mainProduct', relatedProducts: any = Array(), relatedProductField: any = 'id') {
+	setProductContext(fieldName: string, contextItemId: string, role: string = 'mainProduct', relatedProducts: any = Array(), relatedProductField: string = 'id') {
 		let contextItem: any = new  thrift_types.ContextItem();
 		contextItem.indexId = this.getIndexId();
 		contextItem.fieldName = fieldName;
@@ -225,7 +225,7 @@ export class BxRequest {
 		this.contextItems.push(contextItem);
 		this.addRelatedProducts(relatedProducts, relatedProductField);
 	}
-	setBasketProductWithPrices(fieldName: any, basketContent: any, role: any = 'mainProduct', subRole: any = 'subProduct', relatedProducts: any = Array(), relatedProductField: any = 'id') {
+	setBasketProductWithPrices(fieldName: string, basketContent: any, role: string = 'mainProduct', subRole: string = 'subProduct', relatedProducts: any = Array(), relatedProductField: string = 'id') {
 		if (basketContent !== false && basketContent.count) {
 
 			// Sort basket content by price
@@ -255,7 +255,7 @@ export class BxRequest {
 		}
 		this.addRelatedProducts(relatedProducts, relatedProductField);
 	}
-	addRelatedProducts(relatedProducts: any, relatedProductField: any = 'id') {
+	addRelatedProducts(relatedProducts: any, relatedProductField: string = 'id') {
 		for (let productId in relatedProducts) {
 			let related: any = relatedProducts[productId];
 			let key: any = "bx_" + this.choiceId + "_" + productId;
@@ -271,7 +271,7 @@ export class BxRequest {
 		return this.requestContextParameters;
 	}
 
-	retrieveHitFieldValues(item: any, field: any, items: any, fields: any) {
+	retrieveHitFieldValues(item: any, field: string, items: any, fields: any) {
 		return Array();
 	}
 }

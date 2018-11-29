@@ -74,7 +74,7 @@ export class BxChooseResponse {
         }
         throw new Error("no variant provided in choice response for variant id id, bxRequest: " + String(this.bxRequests));
     }
-    getFirstPositiveSuggestionSearchResult(variant: any, maxDistance: any = 10) {
+    getFirstPositiveSuggestionSearchResult(variant: any, maxDistance: number = 10) {
         if (variant.searchRelaxation.suggestionsResults !== null) {
             return null;
         }
@@ -92,7 +92,7 @@ export class BxChooseResponse {
         return null;
     }
 
-    getVariantSearchResult(variant: any, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getVariantSearchResult(variant: any, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let correctedResult: any;
         if (variant == null) {
             return null;
@@ -104,7 +104,7 @@ export class BxChooseResponse {
         return (typeof (correctedResult) != "undefined" && correctedResult !== null) ? correctedResult : searchResult;
     }
 
-    getSearchResultHitVariable(searchResult: any, hitId: any, field: any) {
+    getSearchResultHitVariable(searchResult: any, hitId: any, field: string) {
         if (searchResult) {
             if (searchResult.hits) {
                 searchResult.hits.forEach(function (item: any) {
@@ -123,7 +123,7 @@ export class BxChooseResponse {
         return null;
     }
 
-    getSearchResultHitFieldValue(searchResult: any, hitId: any, fieldName: any = '') {
+    getSearchResultHitFieldValue(searchResult: any, hitId: any, fieldName: string = '') {
         if (searchResult && fieldName != '') {
             if (searchResult.hits) {
                 searchResult.hits.forEach(function (item: any) {
@@ -142,7 +142,7 @@ export class BxChooseResponse {
         return null;
     }
 
-    getSearchResultHitIds(searchResult: any, fieldId: any = 'id') {
+    getSearchResultHitIds(searchResult: any, fieldId: string = 'id') {
         let ids: any = Array();
         if (searchResult) {
             if (searchResult.hits) {
@@ -161,28 +161,28 @@ export class BxChooseResponse {
         return ids;
     }
 
-    getHitExtraInfo(choice: any = null, hitId: any = 0, info_key: any = '', default_value: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getHitExtraInfo(choice: any = null, hitId: number = 0, info_key: string = '', default_value: string = '', count: number = 0, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let extraInfo: any = this.getSearchResultHitVariable(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, 'extraInfo');
         return ((typeof (extraInfo[info_key]) != "undefined" && extraInfo[info_key] !== null) ? extraInfo[info_key] : (default_value != '' ? default_value : null));
     }
 
-    getHitVariable(choice: any = null, hitId: any = 0, field: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getHitVariable(choice: any = null, hitId: number = 0, field: string = '', count: number = 0, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitVariable(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, field);
     }
     
-    getHitFieldValue(choice: any = null, hitId: any = 0, fieldName: any = '', count: any = 0, considerRelaxation: any = true, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getHitFieldValue(choice: any = null, hitId: number = 0, fieldName: string = '', count: number = 0, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitFieldValue(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, fieldName);
     }
 
-    getHitIds(choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, fieldId: any = 'id', discardIfSubPhrases: any = true) {
+    getHitIds(choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, fieldId: string = 'id', discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitIds(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), fieldId);
     }
 
-    retrieveHitFieldValues(item: any, field: any, fields: any, hits: any) {
+    retrieveHitFieldValues(item: any, field: string, fields: any, hits: string[]) {
         let fieldValues: any = Array();
         this.bxRequests.forEach(function (bxRequest: any) {
             fieldValues = fieldValues.concat(bxRequest.retrieveHitFieldValues(item, field, fields, hits));
@@ -199,7 +199,7 @@ export class BxChooseResponse {
         return output;
     }
 
-    getSearchHitFieldValues(searchResult: any, fields: any = null) {
+    getSearchHitFieldValues(searchResult: any, fields: string[]) {
         let fieldValues: any = {};
         if (searchResult) {
             let hits = searchResult.hits;
@@ -226,9 +226,18 @@ export class BxChooseResponse {
                             fieldValues[item.values['id'][0]][field] = item.values[field][0];
                         }
                     }
-                    if (fieldValues[item.values['id'][0]][field] === null) {
-                        fieldValues[item.values['id'][0]][field] = this.retrieveHitFieldValues(item, field, searchResult.hits, finalFields);
+                    if (item.values['id'] !== null && item.values['id'] !== undefined) {
+                        if(item.values['id'][0]!==null && item.values['id'][0]!==undefined)
+                        {
+                            if(fieldValues[item.values['id'][0]]!==null && fieldValues[item.values['id'][0]]!==undefined)
+                            {
+                                if (fieldValues[item.values['id'][0]][field] === null) {
+                                    fieldValues[item.values['id'][0]][field] = this.retrieveHitFieldValues(item, field, searchResult.hits, finalFields);
+                                }
+                            }
+                        }
                     }
+
                 });
             });
         }
@@ -250,7 +259,7 @@ export class BxChooseResponse {
         return null;
     }
     
-    getFacets(choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getFacets(choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let searchResult: any = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);
         let facets: any = this.getRequestFacets(choice);
@@ -260,11 +269,11 @@ export class BxChooseResponse {
         facets.setSearchResults(searchResult);
         return facets;
     }
-    getHitFieldValues(fields: any, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getHitFieldValues(fields: any, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchHitFieldValues(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), fields);
     }
-    getFirstHitFieldValue(field: any = null, returnOneValue: any = true, hitIndex: any = 0, choice: any = null, count: any = 0, maxDistance: any = 10) {
+    getFirstHitFieldValue(field: any = null, returnOneValue: boolean = true, hitIndex: number = 0, choice: any = null, count: number = 0, maxDistance: number = 10) {
         let fieldNames: any = null;
         if (field != null) {
             fieldNames = Array(field);
@@ -289,7 +298,7 @@ export class BxChooseResponse {
         }
         return null;
     }
-    getTotalHitCount(choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getTotalHitCount(choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant = this.getChoiceResponseVariant(choice, count);
         let searchResult = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);
         if (searchResult == null) {
@@ -297,13 +306,13 @@ export class BxChooseResponse {
         }
         return searchResult.totalHitCount;
     }
-    areResultsCorrected(choice: any = null, count: any = 0, maxDistance: any = 10) {
+    areResultsCorrected(choice: any = null, count: number = 0, maxDistance: number = 10) {
         return this.getTotalHitCount(choice, false, count) == 0 && this.getTotalHitCount(choice, true, count, maxDistance) > 0 && this.areThereSubPhrases() == false;
     }
-    areResultsCorrectedAndAlsoProvideSubPhrases(choice: any = null, count: any = 0, maxDistance: any = 10) {
+    areResultsCorrectedAndAlsoProvideSubPhrases(choice: any = null, count: number = 0, maxDistance: number = 10) {
         return this.getTotalHitCount(choice, false, count) == 0 && this.getTotalHitCount(choice, true, count, maxDistance, false) > 0 && this.areThereSubPhrases() == true;
     }
-    getCorrectedQuery(choice: any = null, count: any = 0, maxDistance: any = 10) {
+    getCorrectedQuery(choice: any = null, count: number = 0, maxDistance: number = 10) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let searchResult: any = this.getVariantSearchResult(variant, true, maxDistance, false);
         if (searchResult) {
@@ -311,18 +320,18 @@ export class BxChooseResponse {
         }
         return null;
     }
-    getResultTitle(choice: any = null, count: any = 0, ddefault: any = '- no title -') {
+    getResultTitle(choice: any = null, count: number = 0, ddefault: string = '- no title -') {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         if (typeof (variant.searchResultTitle) != "undefined" && variant.searchResultTitle !== null) {
             return variant.searchResultTitle;
         }
         return ddefault;
     }
-    areThereSubPhrases(choice: any = null, count: any = 0, maxBaseResults: any = 0) {
+    areThereSubPhrases(choice: any = null, count: number = 0, maxBaseResults: number = 0) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return (typeof (variant.searchRelaxation.subphrasesResults) != "undefined" && variant.searchRelaxation.subphrasesResults !== null) && variant.searchRelaxation.subphrasesResults.length > 0 && this.getTotalHitCount(choice, false, count) <= maxBaseResults;
     }
-    getSubPhrasesQueries(choice: any = null, count: any = 0) {
+    getSubPhrasesQueries(choice: any = null, count: number = 0) {
         if (!this.areThereSubPhrases(choice, count)) {
             return Array();
         }
@@ -333,7 +342,7 @@ export class BxChooseResponse {
         });
         return queries;
     }
-    getSubPhraseSearchResult(queryText: any, choice: any = null, count: any = 0) {
+    getSubPhraseSearchResult(queryText: string, choice: any = null, count: number = 0) {
         if (!this.areThereSubPhrases(choice, count)) {
             return null;
         }
@@ -345,28 +354,28 @@ export class BxChooseResponse {
         });
         return null;
     }
-    getSubPhraseTotalHitCount(queryText: any, choice: any = null, count: any = 0) {
+    getSubPhraseTotalHitCount(queryText: string, choice: any = null, count: number = 0) {
         let searchResult: any = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
             return searchResult.totalHitCount;
         }
         return 0;
     }
-    getSubPhraseHitIds(queryText: any, choice: any = null, count: any = 0, fieldId: any = 'id') {
+    getSubPhraseHitIds(queryText: string, choice: any = null, count: number = 0, fieldId: string = 'id') {
         let searchResult = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
             return this.getSearchResultHitIds(searchResult, fieldId);
         }
         return Array();
     }
-    getSubPhraseHitFieldValues(queryText: any, fields: any, choice: any = null, considerRelaxation: any = true, count: any = 0) {
+    getSubPhraseHitFieldValues(queryText: string, fields: string[], choice: any = null, considerRelaxation: boolean = true, count: number = 0) {
         let searchResult: any = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
             return this.getSearchHitFieldValues(searchResult, fields);
         }
         return Array();
     }
-    toJson(fields: any) {
+    toJson(fields: string[]) {
         let object: any = Array();
         object['hits'] = Array();
         let tempFieldValues = this.getHitFieldValues(fields);
@@ -441,7 +450,7 @@ export class BxChooseResponse {
         }
         return Array();
     }
-    getParameterValuesForVisualElement(element: any, paramName: any) {
+    getParameterValuesForVisualElement(element: any, paramName: string) {
         if ((typeof (element['parameters']) != "undefined" && element['parameters'] !== null) && Array.isArray(element['parameters'])) {
             element['parameters'].forEach(function (parameter: any) {
                 if (parameter['name'] == paramName) {
@@ -580,7 +589,7 @@ export class BxChooseResponse {
         }
         return label;
     }
-    getLanguage(defaultLanguage: any = 'en') {
+    getLanguage(defaultLanguage: string = 'en') {
         if (typeof (this.bxRequests[0]) != "undefined" && this.bxRequests[0] !== null) {
             return this.bxRequests[0].getLanguage();
         }
@@ -588,7 +597,7 @@ export class BxChooseResponse {
     }
     getExtraInfoLocalizedValue(extraInfoKey: any, language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false,
         choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
-        let defaultValue: any = null;
+        let defaultValue: string="";
         let jsonLabel: any = this.getExtraInfo(extraInfoKey, defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
         if (jsonLabel == null) {
             return this.prettyPrintLabel(defaultValue, prettyPrint);
@@ -610,46 +619,46 @@ export class BxChooseResponse {
         });
         return this.prettyPrintLabel(defaultValue, prettyPrint);
     }
-    getSearchMessageTitle(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count = 0, maxDistance = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageTitle(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count = 0, maxDistance = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_title', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageDescription(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageDescription(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_description', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageTitleStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageTitleStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_title_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageDescriptionStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageDescriptionStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_description_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageContainerStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageContainerStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_container_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageLinkStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageLinkStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_link_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageSideImageStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageSideImageStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_side_image_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageMainImageStyle(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageMainImageStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_main_image_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageMainImage(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageMainImage(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_main_image', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageSideImage(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageSideImage(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_side_image', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_link', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getRedirectLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getRedirectLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('redirect_url', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageGeneralCss(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageGeneralCss(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_general_css', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
-    getSearchMessageDisplayType(defaultExtraInfoValue: any = null, prettyPrint: any = false, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+    getSearchMessageDisplayType(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_display_type', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
     getLocalizedValue(values: any, key: any = null) {

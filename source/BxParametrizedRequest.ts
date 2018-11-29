@@ -5,22 +5,22 @@ import {BxSortFields} from './BxSortFields';
 import {BxFilter} from './BxFilter';
 
 export class BxParametrizedRequest extends BxRequest {
-    private bxReturnFields: any = Array('id');
+    private bxReturnFields: string[] = Array('id');
     private getItemFieldsCB: any = null;
 
-    private requestParametersPrefix: any = "";
-    private requestWeightedParametersPrefix: any = "bxrpw_";
-    private requestFiltersPrefix: any = "bxfi_";
-    private requestFacetsPrefix: any = "bxfa_";
-    private requestSortFieldPrefix: any = "bxsf_";
+    private requestParametersPrefix: string = "";
+    private requestWeightedParametersPrefix: string = "bxrpw_";
+    private requestFiltersPrefix: string = "bxfi_";
+    private requestFacetsPrefix: string = "bxfa_";
+    private requestSortFieldPrefix: string = "bxsf_";
 
-    private requestReturnFieldsName: any = "bxrf";
-    private requestContextItemFieldName: any = "bxcif";
-    private requestContextItemFieldValues: any = "bxciv";
+    private requestReturnFieldsName: string = "bxrf";
+    private requestContextItemFieldName: string = "bxcif";
+    private requestContextItemFieldValues: string = "bxciv";
     private callBackCache: any = null;
     protected requestParameterExclusionPatterns = Array();
 
-    constructor(language: any, choiceId: any, max: any = 10, min: any = 0, bxReturnFields: any = null, getItemFieldsCB: any = null) {
+    constructor(language: string, choiceId: string, max: number = 10, min: number = 0, bxReturnFields: any = null, getItemFieldsCB: any = null) {
         super(language, choiceId, max, min);
 
         if (bxReturnFields != null) {
@@ -29,7 +29,7 @@ export class BxParametrizedRequest extends BxRequest {
         this.getItemFieldsCB = getItemFieldsCB;
     }
 
-    setRequestParametersPrefix(requestParametersPrefix: any) {
+    setRequestParametersPrefix(requestParametersPrefix: string) {
         this.requestParametersPrefix = requestParametersPrefix;
     }
 
@@ -37,7 +37,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestParametersPrefix;
     }
 
-    setRequestWeightedParametersPrefix(requestWeightedParametersPrefix: any) {
+    setRequestWeightedParametersPrefix(requestWeightedParametersPrefix: string) {
         this.requestWeightedParametersPrefix = requestWeightedParametersPrefix;
     }
 
@@ -45,7 +45,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestWeightedParametersPrefix;
     }
 
-    setRequestFiltersPrefix(requestFiltersPrefix: any) {
+    setRequestFiltersPrefix(requestFiltersPrefix: string) {
         this.requestFiltersPrefix = requestFiltersPrefix;
     }
 
@@ -53,7 +53,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestFiltersPrefix;
     }
 
-    setRequestFacetsPrefix(requestFacetsPrefix: any) {
+    setRequestFacetsPrefix(requestFacetsPrefix: string) {
         this.requestFacetsPrefix = requestFacetsPrefix;
     }
 
@@ -61,7 +61,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestFacetsPrefix;
     }
 
-    setRequestSortFieldPrefix(requestSortFieldPrefix: any) {
+    setRequestSortFieldPrefix(requestSortFieldPrefix: string) {
         this.requestSortFieldPrefix = requestSortFieldPrefix;
     }
 
@@ -69,7 +69,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestSortFieldPrefix;
     }
 
-    setRequestReturnFieldsName(requestReturnFieldsName: any) {
+    setRequestReturnFieldsName(requestReturnFieldsName: string) {
         this.requestReturnFieldsName = requestReturnFieldsName;
     }
 
@@ -77,7 +77,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestReturnFieldsName;
     }
 
-    setRequestContextItemFieldName(requestContextItemFieldName: any) {
+    setRequestContextItemFieldName(requestContextItemFieldName: string) {
         this.requestContextItemFieldName = requestContextItemFieldName;
     }
 
@@ -85,7 +85,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestContextItemFieldName;
     }
 
-    setRequestContextItemFieldValues(requestContextItemFieldValues: any) {
+    setRequestContextItemFieldValues(requestContextItemFieldValues: string) {
         this.requestContextItemFieldValues = requestContextItemFieldValues;
     }
 
@@ -97,7 +97,7 @@ export class BxParametrizedRequest extends BxRequest {
         return Array(this.requestParametersPrefix, this.requestWeightedParametersPrefix, this.requestFiltersPrefix, this.requestFacetsPrefix, this.requestSortFieldPrefix);
     }
 
-    matchesPrefix(string: any, prefix: any, checkOtherPrefixes: any = true) {
+    matchesPrefix(string: string, prefix: string, checkOtherPrefixes: boolean = true) {
         if (checkOtherPrefixes) {
             this.getPrefixes().forEach(function (p: any) {
                 if (p == prefix) {
@@ -111,7 +111,7 @@ export class BxParametrizedRequest extends BxRequest {
         return prefix == null || string.indexOf(prefix) === 0;
     }
 
-    getPrefixedParameters(prefix: any, checkOtherPrefixes: any = true) {
+    getPrefixedParameters(prefix: string, checkOtherPrefixes: boolean = true) {
         let params: any = Array();
         if (Array.isArray(this.requestMap) === false) {
             return Array();
@@ -129,9 +129,9 @@ export class BxParametrizedRequest extends BxRequest {
         let contextItemFieldName: any = null;
         let contextItemFieldValues: any = Array();
         let params: any = this.getPrefixedParameters(this.requestParametersPrefix, false);
-        params.forEach(function (name: any) {
+        params.forEach(function (name: string) {
             let values = params[name];
-            let value: any;
+            let value: string;
             if (name == this.requestContextItemFieldName) {
                 value = values;
                 if (Array.isArray(value) && value.length > 0) {
@@ -150,7 +150,7 @@ export class BxParametrizedRequest extends BxRequest {
             params[name] = values;
         });
         if (contextItemFieldName) {
-            contextItemFieldValues.forEach(function (contextItemFieldValue: any) {
+            contextItemFieldValues.forEach(function (contextItemFieldValue: string) {
                 this.setProductContext(contextItemFieldName, contextItemFieldValue);
             });
         }
@@ -161,7 +161,7 @@ export class BxParametrizedRequest extends BxRequest {
         return this.requestParameterExclusionPatterns;
     }
 
-    addRequestParameterExclusionPatterns(pattern: any) {
+    addRequestParameterExclusionPatterns(pattern: string) {
         this.requestParameterExclusionPatterns.push(pattern);
     }
 
@@ -255,7 +255,7 @@ export class BxParametrizedRequest extends BxRequest {
         var unique = (super.getReturnFields().concat(this.bxReturnFields)).filter(this.array_unique);
         return unique;
     }
-    array_unique(value: any, index: any, self: any) {
+    array_unique(value: string, index: number, self: any) {
         return self.indexOf(value) === index;
     }
     getAllReturnFields() {
@@ -286,7 +286,7 @@ export class BxParametrizedRequest extends BxRequest {
         return super.retrieveHitFieldValues(item, field, items, fields);
     }
 
-    private unset(myArray: any, key: any) {
+    private unset(myArray: any, key: string) {
         const index = myArray.indexOf(key, 0);
         if (index > -1) {
             myArray.splice(index, 1);

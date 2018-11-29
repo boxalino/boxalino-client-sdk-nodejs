@@ -10,7 +10,7 @@ export class BxAutocompleteRequest {
     protected highlight: boolean = true;
     protected highlightPre: string;
     protected highlightPost: string;
-    private propertyQueries: any = Array();
+    private propertyQueries: string[] = Array();
 
     protected indexId = null;
 
@@ -38,7 +38,7 @@ export class BxAutocompleteRequest {
         return this.language;
     }
 
-    setLanguage(language: any) {
+    setLanguage(language: string) {
         language = language;
     }
 
@@ -46,7 +46,7 @@ export class BxAutocompleteRequest {
         return this.queryText;
     }
 
-    setQuerytext(queryText: any) {
+    setQuerytext(queryText: string) {
         queryText = queryText;
     }
 
@@ -54,7 +54,7 @@ export class BxAutocompleteRequest {
         return this.choiceId;
     }
 
-    setChoiceId(choiceId: any) {
+    setChoiceId(choiceId: string) {
         choiceId = choiceId;
     }
 
@@ -62,18 +62,18 @@ export class BxAutocompleteRequest {
         return this.textualSuggestionsHitCount;
     }
 
-    setTextualSuggestionHitCount(textualSuggestionsHitCount: any) {
+    setTextualSuggestionHitCount(textualSuggestionsHitCount: number) {
         textualSuggestionsHitCount = textualSuggestionsHitCount;
     }
     getIndexId() {
         return this.indexId;
     }
 
-    setIndexId(indexId: any) {
+    setIndexId(indexId: string) {
         indexId = indexId;
     }
 
-    setDefaultIndexId(indexId: any) {
+    setDefaultIndexId(indexId: string) {
         if (indexId == null) {
             this.setIndexId(indexId);
         }
@@ -105,7 +105,7 @@ export class BxAutocompleteRequest {
     }
 
 
-    addPropertyQuery(field: any, hitCount: any, evaluateTotal: any = false) {
+    addPropertyQuery(field: string, hitCount: number, evaluateTotal: boolean = false) {
         let propertyQuery: any = new thrift_types.PropertyQuery();
         propertyQuery.name = field;
         propertyQuery.hitCount = hitCount;
@@ -117,7 +117,7 @@ export class BxAutocompleteRequest {
         this.propertyQueries = Array();
     }
 
-    getAutocompleteThriftRequest(profileid: any, thriftUserRecord: any) {
+    getAutocompleteThriftRequest(profileid: string, thriftUserRecord: string) {
         let autocompleteRequest = new thrift_types.AutocompleteQuery();
         autocompleteRequest.userRecord = thriftUserRecord;
         autocompleteRequest.profileId = profileid;

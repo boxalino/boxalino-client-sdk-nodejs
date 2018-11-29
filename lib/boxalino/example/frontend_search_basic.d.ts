@@ -1,10 +1,10 @@
 export declare class frontend_search_basic {
-    account: any;
-    password: any;
-    domain: any;
-    logs: any;
-    isDev: any;
-    bxHost: any;
-    host: any;
-    frontendSearchBasic(account: any, password: any, isDev: any, host: any, queryText: any): void;
+    account: string;
+    password: string;
+    domain: string;
+    logs: string[];
+    isDev: boolean;
+    bxHost: string;
+    host: string;
+    frontendSearchBasic(account: string, password: string, isDev: boolean, host: string, queryText: string): void;
 }

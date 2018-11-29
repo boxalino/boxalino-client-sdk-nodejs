@@ -1,15 +1,15 @@
 export declare class BxFilter {
-    protected fieldName: any;
-    protected values: any;
-    protected negative: any;
+    protected fieldName: string;
+    protected values: string[];
+    protected negative: boolean;
     protected hierarchyId: any;
     protected hierarchy: any;
     protected rangeFrom: any;
     protected rangeTo: any;
-    constructor(fieldName: any, values?: any, negative?: any);
-    getFieldName(): any;
-    getValues(): any;
-    isNegative(): any;
+    constructor(fieldName: string, values?: string[], negative?: boolean);
+    getFieldName(): string;
+    getValues(): string[];
+    isNegative(): boolean;
     getHierarchyId(): any;
     setHierarchyId(hierarchyId: any): void;
     getHierarchy(): any;

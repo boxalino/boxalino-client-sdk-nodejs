@@ -1,14 +1,14 @@
 let thrift_types = require('./bxthrift/p13n_types');
 export class BxFilter {
-	protected fieldName: any;
-	protected values: any;
-	protected negative: any;
+	protected fieldName: string;
+	protected values: string[];
+	protected negative: boolean;
 	protected hierarchyId: any = null;
 	protected hierarchy: any = null;
 	protected rangeFrom: any = null;
 	protected rangeTo: any = null;
 
-	constructor(fieldName: any, values: any = Array(), negative: any = false) {
+	constructor(fieldName: string, values: string[] = Array(), negative: boolean = false) {
 		this.fieldName = fieldName;
 		this.values = values;
 		this.negative = negative;

@@ -130,7 +130,7 @@ export class BxClient {
         return this.apiSecret;
     }
 
-    setSessionAndProfile(sessionId: any, profileId: any) {
+    setSessionAndProfile(sessionId: string, profileId: string) {
         this.sessionId = sessionId;
         this.profileId = profileId;
     }
@@ -186,7 +186,7 @@ export class BxClient {
         return userRecord;
     }
 
-    private getP13n(timeout: any = 2, useCurlIfAvailable: any = true) {
+    private getP13n(timeout: number = 2, useCurlIfAvailable: boolean = true) {
         let spval: any = this.getSessionAndProfile();
         this.profileId = spval[1];
         var connection= thrift.createHttpConnection(this.host, this.port, {
@@ -519,7 +519,7 @@ export class BxClient {
         return new thrift_types.ChoiceRequestBundle({ 'requests': bundleRequest });
     }
 
-    public async choose(chooseAll: any = false, size: any = 0) {
+    public async choose(chooseAll: boolean = false, size: number = 0) {
         let response: any;
         if (chooseAll) {
             let bundleResponse: any = this.p13nchooseAll(this.getThriftBundleChoiceRequest());

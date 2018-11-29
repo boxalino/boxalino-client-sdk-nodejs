@@ -47,7 +47,7 @@ export declare class BxClient {
     getPassword(): string;
     getApiKey(): any;
     getApiSecret(): any;
-    setSessionAndProfile(sessionId: any, profileId: any): void;
+    setSessionAndProfile(sessionId: string, profileId: string): void;
     getSessionAndProfile(): any[];
     private getUserRecord;
     private getP13n;
@@ -79,7 +79,7 @@ export declare class BxClient {
     getThriftChoiceRequest(size?: number): any;
     getBundleChoiceRequest(inquiries: any, requestContext?: any): any;
     getThriftBundleChoiceRequest(): any;
-    choose(chooseAll?: any, size?: any): Promise<void>;
+    choose(chooseAll?: boolean, size?: number): Promise<void>;
     flushResponses(): void;
     getResponse(chooseAll?: boolean): Promise<BxChooseResponse>;
     getNotificationMode(): boolean;

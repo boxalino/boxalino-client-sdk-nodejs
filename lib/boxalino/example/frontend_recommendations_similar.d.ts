@@ -1,11 +1,12 @@
+import { BxChooseResponse } from "../BxChooseResponse";
 export declare class frontend_recommendations_similar {
-    account: any;
-    password: any;
-    domain: any;
-    logs: any;
-    isDev: any;
-    bxHost: any;
-    host: any;
-    bxResponse: any;
-    frontendRecommendationsSimilar(account: any, password: any, isDev: any, host: any): Promise<void>;
+    account: string;
+    password: string;
+    domain: string;
+    logs: string[];
+    isDev: boolean;
+    bxHost: string;
+    host: string;
+    bxResponse: BxChooseResponse;
+    frontendRecommendationsSimilar(account: string, password: string, isDev: boolean, host: string): Promise<void>;
 }

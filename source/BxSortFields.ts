@@ -11,7 +11,7 @@ export class BxSortFields {
      * field name od field to sort by (i.e. discountedPrice / title)
      * reverse true for ASC, false for DESC
      */
-    push(field: any, reverse: any = false) {
+    push(field: any, reverse: boolean = false) {
         this.sorts[field] = reverse;
     }
     getSortFields() {
@@ -25,7 +25,7 @@ export class BxSortFields {
         }
         return output;
     }
-    isFieldReverse(field: any) {
+    isFieldReverse(field: string) {
         if ((typeof (this.sorts[field]) != "undefined" && this.sorts[field] !== null) && this.sorts[field]) {
             return true;
         }
@@ -35,7 +35,7 @@ export class BxSortFields {
     getThriftSortFields() {
         let sortFields: any = Array();
         let tempSortFields: any = this.getSortFields();
-        tempSortFields.forEach(function (field: any) {
+        tempSortFields.forEach(function (field: string) {
             sortFields.push(new thrift_types.SortField({ 'fieldName': field, 'reverse': this.isFieldReverse(field) }))
         });
         return sortFields;
