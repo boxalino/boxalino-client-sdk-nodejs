@@ -1,6 +1,6 @@
 import {Md5} from "md5-typescript";
-import {BxChooseResponse} from "./BxChooseResponse";
-
+import * as bxChooseResponse from "./BxChooseResponse";
+let  thrift_types = require('./bxthrift/p13n_types');
 class BxAutocompleteResponse {
 	private response: any;
 	private bxAutocompleteRequest: any;
@@ -22,7 +22,7 @@ class BxAutocompleteResponse {
 	}
 
 	getTextualSuggestions() {
-		let suggestions: any = Array();
+		let suggestions: string[] = Array();
 		this.getResponse().hits.forEach(function (hit: any) {
 			if (typeof (suggestions[hit.suggestion]) != "undefined" && suggestions[hit.suggestion] !== null) return;
 			suggestions[hit.suggestion] = hit.suggestion;
@@ -30,7 +30,7 @@ class BxAutocompleteResponse {
 		return this.reOrderSuggestions(suggestions);
 	}
 
-	suggestionIsInGroup(groupName: any, suggestion: any) {
+	suggestionIsInGroup(groupName: string, suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
 		switch (groupName) {
 			case 'highlighted-beginning':
@@ -42,33 +42,33 @@ class BxAutocompleteResponse {
 		}
 	}
 
-	reOrderSuggestions(suggestions: any) {
-		let queryText: any = this.getSearchRequest().getQueryText();
+	reOrderSuggestions(suggestions: string[]) {
+		let queryText: string = this.getSearchRequest().getQueryText();
 
-		let groupNames: any = Array('highlighted-beginning', 'highlighted-not-beginning', 'others');
-		let groupValues: any = Array();
+		let groupNames: string[] = Array('highlighted-beginning', 'highlighted-not-beginning', 'others');
+		let groupValues: Array<string[]> = Array();
 		for (let k in groupNames) {
 			let groupName = groupNames[k];
 			if (groupValues[k] == null) {
 				groupValues[k] = Array();
 			}
-			suggestions.forEach(function (suggestion: any) {
+			suggestions.forEach(function (suggestion: string) {
 				if (this.suggestionIsInGroup(groupName, suggestion)) {
 					groupValues[k].push(suggestion);
 				}
 			});
 		}
 
-		let final: any = Array();
-		groupValues.forEach(function (values: any) {
-			values.forEach(function (value: any) {
+		let final: string[] = Array();
+		groupValues.forEach(function (values: string[]) {
+			values.forEach(function (value: string) {
 				final.push(value);
 			});
 		});
 		return final;
 	}
 
-	protected getTextualSuggestionHit(suggestion: any) {
+	protected getTextualSuggestionHit(suggestion: string) {
 		let temp = this.getResponse().hits;
 		temp.forEach(function (hit: any) {
 			if (hit.suggestion == suggestion) {
@@ -78,7 +78,7 @@ class BxAutocompleteResponse {
 		throw new Error("unexisting textual suggestion provided " + suggestion);
 	}
 
-	getTextualSuggestionTotalHitCount(suggestion: any) {
+	getTextualSuggestionTotalHitCount(suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
 		return hit.searchResult.totalHitCount;
 	}
@@ -87,7 +87,7 @@ class BxAutocompleteResponse {
 		return this.bxAutocompleteRequest.getBxSearchRequest();
 	}
 
-	getTextualSuggestionFacets(suggestion: any) {
+	getTextualSuggestionFacets(suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
 
 		let facets = this.getSearchRequest().getFacets();
@@ -98,7 +98,7 @@ class BxAutocompleteResponse {
 		return facets;
 	}
 
-	getTextualSuggestionHighlighted(suggestion: any) {
+	getTextualSuggestionHighlighted(suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
 		if (hit.highlighted == "") {
 			return suggestion;
@@ -106,13 +106,13 @@ class BxAutocompleteResponse {
 		return hit.highlighted;
 	}
 
-	getBxSearchResponse(textualSuggestion: any = null) {
+	getBxSearchResponse(textualSuggestion: string) {
 		let suggestionHit: any = this.getTextualSuggestionHit(textualSuggestion);
 		let searchResult: any = textualSuggestion == null ? this.getResponse().prefixSearchResult : suggestionHit.searchResult;
-		return new BxChooseResponse(searchResult, this.bxAutocompleteRequest.getBxSearchRequest())
+		return new bxChooseResponse.BxChooseResponse(searchResult, this.bxAutocompleteRequest.getBxSearchRequest())
 	}
 
-	getPropertyHits(field: any) {
+	getPropertyHits(field: string) {
 		let response = this.getResponse().propertyResults;
 		response.forEach(function (propertyResult: any) {
 			if (propertyResult.name == field) {
@@ -122,7 +122,7 @@ class BxAutocompleteResponse {
 		return Array();
 	}
 
-	getPropertyHit(field: any, hitValue: any) {
+	getPropertyHit(field: string, hitValue: string) {
 		let proHit: any = this.getPropertyHits(field);
 		proHit.forEach(function (hit: any) {
 			if (hit.value == hitValue) {
@@ -132,8 +132,8 @@ class BxAutocompleteResponse {
 		return null;
 	}
 
-	getPropertyHitValues(field: any) {
-		let hitValues: any = Array();
+	getPropertyHitValues(field: string) {
+		let hitValues: string[] = Array();
 		let proHit: any = this.getPropertyHits(field);
 		proHit.forEach(function (hit: any) {
 			hitValues.push(hit.value);
@@ -141,7 +141,7 @@ class BxAutocompleteResponse {
 		return hitValues;
 	}
 
-	getPropertyHitValueLabel(field: any, hitValue: any) {
+	getPropertyHitValueLabel(field: string, hitValue: string) {
 		let hit: any = this.getPropertyHit(field, hitValue);
 		if (hit != null) {
 			return hit.label;
@@ -149,7 +149,7 @@ class BxAutocompleteResponse {
 		return null;
 	}
 
-	getPropertyHitValueTotalHitCount(field: any, hitValue: any) {
+	getPropertyHitValueTotalHitCount(field: string, hitValue: string) {
 		let hit: any = this.getPropertyHit(field, hitValue);
 		if (hit != null) {
 			return hit.totalHitCount;

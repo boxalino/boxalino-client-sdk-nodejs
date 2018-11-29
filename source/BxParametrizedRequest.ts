@@ -1,10 +1,9 @@
 
-import {BxRequest} from './BxRequest';
-import {BxFacets} from './BxFacets';
-import {BxSortFields} from './BxSortFields';
-import {BxFilter} from './BxFilter';
+import * as bxRequest from "./BxRequest";
+import * as bxFacets from "./BxFacets";
+import * as bxSortFields from "./BxSortFields";
 
-export class BxParametrizedRequest extends BxRequest {
+export class BxParametrizedRequest extends bxRequest.BxRequest {
     private bxReturnFields: any = Array('id');
     private getItemFieldsCB: any = null;
 
@@ -113,7 +112,7 @@ export class BxParametrizedRequest extends BxRequest {
 
     getPrefixedParameters(prefix: any, checkOtherPrefixes: any = true) {
         let params: any = Array();
-        if (Array.isArray(this.requestMap) === false) {
+        if (Array.isArray(this.requestMap)===false) {
             return Array();
         }
         this.requestMap.forEach(function (k: any) {
@@ -230,7 +229,7 @@ export class BxParametrizedRequest extends BxRequest {
     getFacets() {
         let facets: any = super.getFacets();
         if (facets == null) {
-            facets = new BxFacets();
+            facets = new bxFacets.BxFacets();
         }
         this.getPrefixedParameters(this.requestFacetsPrefix).forEach(function (fieldName: any) {
             let selectedValue = this.getPrefixedParameters(this.requestFacetsPrefix)[fieldName];
@@ -242,7 +241,7 @@ export class BxParametrizedRequest extends BxRequest {
     getSortFields() {
         let sortFields: any = super.getSortFields();
         if (sortFields == null) {
-            sortFields = new BxSortFields();
+            sortFields = new bxSortFields.BxSortFields();
         }
         this.getPrefixedParameters(this.requestSortFieldPrefix).forEach(function (name: any) {
             let value = this.getPrefixedParameters(this.requestSortFieldPrefix)[name];
