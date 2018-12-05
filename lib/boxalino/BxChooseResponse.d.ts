@@ -13,7 +13,8 @@ export declare class BxChooseResponse {
     getChoiceResponseVariant(choice?: null, count?: number): any;
     getChoiceIdFromVariantIndex(variant_index: any): any;
     protected getChoiceIdResponseVariant(id?: any): any;
-    getFirstPositiveSuggestionSearchResult(variant: any, maxDistance?: number): null;
+    getFirstPositiveSuggestionSearchResult(variant: any, maxDistance?: number): any;
+    levenshtein_distance(s: string, t: string): number;
     getVariantSearchResult(variant: any, considerRelaxation?: boolean, maxDistance?: number, discardIfSubPhrases?: boolean): any;
     getSearchResultHitVariable(searchResult: any, hitId: any, field: string): null;
     getSearchResultHitFieldValue(searchResult: any, hitId: any, fieldName?: string): null;

@@ -1,3 +1,4 @@
+import { BxChooseResponse } from "../BxChooseResponse";
 export declare class frontend_search_basic {
     account: string;
     password: string;
@@ -6,5 +7,6 @@ export declare class frontend_search_basic {
     isDev: boolean;
     bxHost: string;
     host: string;
-    frontendSearchBasic(account: string, password: string, isDev: boolean, host: string, queryText: string): void;
+    bxResponse: BxChooseResponse;
+    frontendSearchBasic(account: string, password: string, isDev: boolean, host: string, queryText: string): Promise<void>;
 }

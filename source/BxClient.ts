@@ -446,7 +446,7 @@ export class BxClient {
     }
 
     getThriftChoiceRequest(size = 0) {
-        if (this.chooseRequests.length == 0 && this.autocompleteRequests.length > 0) {
+        if (this.chooseRequests.length == 0 &&  this.autocompleteRequests.length > 0) {
             let spval: any = this.getSessionAndProfile();
             let profileid: any = spval[1];
             let userRecord: any = this.getUserRecord();

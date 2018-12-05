@@ -33,10 +33,11 @@ export class BxSortFields {
     }
 
     getThriftSortFields() {
+        let obj=this;
         let sortFields: any = Array();
         let tempSortFields: any = this.getSortFields();
         tempSortFields.forEach(function (field: string) {
-            sortFields.push(new thrift_types.SortField({ 'fieldName': field, 'reverse': this.isFieldReverse(field) }))
+            sortFields.push(new thrift_types.SortField({ 'fieldName': field, 'reverse': obj.isFieldReverse(field) }))
         });
         return sortFields;
     }

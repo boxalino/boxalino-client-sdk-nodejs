@@ -318,7 +318,7 @@ export class BxFacets {
     getFacetCoverage(fieldName: string) {
         let coverage = 0;
         let temp: any = this.getFacetValues(fieldName);
-        temp.forEach(function (facetValue: string) {
+        temp.forEach(function (facetValue: any) {
             coverage += this.getFacetValueCount(fieldName, facetValue);
         });
         return coverage;
@@ -348,14 +348,15 @@ export class BxFacets {
         }
     }
     protected getFacetResponse(fieldName: string) {
+        let facetResp:any;
         if (this.searchResult != null && this.searchResult.facetResponses != null) {
             this.searchResult.facetResponses.forEach(function (facetResponse: any) {
                 if (facetResponse.fieldName == fieldName) {
-                    return facetResponse;
+                    facetResp= facetResponse;
                 }
             });
         }
-        return null;
+        return facetResp;
     }
     protected getFacetType(fieldName: string) {
         let type = 'string';
@@ -365,6 +366,7 @@ export class BxFacets {
         return type;
     }
     protected buildTree(response: any, parents: any = Array(), parentLevel: number = 0) {
+        let obj:any=this;
         if (parents.length == 0) {
             parents = Array();
             response.forEach(function (node: any) {
@@ -401,7 +403,7 @@ export class BxFacets {
                     }
                 }
                 if (allTrue) {
-                    children.pushthis.buildTree(response, node.hierarchy, parentLevel + 1);
+                    children.push(obj.buildTree(response, node.hierarchy, parentLevel + 1));
                 }
             }
         });
@@ -513,7 +515,7 @@ export class BxFacets {
         if (fieldName == 'category_id') return Array();
         let facetValues: any = Array();
         let facetResponse: any = this.getFacetResponse(fieldName);
-        if (facetResponse == null) {
+        if (facetResponse == null || facetResponse==undefined) {
             return Array();
         }
         let type = this.getFacetType(fieldName);
@@ -897,7 +899,7 @@ export class BxFacets {
         return output;
     }
 
-    protected getFacetValueArray(fieldName: string, facetValue: string) {
+    protected getFacetValueArray(fieldName: string, facetValue: any) {
         let fv: any;
         let from: any;
         let to: any;
@@ -905,21 +907,21 @@ export class BxFacets {
         let valueLabel: any;
         let hash: any = fieldName + ' - ' + facetValue;
 
-        if (typeof (this.facetValueArrayCache[hash]) != "undefined" && this.facetValueArrayCache[hash] !== null) {
+        if (this.facetValueArrayCache[hash] != undefined && this.facetValueArrayCache[hash] !== null) {
             return this.facetValueArrayCache[hash];
         }
         let keyValues: any = this.getFacetKeysValues(fieldName, 'alphabetical', this.lastSetMinCategoryLevel);
-        if ((fieldName == this.priceFieldName) && (this.selectedPriceValues != null)) {
+        if ((fieldName == this.priceFieldName) && (this.selectedPriceValues != null) && this.selectedPriceValues!=undefined && (this.selectedPriceValues).length>0) {
             fv = keyValues;
-            from = this.selectedPriceValues[0].rangeFromInclusive.round(2);
-            to = this.selectedPriceValues[0].rangeToExclusive;
+            from = Number(this.selectedPriceValues[0].rangeFromInclusive).toFixed(2);
+            to = Number(this.selectedPriceValues[0].rangeToExclusive).toFixed(2);
             if (this.priceRangeMargin) {
                 to -= 0.01;
             }
-            to = to.round(2);
+            to = Number(to).toFixed(2);
             valueLabel = from + ' - ' + to;
             paramValue = from + ' - ' + to;
-            this.facetValueArrayCache[hash] = Array(valueLabel, paramValue, fv.hitCount, true, false);
+            this.facetValueArrayCache[hash] = Array(valueLabel, paramValue, fv[facetValue].hitCount, true, false);
             return this.facetValueArrayCache[hash];
         }
         if (Array.isArray(facetValue)) {
@@ -950,8 +952,8 @@ export class BxFacets {
                 return this.facetValueArrayCache[hash];
 
             case 'ranged':
-                from = fv.rangeFromInclusive.round(2);
-                to = fv.rangeToExclusive.round(2);
+                from = Number(fv.rangeFromInclusive).toFixed(2);
+                to = Number(fv.rangeToExclusive).toFixed(2);
                 valueLabel = from + ' - ' + to;
                 paramValue = fv.stringValue;
                 paramValue = "from-to";
@@ -979,10 +981,10 @@ export class BxFacets {
         }
         return valueLabel;
     }
-    getPriceValueLabel(facetValue: string) {
+    getPriceValueLabel(facetValue: any) {
         return this.getFacetValueLabel(this.getPriceFieldName(), facetValue);
     }
-    getFacetValueLabel(fieldName: string, facetValue: string) {
+    getFacetValueLabel(fieldName: string, facetValue: any) {
         let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label: any = tempFacetVal[0];
         let parameterValue: any = tempFacetVal[1];
@@ -990,13 +992,13 @@ export class BxFacets {
         let selected: any = tempFacetVal[3];
         return label;
     }
-    getCategoryValueCount(facetValue: string) {
+    getCategoryValueCount(facetValue: any) {
         return this.getFacetValueCount(this.getCategoryFieldName(), facetValue);
     }
-    getPriceValueCount(facetValue: string) {
+    getPriceValueCount(facetValue: any) {
         return this.getFacetValueCount(this.getPriceFieldName(), facetValue);
     }
-    getFacetValueCount(fieldName: string, facetValue: string) {
+    getFacetValueCount(fieldName: string, facetValue: any) {
         let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
@@ -1004,7 +1006,7 @@ export class BxFacets {
         let selected = tempFacetVal[3];
         return hitCount;
     }
-    isFacetValueHidden(fieldName: string, facetValue: string) {
+    isFacetValueHidden(fieldName: string, facetValue: any) {
         let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
@@ -1013,13 +1015,13 @@ export class BxFacets {
         let hidden = tempFacetVal[4];
         return hidden;
     }
-    getCategoryValueId(facetValue: string) {
+    getCategoryValueId(facetValue: any) {
         return this.getFacetValueParameterValue(this.getCategoryFieldName(), facetValue);
     }
-    getPriceValueParameterValue(facetValue: string) {
+    getPriceValueParameterValue(facetValue: any) {
         return this.getFacetValueParameterValue(this.getPriceFieldName(), facetValue);
     }
-    getFacetValueParameterValue(fieldName: string, facetValue: string) {
+    getFacetValueParameterValue(fieldName: string, facetValue: any) {
         let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
@@ -1027,10 +1029,10 @@ export class BxFacets {
         let selected = tempFacetVal[3];
         return parameterValue;
     }
-    isPriceValueSelected(facetValue: string) {
+    isPriceValueSelected(facetValue: any) {
         return this.isFacetValueSelected(this.getPriceFieldName(), facetValue);
     }
-    isFacetValueSelected(fieldName: string, facetValue: string) {
+    isFacetValueSelected(fieldName: string, facetValue: any) {
         let tempFacetVal = this.getFacetValueArray(fieldName, facetValue);
         let label = tempFacetVal[0];
         let parameterValue = tempFacetVal[1];
@@ -1038,7 +1040,7 @@ export class BxFacets {
         let selected = tempFacetVal[3];
         return selected;
     }
-    getFacetValueIcon(fieldName: string, facetValue: string, language: any = null, defaultValue: string = '') {
+    getFacetValueIcon(fieldName: string, facetValue: any, language: any = null, defaultValue: string = '') {
         facetValue = facetValue.toLowerCase();
         let iconMap: any = JSON.parse(this.getFacetExtraInfo(fieldName, 'iconMap'));
         iconMap.forEach(function (icon: any) {
@@ -1077,7 +1079,7 @@ export class BxFacets {
     }
     private facetSelectedValue(fieldName: string, option: string) {
         let selectedFacets: any = Array();
-        if (typeof (this.facets[fieldName]['selectedValues']) != "undefined" && (this.facets[fieldName]['selectedValues']) !== null) {
+        if (this.facets[fieldName]['selectedValues'] != undefined && (this.facets[fieldName]['selectedValues']) !== null && (this.facets[fieldName]['selectedValues']).length>0) {
             this.facets[fieldName]['selectedValues'].forEach(function (value: any) {
                 let selectedFacet: any = new thrift_types.FacetValue();
                 if (option == 'ranged') {

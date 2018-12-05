@@ -199,11 +199,15 @@ export class BxRequest {
 		if (this.hitsGroupsAsHits !== null) {
 			searchQuery.hitsGroupsAsHits = this.hitsGroupsAsHits;
 		}
-		if (this.getFilters().length > 0) {
+		if (Object.keys(this.getFilters()).length > 0) {
 			searchQuery.filters = Array();
-			this.getFilters().forEach(function (filter: any) {
-				searchQuery.filters.push(filter.getThriftFilter());
-			});
+			let requestFilters=this.getFilters();
+			for(let i in requestFilters)
+			{
+				let filter=requestFilters[i];
+                searchQuery.filters.push(filter.getThriftFilter());
+			}
+
 		}
 		searchQuery.orFilters = this.getOrFilters();
 		if (this.getFacets()) {

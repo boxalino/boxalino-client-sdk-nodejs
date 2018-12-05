@@ -5,13 +5,15 @@ export class BxChooseResponse {
     private response: any;
     private bxRequests: any;
     private notifications: any = Array();
-    constructor(response: any, _bxRequests: any= Array()) {
+
+    constructor(response: any, _bxRequests: any = Array()) {
         this.response = response;
         this.bxRequests = Array.isArray(_bxRequests) ? _bxRequests : Array(_bxRequests);
     }
+
     protected notificationLog = Array();
     protected notificationMode = false;
-    
+
     setNotificationMode(mode: any) {
         this.notificationMode = mode;
         this.bxRequests.forEach(function (bxRequest: any) {
@@ -21,18 +23,21 @@ export class BxChooseResponse {
             }
         });
     }
+
     getNotificationMode() {
         return this.notificationMode;
     }
+
     addNotification(name: any, parameters: any) {
         if (this.notificationMode) {
-            this.notifications.push(Array({ 'name': name, 'parameters': parameters }));
+            this.notifications.push(Array({'name': name, 'parameters': parameters}));
         }
     }
+
     getNotifications() {
         let finalNotifications: any = this.notifications;
         this.bxRequests.forEach(function (bxRequest: any) {
-            finalNotifications.push(Array({ 'name': 'bxFacet', 'parameters': this.bxRequest.getChoiceId() }));
+            finalNotifications.push(Array({'name': 'bxFacet', 'parameters': this.bxRequest.getChoiceId()}));
             let facets: any = bxRequest.getFacets();
             if (facets != null) {
                 let notify = facets.getNotifications();
@@ -43,9 +48,11 @@ export class BxChooseResponse {
         });
         return finalNotifications;
     }
+
     getResponse() {
         return this.response;
     }
+
     getChoiceResponseVariant(choice = null, count = 0) {
         for (let k in this.bxRequests) {
             let bxRequest: any = this.bxRequests[k];
@@ -58,9 +65,11 @@ export class BxChooseResponse {
             }
         }
     }
+
     getChoiceIdFromVariantIndex(variant_index: any) {
         return (typeof (this.bxRequests[variant_index]) != "undefined" && this.bxRequests[variant_index] !== null) ? this.bxRequests[variant_index].getChoiceId() : null;
     }
+
     protected getChoiceIdResponseVariant(id: any = 0) {
         let response: any = this.getResponse();
         if ((response.variants !== null && response.variants !== "") && (typeof (response.variants[id]) != "undefined" && response.variants[id] !== null)) {
@@ -74,22 +83,70 @@ export class BxChooseResponse {
         }
         throw new Error("no variant provided in choice response for variant id id, bxRequest: " + String(this.bxRequests));
     }
+
     getFirstPositiveSuggestionSearchResult(variant: any, maxDistance: number = 10) {
-        if (variant.searchRelaxation.suggestionsResults !== null) {
+        let obj=this;
+        let suggestionSearchResult:any;
+        if (variant.searchRelaxation == null || variant.searchRelaxation == undefined || variant.searchRelaxation.suggestionsResults == null) {
             return null;
         }
+
         variant.searchRelaxation.suggestionsResults.forEach(function (searchResult: any) {
             if (searchResult.totalHitCount > 0) {
                 if (searchResult.queryText == "" || variant.searchResult.queryText == "") {
                     return;
                 }
-                let distance: any = this.levenshtein(searchResult.queryText, variant.searchResult.queryText);
+                let distance: any = obj.levenshtein_distance(searchResult.queryText, variant.searchResult.queryText);
                 if (distance <= maxDistance && distance != -1) {
-                    return searchResult;
+                    suggestionSearchResult= searchResult;
                 }
             }
         });
-        return null;
+        return suggestionSearchResult;
+    }
+
+    levenshtein_distance(s: string, t: string) {
+        let m:number = s.length;
+        let n:number = t.length;
+        let d:number[][] = new Array(new Array());
+
+
+        if (n == 0)
+        {
+            return m;
+        }
+
+        if (m == 0)
+        {
+            return n;
+        }
+
+
+        for (let i = 0; i <= n; i++)
+        {
+            d[i]=[];
+            d[i][0]=i;
+        }
+
+        for (let j = 0; j <= m;j++)
+        {
+            d[0][j] = j;
+        }
+
+
+        for (let i = 1; i <= m; i++)
+        {
+            for (let j = 1; j <= n; j++)
+            {
+                let cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+
+                d[i][j] = Math.min(
+                    Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1),
+                    d[i - 1][j - 1] + cost);
+            }
+        }
+
+        return d[n][m];
     }
 
     getVariantSearchResult(variant: any, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
@@ -171,7 +228,7 @@ export class BxChooseResponse {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitVariable(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, field);
     }
-    
+
     getHitFieldValue(choice: any = null, hitId: number = 0, fieldName: string = '', count: number = 0, considerRelaxation: boolean = true, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchResultHitFieldValue(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), hitId, fieldName);
@@ -200,7 +257,7 @@ export class BxChooseResponse {
     }
 
     getSearchHitFieldValues(searchResult: any, fields: string[]) {
-        let fieldValues: any = {};
+        let fieldValues: any = [];
         if (searchResult) {
             let hits = searchResult.hits;
             if (searchResult.hits == null) {
@@ -219,21 +276,20 @@ export class BxChooseResponse {
                 finalFields.forEach(function (field: any) {
                     if (typeof (item.values[field]) != "undefined" && item.values[field] !== null) {
                         if (item.values[field] !== null && item.values[field] !== "") {
-                            if(!fieldValues.hasOwnProperty(item.values['id'][0])) {
+                            if (!fieldValues.hasOwnProperty(item.values['id'][0])) {
                                 let key: string = item.values['id'][0];
-                                fieldValues[key]= Array();
+                                fieldValues[key.toString()] = Array();
+                              // fieldValues.push(item.values['id'][0],Array());
                             }
-                            fieldValues[item.values['id'][0]][field] = item.values[field][0];
+                            fieldValues[(item.values['id'][0]).toString()][field] = item.values[field];
                         }
                     }
                     if (item.values['id'] !== null && item.values['id'] !== undefined) {
-                        if(item.values['id'][0]!==null && item.values['id'][0]!==undefined)
-                        {
-                            if(fieldValues[item.values['id'][0]]!==null && fieldValues[item.values['id'][0]]!==undefined)
-                            {
-                                if (fieldValues[item.values['id'][0]][field] === null) {
+                        if (item.values['id'][0] !== null && item.values['id'][0] !== undefined) {
+                            if (fieldValues[item.values['id'][0]] !== null && fieldValues[item.values['id'][0]] !== undefined) {
+                                if (fieldValues[item.values['id'][0]][field] === null)
                                     fieldValues[item.values['id'][0]][field] = this.retrieveHitFieldValues(item, field, searchResult.hits, finalFields);
-                                }
+                                }{
                             }
                         }
                     }
@@ -258,7 +314,7 @@ export class BxChooseResponse {
         });
         return null;
     }
-    
+
     getFacets(choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let searchResult: any = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);
@@ -269,10 +325,12 @@ export class BxChooseResponse {
         facets.setSearchResults(searchResult);
         return facets;
     }
+
     getHitFieldValues(fields: any, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         return this.getSearchHitFieldValues(this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases), fields);
     }
+
     getFirstHitFieldValue(field: any = null, returnOneValue: boolean = true, hitIndex: number = 0, choice: any = null, count: number = 0, maxDistance: number = 10) {
         let fieldNames: any = null;
         if (field != null) {
@@ -298,6 +356,7 @@ export class BxChooseResponse {
         }
         return null;
     }
+
     getTotalHitCount(choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         let variant = this.getChoiceResponseVariant(choice, count);
         let searchResult = this.getVariantSearchResult(variant, considerRelaxation, maxDistance, discardIfSubPhrases);
@@ -306,12 +365,15 @@ export class BxChooseResponse {
         }
         return searchResult.totalHitCount;
     }
+
     areResultsCorrected(choice: any = null, count: number = 0, maxDistance: number = 10) {
         return this.getTotalHitCount(choice, false, count) == 0 && this.getTotalHitCount(choice, true, count, maxDistance) > 0 && this.areThereSubPhrases() == false;
     }
+
     areResultsCorrectedAndAlsoProvideSubPhrases(choice: any = null, count: number = 0, maxDistance: number = 10) {
         return this.getTotalHitCount(choice, false, count) == 0 && this.getTotalHitCount(choice, true, count, maxDistance, false) > 0 && this.areThereSubPhrases() == true;
     }
+
     getCorrectedQuery(choice: any = null, count: number = 0, maxDistance: number = 10) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         let searchResult: any = this.getVariantSearchResult(variant, true, maxDistance, false);
@@ -320,6 +382,7 @@ export class BxChooseResponse {
         }
         return null;
     }
+
     getResultTitle(choice: any = null, count: number = 0, ddefault: string = '- no title -') {
         let variant: any = this.getChoiceResponseVariant(choice, count);
         if (typeof (variant.searchResultTitle) != "undefined" && variant.searchResultTitle !== null) {
@@ -327,10 +390,12 @@ export class BxChooseResponse {
         }
         return ddefault;
     }
+
     areThereSubPhrases(choice: any = null, count: number = 0, maxBaseResults: number = 0) {
         let variant: any = this.getChoiceResponseVariant(choice, count);
-        return (typeof (variant.searchRelaxation.subphrasesResults) != "undefined" && variant.searchRelaxation.subphrasesResults !== null) && variant.searchRelaxation.subphrasesResults.length > 0 && this.getTotalHitCount(choice, false, count) <= maxBaseResults;
+        return ((variant != null && variant.searchRelaxation != null && variant.searchRelaxation != undefined && (variant.searchRelaxation.subphrasesResults) != "undefined" && variant.searchRelaxation.subphrasesResults !== null) && variant.searchRelaxation.subphrasesResults.length > 0 && this.getTotalHitCount(choice, false, count) <= maxBaseResults);
     }
+
     getSubPhrasesQueries(choice: any = null, count: number = 0) {
         if (!this.areThereSubPhrases(choice, count)) {
             return Array();
@@ -342,6 +407,7 @@ export class BxChooseResponse {
         });
         return queries;
     }
+
     getSubPhraseSearchResult(queryText: string, choice: any = null, count: number = 0) {
         if (!this.areThereSubPhrases(choice, count)) {
             return null;
@@ -354,6 +420,7 @@ export class BxChooseResponse {
         });
         return null;
     }
+
     getSubPhraseTotalHitCount(queryText: string, choice: any = null, count: number = 0) {
         let searchResult: any = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
@@ -361,6 +428,7 @@ export class BxChooseResponse {
         }
         return 0;
     }
+
     getSubPhraseHitIds(queryText: string, choice: any = null, count: number = 0, fieldId: string = 'id') {
         let searchResult = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
@@ -368,6 +436,7 @@ export class BxChooseResponse {
         }
         return Array();
     }
+
     getSubPhraseHitFieldValues(queryText: string, fields: string[], choice: any = null, considerRelaxation: boolean = true, count: number = 0) {
         let searchResult: any = this.getSubPhraseSearchResult(queryText, choice, count);
         if (searchResult) {
@@ -375,6 +444,7 @@ export class BxChooseResponse {
         }
         return Array();
     }
+
     toJson(fields: string[]) {
         let object: any = Array();
         object['hits'] = Array();
@@ -384,12 +454,13 @@ export class BxChooseResponse {
             let hitFieldValues: any = Array();
             for (let fieldName in fieldValueMap) {
                 let fieldValues: any = fieldValueMap[fieldName];
-                hitFieldValues[fieldName] = Array({ 'values': fieldValues });
+                hitFieldValues[fieldName] = Array({'values': fieldValues});
             }
-            object['hits'].push(Array({ 'id': id, 'fieldValues': hitFieldValues }));
+            object['hits'].push(Array({'id': id, 'fieldValues': hitFieldValues}));
         }
         return JSON.stringify(object);
     }
+
     getSearchResultExtraInfo(searchResult: any, extraInfoKey: any, defaultExtraInfoValue: any = null) {
         if (searchResult) {
             if (Array.isArray(searchResult.extraInfo) && searchResult.extraInfo.length > 0 && (typeof (searchResult.extraInfo[extraInfoKey]) != "undefined" && searchResult.extraInfo[extraInfoKey] !== null)) {
@@ -399,6 +470,7 @@ export class BxChooseResponse {
         }
         return defaultExtraInfoValue;
     }
+
     mergeJourneyParams(parentParams: any, childParams: any) {
         let mergedParams = (parentParams === null) ? Array() : parentParams;
         childParams = (childParams === null) ? Array() : childParams;
@@ -418,6 +490,7 @@ export class BxChooseResponse {
         });
         return mergedParams;
     }
+
     getCPOJourney(choice_id: any = 'narrative') {
         let variant: any = this.getChoiceResponseVariant(choice_id);
         let journey: any = Array();
@@ -432,6 +505,7 @@ export class BxChooseResponse {
         }
         return journey;
     }
+
     getStoryLine(choice_id: any = 'narrative') {
         let journey = this.getCPOJourney(choice_id);
         if (typeof (journey['storyLines']) != "undefined" && journey['storyLines'] !== null) {
@@ -450,6 +524,7 @@ export class BxChooseResponse {
         }
         return Array();
     }
+
     getParameterValuesForVisualElement(element: any, paramName: string) {
         if ((typeof (element['parameters']) != "undefined" && element['parameters'] !== null) && Array.isArray(element['parameters'])) {
             element['parameters'].forEach(function (parameter: any) {
@@ -460,6 +535,7 @@ export class BxChooseResponse {
         }
         return null;
     }
+
     getNarrativeDependencies(choice_id: any = 'narrative') {
         let dependencies: any = Array();
         let narratives: any = this.getNarratives(choice_id);
@@ -476,6 +552,7 @@ export class BxChooseResponse {
         });
         return dependencies;
     }
+
     getNarratives(choice_id: any = 'narrative') {
         let storyLine: any = this.getStoryLine(choice_id);
         let params = (typeof (storyLine['parameters']) != "undefined" && storyLine['parameters'] !== null) ? storyLine['parameters'] : Array();
@@ -497,6 +574,7 @@ export class BxChooseResponse {
         }
         return Array();
     }
+
     getOverwriteParams(parameters: any) {
         let overwriteParameters: any = Array();
         parameters.forEach(function (parameter: any) {
@@ -510,6 +588,7 @@ export class BxChooseResponse {
         });
         return overwriteParameters;
     }
+
     prepareVisualElement(render: any, overwriteParams: any) {
         let visualElement: any = render['visualElement'];
         let visualElementParams: any = this.mergeJourneyParams(render['parameters'], visualElement['parameters']);
@@ -528,6 +607,7 @@ export class BxChooseResponse {
         render['visualElement'] = visualElement;
         return render;
     }
+
     propagateParams(acts: any, params: any) {
         for (let index in acts) {
             let act: any = acts[index];
@@ -564,6 +644,7 @@ export class BxChooseResponse {
         }
         return acts;
     }
+
     getVariantExtraInfo(variant: any, extraInfoKey: any, defaultExtraInfoValue: any = null) {
         if (variant) {
             if (Array.isArray(variant.extraInfo) && variant.extraInfo.length > 0 && (typeof (variant.extraInfo[extraInfoKey]) != "undefined" && variant.extraInfo[extraInfoKey] !== null)) {
@@ -573,14 +654,17 @@ export class BxChooseResponse {
         }
         return defaultExtraInfoValue;
     }
+
     getExtraInfo(extraInfoKey: any, defaultExtraInfoValue: any = null, choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
         let variant = this.getChoiceResponseVariant(choice, count);
         return this.getVariantExtraInfo(variant, extraInfoKey);
     }
+
     ucfirst(str: any) {
         if (typeof (str) !== 'string') return ''
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
     prettyPrintLabel(label: any, prettyPrint: any = false) {
         if (prettyPrint) {
             label = label.replace('_', ' ');
@@ -589,15 +673,17 @@ export class BxChooseResponse {
         }
         return label;
     }
+
     getLanguage(defaultLanguage: string = 'en') {
         if (typeof (this.bxRequests[0]) != "undefined" && this.bxRequests[0] !== null) {
             return this.bxRequests[0].getLanguage();
         }
         return defaultLanguage;
     }
+
     getExtraInfoLocalizedValue(extraInfoKey: any, language: any = null, defaultExtraInfoValue: any = null, prettyPrint: any = false,
-        choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
-        let defaultValue: string="";
+                               choice: any = null, considerRelaxation: any = true, count: any = 0, maxDistance: any = 10, discardIfSubPhrases: any = true) {
+        let defaultValue: string = "";
         let jsonLabel: any = this.getExtraInfo(extraInfoKey, defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
         if (jsonLabel == null) {
             return this.prettyPrintLabel(defaultValue, prettyPrint);
@@ -606,7 +692,7 @@ export class BxChooseResponse {
         if (language == null) {
             language = this.getLanguage();
         }
-        if (Array.isArray(labels)==false) {
+        if (Array.isArray(labels) == false) {
             return jsonLabel;
         }
         labels.forEach(function (label: any) {
@@ -619,48 +705,63 @@ export class BxChooseResponse {
         });
         return this.prettyPrintLabel(defaultValue, prettyPrint);
     }
+
     getSearchMessageTitle(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count = 0, maxDistance = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_title', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageDescription(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_description', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageTitleStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_title_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageDescriptionStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_description_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageContainerStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_container_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageLinkStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_link_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageSideImageStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_side_image_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageMainImageStyle(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_main_image_style', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageMainImage(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_main_image', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageSideImage(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_side_image', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('search_message_link', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getRedirectLink(language: any = null, defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfoLocalizedValue('redirect_url', language, defaultExtraInfoValue, prettyPrint, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageGeneralCss(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_general_css', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getSearchMessageDisplayType(defaultExtraInfoValue: any = null, prettyPrint: boolean = false, choice: any = null, considerRelaxation: boolean = true, count: number = 0, maxDistance: number = 10, discardIfSubPhrases: boolean = true) {
         return this.getExtraInfo('search_message_display_type', defaultExtraInfoValue, choice, considerRelaxation, count, maxDistance, discardIfSubPhrases);
     }
+
     getLocalizedValue(values: any, key: any = null) {
         if (Array.isArray(values)) {
             let language: any = this.getLanguage();
@@ -678,4 +779,6 @@ export class BxChooseResponse {
         }
         return values;
     }
+
+
 }
