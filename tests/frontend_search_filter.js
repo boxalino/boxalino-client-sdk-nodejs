@@ -20,7 +20,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     require("mocha");
     const assert = require("assert");
     const _frontendSearchFilter = require("../lib/boxalino/example/frontend_search_filter");
-    describe("frontend_search_basic", () => {
+    describe("frontend_search_filter", () => {
         let account = "boxalino_automated_tests2"; // your account name
         let password = "boxalino_automated_tests2"; // your account password
         let isDev = false;

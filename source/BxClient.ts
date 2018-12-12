@@ -567,8 +567,9 @@ export class BxClient {
     }
 
     setAutocompleteRequests(requests: any) {
+        var obj=this;
         requests.forEach(function (request: any) {
-            this.enhanceAutoCompleterequest(request);
+            obj.enhanceAutoCompleterequest(request);
         });
         this.autocompleteRequests = requests;
     }
@@ -604,11 +605,11 @@ export class BxClient {
     async autocomplete() {
         let spval: any = this.getSessionAndProfile();
         let profileid: any = spval[1];
-
         let userRecord: any = this.getUserRecord();
         let tempArray: any = this.autocompleteRequests;
-        let p13nrequests: any = tempArray.map(function (this: any) {
-            this.getAutocompleteThriftRequest(profileid, userRecord);
+
+        let p13nrequests: any = tempArray.map(function (tempItem: any) {
+            return tempItem.getAutocompleteThriftRequest(profileid, userRecord);
         });
         let i: any = -1;
 
@@ -618,8 +619,8 @@ export class BxClient {
         });
     }
 
-    getAutocompleteResponse() {
-        let responses: any = this.getAutocompleteResponses();
+    async getAutocompleteResponse() {
+        let responses: any =await this.getAutocompleteResponses();
         if (typeof (responses[0]) != "undefined" && responses[0] !== null) {
             return responses[0];
         }
@@ -649,9 +650,9 @@ export class BxClient {
         }
     }
 
-    getAutocompleteResponses() {
+    async getAutocompleteResponses() {
         if (!this.autocompleteResponses) {
-            this.autocomplete();
+           await this.autocomplete();
         }
         return this.autocompleteResponses;
     }

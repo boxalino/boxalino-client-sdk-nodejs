@@ -12,19 +12,19 @@ export class BxAutocompleteRequest {
     protected highlightPost: string;
     private propertyQueries: string[] = Array();
 
-    protected indexId = null;
+    protected indexId:string;
 
     constructor(language: string, queryText: string, textualSuggestionsHitCount: number, productSuggestionHitCount: number = 5, autocompleteChoiceId: string = 'autocomplete', searchChoiceId: string = 'search', highlight: boolean = true, highlightPre: string = '<em>', highlightPost: string = '</em>') {
-        language = language;
-        queryText = queryText;
-        textualSuggestionsHitCount = textualSuggestionsHitCount;
-        highlight = highlight;
-        highlightPre = highlightPre;
-        highlightPost = highlightPost;
+        this.language = language;
+        this.queryText = queryText;
+        this.textualSuggestionsHitCount = textualSuggestionsHitCount;
+        this.highlight = highlight;
+        this.highlightPre = highlightPre;
+        this.highlightPost = highlightPost;
         if (autocompleteChoiceId == null || autocompleteChoiceId=="") {
             autocompleteChoiceId = 'autocomplete';
         }
-        let choiceId: any = autocompleteChoiceId;
+        this.choiceId = autocompleteChoiceId;
         this.bxSearchRequest = new BxSearchRequest(language, queryText, productSuggestionHitCount, searchChoiceId);
     }
     getBxSearchRequest() {
@@ -32,14 +32,14 @@ export class BxAutocompleteRequest {
     }
 
     setBxSearchRequest(bxSearchRequest: any) {
-        bxSearchRequest = bxSearchRequest;
+        this.bxSearchRequest = bxSearchRequest;
     }
     getLanguage() {
         return this.language;
     }
 
     setLanguage(language: string) {
-        language = language;
+        this.language = language;
     }
 
     getQuerytext() {
@@ -47,7 +47,7 @@ export class BxAutocompleteRequest {
     }
 
     setQuerytext(queryText: string) {
-        queryText = queryText;
+        this.queryText = queryText;
     }
 
     getChoiceId() {
@@ -55,7 +55,7 @@ export class BxAutocompleteRequest {
     }
 
     setChoiceId(choiceId: string) {
-        choiceId = choiceId;
+        this.choiceId = choiceId;
     }
 
     getTextualSuggestionHitCount() {
@@ -63,18 +63,18 @@ export class BxAutocompleteRequest {
     }
 
     setTextualSuggestionHitCount(textualSuggestionsHitCount: number) {
-        textualSuggestionsHitCount = textualSuggestionsHitCount;
+        this.textualSuggestionsHitCount = textualSuggestionsHitCount;
     }
     getIndexId() {
         return this.indexId;
     }
 
     setIndexId(indexId: string) {
-        indexId = indexId;
+        this.indexId = indexId;
     }
 
     setDefaultIndexId(indexId: string) {
-        if (indexId == null) {
+        if (this.indexId == null || this.indexId=="" || this.indexId==undefined) {
             this.setIndexId(indexId);
         }
         this.bxSearchRequest.setDefaultIndexId(indexId);

@@ -2,7 +2,7 @@ import "mocha";
 import * as assert from "assert";
 import * as _frontendSearchRequestContextParameters from "../lib/boxalino/example/frontend_search_request_context_parameters";
 
-describe("frontend_search_basic", () => {
+describe("frontend_search_request_context_parameters", () => {
     let account: string = "boxalino_automated_tests2"; // your account name
     let password: string = "boxalino_automated_tests2"; // your account password
     let isDev: boolean = false;

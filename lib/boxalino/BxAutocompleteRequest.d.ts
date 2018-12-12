@@ -8,7 +8,7 @@ export declare class BxAutocompleteRequest {
     protected highlightPre: string;
     protected highlightPost: string;
     private propertyQueries;
-    protected indexId: null;
+    protected indexId: string;
     constructor(language: string, queryText: string, textualSuggestionsHitCount: number, productSuggestionHitCount?: number, autocompleteChoiceId?: string, searchChoiceId?: string, highlight?: boolean, highlightPre?: string, highlightPost?: string);
     getBxSearchRequest(): any;
     setBxSearchRequest(bxSearchRequest: any): void;
@@ -20,7 +20,7 @@ export declare class BxAutocompleteRequest {
     setChoiceId(choiceId: string): void;
     getTextualSuggestionHitCount(): number;
     setTextualSuggestionHitCount(textualSuggestionsHitCount: number): void;
-    getIndexId(): null;
+    getIndexId(): string;
     setIndexId(indexId: string): void;
     setDefaultIndexId(indexId: string): void;
     getHighlight(): boolean;
