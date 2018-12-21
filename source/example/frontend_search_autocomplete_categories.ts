@@ -1,10 +1,11 @@
 import * as bxClient from '../BxClient';
 import * as bxAutoCompleteRequest from '../BxAutocompleteRequest';
+import * as bxFacets from '../BxFacets';
 import {BxChooseResponse} from "../BxChooseResponse";
 
 var request = require('request');
 
-export class frontend_search_autocomplete_basic {
+export class frontend_search_autocomplete_categories {
     public account: string = "boxalino_automated_tests2"; // your account name
     public password: string = "boxalino_automated_tests2"; // your account password
     public domain: string = ""; // your web-site domain (e.g.: www.abc.com)
@@ -15,7 +16,7 @@ export class frontend_search_autocomplete_basic {
     public bxResponse: any;
 
 
-    public async frontendSearchAutocompleteBasic(account: string, password: string, isDev: boolean, host: string, queryText: string) {
+    public async frontend_search_autocomplete_categories(account: string, password: string, isDev: boolean, host: string, queryText: string) {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
             let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
@@ -27,6 +28,12 @@ export class frontend_search_autocomplete_basic {
             //create search request
             let bxRequest = new bxAutoCompleteRequest.BxAutocompleteRequest(language, queryText, textualSuggestionsHitCount);
 
+            let bxSearchRequest = bxRequest.getBxSearchRequest();
+
+            let facets =  new bxFacets.BxFacets()
+            facets.addCategoryFacet()
+            bxSearchRequest.setFacets(facets)
+
             //set the request
             _bxClient.setAutocompleteRequest(Array(bxRequest));
 
@@ -36,15 +43,30 @@ export class frontend_search_autocomplete_basic {
 
             let logs: string[] = Array();
 
+            ///----------------------
             //loop on the search response hit ids and print them
             logs.push("textual suggestions for "+ queryText +":");
             for(let suggestion in this.bxResponse.getTextualSuggestions()) {
                 logs.push(this.bxResponse.getTextualSuggestionHighlighted(suggestion));
             }
 
+
+            let i = 0;
+            //loop on the search response hit ids and print them
+            logs.push("textual suggestions for "+ queryText +":");
+            for(let suggestion in this.bxResponse.getTextualSuggestions()) {
+                logs.push(this.bxResponse.getTextualSuggestionHighlighted(suggestion));
+                if(i == 0){
+                    for(let value in this.bxResponse.getTextualSuggestionFacets(suggestion)) {
+                        logs.push("<a href=\"?bx_category_id=" + facets.getCategoryValueId(value) + "\">" + facets.getCategoryValueLabel(value) + "</a> (" + facets.getCategoryValueCount(value) + ")")
+                    }
+                }
+                i++;
+            }
+
             //if(this.bxResponse.getTextualSuggestions().count() == 0) {
             if(this.bxResponse.getTextualSuggestions().length == 0) {
-               logs.push("There are no autocomplete textual suggestions. This might be normal, but it also might mean that the first execution of the autocomplete index preparation was not done and published yet. Please refer to the example backend_data_init and make sure you have done the following steps at least once: 1) publish your data 2) run the prepareAutocomplete case 3) publish your data again");
+                logs.push("There are no autocomplete textual suggestions. This might be normal, but it also might mean that the first execution of the autocomplete index preparation was not done and published yet. Please refer to the example backend_data_init and make sure you have done the following steps at least once: 1) publish your data 2) run the prepareAutocomplete case 3) publish your data again");
             }
 
             if (typeof (print) === "undefined" || print !== null || print) {

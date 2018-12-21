@@ -1,4 +1,5 @@
 import { BxChooseResponse } from './BxChooseResponse';
+import { BxAutocompleteResponse } from './BxAutocompleteResponse';
 export declare class BxClient {
     private account;
     private password;
@@ -98,4 +99,5 @@ export declare class BxClient {
     addNotification(type: any, notification: any): void;
     getNotifications(): Promise<any>;
     finalNotificationCheck(force?: boolean, requestMapKey?: string): any;
+    autocompletePartail(response: any, i: any): BxAutocompleteResponse;
 }

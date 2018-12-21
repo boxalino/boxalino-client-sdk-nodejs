@@ -12,14 +12,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "mocha", "../lib/boxalino/example/frontend_search_autocomplete_basic"], factory);
+        define(["require", "exports", "mocha", "assert", "../lib/boxalino/example/frontend_search_autocomplete_items"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     require("mocha");
-    const _frontendSearchAutocompleteBasic = require("../lib/boxalino/example/frontend_search_autocomplete_basic");
-    describe("frontend_search_autocomplete_basic", () => {
+    const assert = require("assert");
+    const _frontendSearchAutocompleteItems = require("../lib/boxalino/example/frontend_search_autocomplete_items");
+    describe("frontend_search_autocomplete_items", () => {
         let account = "boxalino_automated_tests2"; // your account name
         let password = "boxalino_automated_tests2"; // your account password
         let isDev = false;
@@ -27,11 +28,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         let queryText = "whit";
         let textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag'];
         it("test", () => __awaiter(this, void 0, void 0, function* () {
-            let _frontendSearch = new _frontendSearchAutocompleteBasic.frontend_search_autocomplete_basic();
+            let _frontendSearch = new _frontendSearchAutocompleteItems.frontend_search_autocomplete_items();
             //testing the result of the frontend search basic case
-            yield _frontendSearch.frontendSearchAutocompleteBasic(account, password, isDev, bxHost, queryText);
-            let _textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag'];
+            yield _frontendSearch.frontendSearchAutocompleteItems(account, password, isDev, bxHost, queryText);
+            assert.deepEqual(_frontendSearch.bxResponse.getTextualSuggestions(), textualSuggestions);
         })).timeout(5000);
     });
 });
-//# sourceMappingURL=frontend_search_autocomplete_basic.js.map
+//# sourceMappingURL=frontend_search_autocomplete_items.js.map

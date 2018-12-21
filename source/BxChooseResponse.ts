@@ -70,18 +70,27 @@ export class BxChooseResponse {
         return (typeof (this.bxRequests[variant_index]) != "undefined" && this.bxRequests[variant_index] !== null) ? this.bxRequests[variant_index].getChoiceId() : null;
     }
 
+
     protected getChoiceIdResponseVariant(id: any = 0) {
         let response: any = this.getResponse();
-        if ((response.variants !== null && response.variants !== "") && (typeof (response.variants[id]) != "undefined" && response.variants[id] !== null)) {
-            return response.variants[id];
+
+        if(response != null && response != '' ) {
+            if ( response.variants != null  && response.variants != ''){
+                if(typeof (response.variants[id]) != "undefined" && response.variants[id] !== null) {
+                   return response.variants [id];
+                }
+            }
         }
         //autocompletion case (no variants)
-        if (response.class.name == 'SearchResult') {
-            let variant: any = new thrift.Variant();
-            variant.searchResult = response;
-            return variant;
+        if(response.class != null){
+            if (response.class.name == 'SearchResult') {
+                let variant: any = new thrift.Variant();
+                variant.searchResult = response;
+                return variant;
+            }
+            throw new Error("no variant provided in choice response for variant id id, bxRequest: " + String(this.bxRequests));
         }
-        throw new Error("no variant provided in choice response for variant id id, bxRequest: " + String(this.bxRequests));
+
     }
 
     getFirstPositiveSuggestionSearchResult(variant: any, maxDistance: number = 10) {

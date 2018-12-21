@@ -7,6 +7,7 @@ var btoa = require('btoa');
 var get_IP = require('ip');
 import {BxRecommendationRequest} from './BxRecommendationRequest'
 import {BxChooseResponse} from './BxChooseResponse'
+import {BxAutocompleteResponse} from './BxAutocompleteResponse'
 
 export class BxClient {
     private account: string;
@@ -563,14 +564,16 @@ export class BxClient {
     }
 
     setAutocompleteRequest(request: any) {
-        this.setAutocompleteRequests(Array(request));
+        this.setAutocompleteRequests(request);
     }
 
     setAutocompleteRequests(requests: any) {
         var obj=this;
-        requests.forEach(function (request: any) {
-            obj.enhanceAutoCompleterequest(request);
-        });
+
+        for (let entry of requests) {
+            obj.enhanceAutoCompleterequest(entry);
+        }
+
         this.autocompleteRequests = requests;
     }
 
@@ -614,8 +617,9 @@ export class BxClient {
         let i: any = -1;
 
         let tempArrayBxAuto: any = await this.p13nautocompleteAll(p13nrequests)
-        this.autocompleteResponses = tempArrayBxAuto.map(function (this: any) {
-            this.autocompletePartail(this.request, ++i);
+        var thisRefObj = this;
+        this.autocompleteResponses = tempArrayBxAuto.map(function (thisObj: any) {
+           return thisRefObj.autocompletePartail(thisObj, ++i);
         });
     }
 
@@ -632,7 +636,9 @@ export class BxClient {
         requestBundle.requests = requests;
         try {
             let choiceResponse: any = null;
-            choiceResponse = await this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
+            //choiceResponse = await this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
+            let tmp = await this.getP13n(this._timeout).autocompleteAll(requestBundle);
+            choiceResponse = tmp.responses;
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";
                 if (!this.debugOutputActive) {
@@ -697,5 +703,12 @@ export class BxClient {
             }
             return value;
         }
+    }
+
+    autocompletePartail(response: any, i: any) {
+        let request = this.autocompleteRequests[i];
+        let bxAutoCompleteResponse= new BxAutocompleteResponse(response, request)
+
+        return bxAutoCompleteResponse;
     }
 }

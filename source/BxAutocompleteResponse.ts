@@ -1,7 +1,7 @@
 import {Md5} from "md5-typescript";
 import {BxChooseResponse} from "./BxChooseResponse";
 
-class BxAutocompleteResponse {
+export class BxAutocompleteResponse {
 	private response: any;
 	private bxAutocompleteRequest: any;
 	constructor(response: any, bxAutocompleteRequest: any = null) {
@@ -27,10 +27,11 @@ class BxAutocompleteResponse {
 			if (typeof (suggestions[hit.suggestion]) != "undefined" && suggestions[hit.suggestion] !== null) return;
 			suggestions[hit.suggestion] = hit.suggestion;
 		});
-		return this.reOrderSuggestions(suggestions);
+		//return this.reOrderSuggestions(suggestions);
+        return suggestions;
 	}
 
-	suggestionIsInGroup(groupName: string, suggestion: string) {
+	suggestionIsInGroup1(groupName: string, suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
 		switch (groupName) {
 			case 'highlighted-beginning':
@@ -42,8 +43,28 @@ class BxAutocompleteResponse {
 		}
 	}
 
+    suggestionIsInGroup(groupName: string, suggestion: string) {
+        let hit: any = this.getTextualSuggestionHit(suggestion);
+        if(hit.highlighted !== null) {
+            switch (groupName) {
+                case 'highlighted-beginning':
+                    return hit.highlighted != "" && hit.highlighted.indexOf(this.bxAutocompleteRequest.getHighlightPre()) === 0;
+                case 'highlighted-not-beginning':
+                    return hit.highlighted != "" && hit.highlighted.indexOf(this.bxAutocompleteRequest.getHighlightPre()) !== 0;
+                default:
+                    return (hit.highlighted == "");
+            }
+        }
+        else{
+        	return false;
+		}
+    }
+
+
 	reOrderSuggestions(suggestions: string[]) {
-		let queryText: any = this.getSearchRequest().getQueryText();
+        let queryText: any = this.getSearchRequest().getQuerytext();
+		//let queryTextSearchRequest: any = this.getSearchRequest();
+        //let queryText: any = queryTextSearchRequest.getQueryText();
 
 		let groupNames: string[] = Array('highlighted-beginning', 'highlighted-not-beginning', 'others');
 		let groupValues: any = Array();
@@ -52,11 +73,16 @@ class BxAutocompleteResponse {
 			if (groupValues[k] == null) {
 				groupValues[k] = Array();
 			}
-			suggestions.forEach(function (suggestion: string) {
-				if (this.suggestionIsInGroup(groupName, suggestion)) {
-					groupValues[k].push(suggestion);
-				}
-			});
+			//suggestions.forEach(function (suggestion: string) {
+             //   if (this.suggestionIsInGroup(groupName, suggestion)) {
+              //      groupValues[k].push(suggestion);
+              //  }
+			//});
+			for(let suggestion in suggestions){
+                if (this.suggestionIsInGroup(groupName, suggestion)) {
+                    groupValues[k].push(suggestion);
+                }
+			}
 		}
 
 		let final: string[] = Array();
@@ -70,12 +96,15 @@ class BxAutocompleteResponse {
 
 	protected getTextualSuggestionHit(suggestion: string) {
 		let temp = this.getResponse().hits;
-		temp.forEach(function (hit: any) {
-			if (hit.suggestion == suggestion) {
-				return hit;
-			}
-		});
-		throw new Error("unexisting textual suggestion provided " + suggestion);
+		var res = null;
+
+        temp.forEach(function (hit: any) {
+           if (hit.suggestion == suggestion) {
+               res = hit;
+           }
+       });
+        return res;
+       // throw new Error("unexisting textual suggestion provided " + suggestion);
 	}
 
 	getTextualSuggestionTotalHitCount(suggestion: string) {
@@ -156,4 +185,13 @@ class BxAutocompleteResponse {
 		}
 		return null;
 	}
+
+    getTextualSuggestions1() {
+        let suggestions: any = Array();
+        this.getResponse().hits.forEach(function (hit: any) {
+            if (typeof (suggestions[hit.suggestion]) != "undefined" && suggestions[hit.suggestion] !== null) return;
+            suggestions[hit.suggestion] = hit.suggestion;
+        });
+        return suggestions;
+    }
 }

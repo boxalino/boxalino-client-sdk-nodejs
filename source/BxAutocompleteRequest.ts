@@ -118,7 +118,7 @@ export class BxAutocompleteRequest {
     }
 
     getAutocompleteThriftRequest(profileid: string, thriftUserRecord: string) {
-        let autocompleteRequest = new thrift_types.AutocompleteQuery();
+        let autocompleteRequest = new thrift_types.AutocompleteRequest();
         autocompleteRequest.userRecord = thriftUserRecord;
         autocompleteRequest.profileId = profileid;
         autocompleteRequest.choiceId = this.choiceId;

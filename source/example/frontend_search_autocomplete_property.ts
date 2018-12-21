@@ -4,7 +4,7 @@ import {BxChooseResponse} from "../BxChooseResponse";
 
 var request = require('request');
 
-export class frontend_search_autocomplete_basic {
+export class frontend_search_autocomplete_property {
     public account: string = "boxalino_automated_tests2"; // your account name
     public password: string = "boxalino_automated_tests2"; // your account password
     public domain: string = ""; // your web-site domain (e.g.: www.abc.com)
@@ -15,7 +15,7 @@ export class frontend_search_autocomplete_basic {
     public bxResponse: any;
 
 
-    public async frontendSearchAutocompleteBasic(account: string, password: string, isDev: boolean, host: string, queryText: string) {
+    public async frontendSearchAutocompleteProperty(account: string, password: string, isDev: boolean, host: string, queryText: string) {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
             let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
@@ -23,9 +23,17 @@ export class frontend_search_autocomplete_basic {
             let language: string = "en"; // a valid language code (e.g.: "en", "fr", "de", "it", ...)
             let textualSuggestionsHitCount: number = 10; //a maximum number of search result to return in one page
 
+            var thisObj = this;
+
+            let property = 'categories' //the properties to do a property autocomplete request on, be careful, except the standard "categories" which always work, but return values in an encoded way with the path ( "ID/root/level1/level2"), no other properties are available for autocomplete request on by default, to make a property "searcheable" as property, you must set the field parameter "propertyIndex" to "true"
+            let propertyTotalHitCount = 5 //the maximum number of property values to return
+            let propertyEvaluateCounters = true //should the count of results for each property value be calculated? if you do not need to retrieve the total count for each property value, please leave the 3rd parameter empty or set it to false, your query will go faster
 
             //create search request
             let bxRequest = new bxAutoCompleteRequest.BxAutocompleteRequest(language, queryText, textualSuggestionsHitCount);
+
+            //indicate to the request a property index query is requested
+            bxRequest.addPropertyQuery(property, propertyTotalHitCount, true)
 
             //set the request
             _bxClient.setAutocompleteRequest(Array(bxRequest));
@@ -34,21 +42,19 @@ export class frontend_search_autocomplete_basic {
             this.bxResponse = await _bxClient.getAutocompleteResponse();
 
 
-            let logs: string[] = Array();
-
             //loop on the search response hit ids and print them
-            logs.push("textual suggestions for "+ queryText +":");
-            for(let suggestion in this.bxResponse.getTextualSuggestions()) {
-                logs.push(this.bxResponse.getTextualSuggestionHighlighted(suggestion));
-            }
 
-            //if(this.bxResponse.getTextualSuggestions().count() == 0) {
-            if(this.bxResponse.getTextualSuggestions().length == 0) {
-               logs.push("There are no autocomplete textual suggestions. This might be normal, but it also might mean that the first execution of the autocomplete index preparation was not done and published yet. Please refer to the example backend_data_init and make sure you have done the following steps at least once: 1) publish your data 2) run the prepareAutocomplete case 3) publish your data again");
-            }
+            thisObj.logs.push("property suggestions for "+queryText+":<br>")
+
+            this.bxResponse.getPropertyHitValues(property).forEach(function (hitValue:any) {
+                let label = this.bxResponse.getPropertyHitValueLabel(property, hitValue);
+                let totalHitCount = this.bxResponse.getPropertyHitValueTotalHitCount(property, hitValue);
+                let result = "<b>"+hitValue+":</b><ul><li>label="+label+"</li> <li>totalHitCount="+totalHitCount+"</li></ul>";
+                thisObj.logs.push(result);
+            })
 
             if (typeof (print) === "undefined" || print !== null || print) {
-                console.log(logs.join("<br/>"));
+                console.log(this.logs.join("<br/>"));
             }
         } catch (e) {
             //be careful not to print the error message on your publish web-site as sensitive information like credentials might be indicated for debug purposes
