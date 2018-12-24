@@ -14,7 +14,9 @@ describe("frontend_search_autocomplete_basic", () => {
         //testing the result of the frontend search basic case
         await _frontendSearch.frontendSearchAutocompleteBasic(account, password, isDev, bxHost, queryText);
 
-       let  _textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag']
+        assert.deepEqual(Object.keys(_frontendSearch.bxResponse.getTextualSuggestions()), textualSuggestions);
+
+
 
     }).timeout(5000);
 });

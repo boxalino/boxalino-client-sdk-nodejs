@@ -912,11 +912,16 @@
             if (keyValues[facetValue] == null && fieldName == this.getCategoryFieldName()) {
                 let facetResponse = this.getFacetResponse(this.getCategoryFieldName());
                 if (facetResponse != null) {
-                    facetResponse.values.forEach(function (bxFacet) {
+                    /*facetResponse.values.forEach(function (bxFacet: any) {
                         if (bxFacet.hierarchyId == facetValue) {
                             keyValues[facetValue] = bxFacet;
                         }
-                    });
+                    });*/
+                    for (let conData = 0; conData < facetResponse.values.length; conData++) {
+                        if (facetResponse.values[conData].hierarchyId == facetValue) {
+                            keyValues[facetValue] = facetResponse.values[conData];
+                        }
+                    }
                 }
             }
             if (keyValues[facetValue] === null) {
@@ -924,7 +929,7 @@
             }
             let type = this.getFacetType(fieldName);
             fv = (typeof (keyValues[facetValue]) != "undefined" && keyValues[facetValue] !== null) ? keyValues[facetValue] : null;
-            let hidden = (typeof (fv.hidden) != "undefined" && fv.hidden !== null) ? fv.hidden : false;
+            let hidden = (fv != null && (typeof (fv.hidden) != "undefined" && fv.hidden !== null)) ? fv.hidden : false;
             switch (type) {
                 case 'hierarchical':
                     let temp = fv.stringValue;

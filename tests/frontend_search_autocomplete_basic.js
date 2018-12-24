@@ -12,12 +12,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "mocha", "../lib/boxalino/example/frontend_search_autocomplete_basic"], factory);
+        define(["require", "exports", "mocha", "assert", "../lib/boxalino/example/frontend_search_autocomplete_basic"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     require("mocha");
+    const assert = require("assert");
     const _frontendSearchAutocompleteBasic = require("../lib/boxalino/example/frontend_search_autocomplete_basic");
     describe("frontend_search_autocomplete_basic", () => {
         let account = "boxalino_automated_tests2"; // your account name
@@ -30,7 +31,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
             let _frontendSearch = new _frontendSearchAutocompleteBasic.frontend_search_autocomplete_basic();
             //testing the result of the frontend search basic case
             yield _frontendSearch.frontendSearchAutocompleteBasic(account, password, isDev, bxHost, queryText);
-            let _textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag'];
+            assert.deepEqual(Object.keys(_frontendSearch.bxResponse.getTextualSuggestions()), textualSuggestions);
         })).timeout(5000);
     });
 });

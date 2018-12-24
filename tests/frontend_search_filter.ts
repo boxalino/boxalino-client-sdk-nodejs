@@ -14,7 +14,6 @@ describe("frontend_search_filter", () => {
         await _frontendSearch.frontendSearchFilter(account, password, isDev, bxHost, queryText);
         let _fieldNames:string = "products_color";
 
-
         assert.equal(_frontendSearch.bxResponse.getHitIds().indexOf("41")<0,true);
 
 

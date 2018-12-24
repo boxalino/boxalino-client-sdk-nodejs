@@ -50,51 +50,37 @@ export class frontend_search_autocomplete_items {
                 thisObj.logs.push("item suggestions for suggestion "+suggestion+":<br>");
 
                 //loop on the search response hit ids and print them
-                var hitFieldObj=this.bxResponse.getBxSearchResponse(suggestion);
-                var hitFieldValues=hitFieldObj.getHitFieldValues(fieldNames);
 
-                for(let id in hitFieldValues)
-                {
-                    let fieldValueMap=hitFieldValues[id];
+                var hitFieldValues=this.bxResponse.getBxSearchResponse(suggestion).getHitFieldValues(fieldNames);
+
+                hitFieldValues.forEach(function(fieldValueMap:any,id:any){
                     thisObj.logs.push("<div>"+id);
-                    fieldValueMap.forEach(function (fieldName:any , fieldValues:any) {
-                        thisObj.logs.push(" - "+fieldName+": " + fieldValues.join(','));
-                    });
+                    for(let fieldName in fieldValueMap){
+                       // thisObj.logs.push(" - "+fieldName+": " + fieldValues.join(','));
+                        thisObj.logs.push(" - "+fieldName+": " + fieldValueMap[fieldName].toString());
+                    }
                     thisObj.logs.push("</div>");
-                }
-
+                });
 
                 thisObj.logs.push("</div>");
             }
-//////////////////////
+
             thisObj.logs.push("global item suggestions for "+queryText+":<br>")
 
                 //loop on the search response hit ids and print them
 
-            // this.bxResponse.getBxSearchResponse().getHitFieldValues(fieldNames).forEach(function(id:any , fieldValueMap:any){
-            //     let item = id;
-            //         fieldValueMap.forEach(function (fieldName:any , fieldValues:any) {
-            //             item = item + " - "+fieldName+": " + fieldValues.join(',') + "<br>"
-            //         });
-            //     thisObj.logs.push(item)
-            //     });
+            var hitFieldValues1=this.bxResponse.getBxSearchResponse().getHitFieldValues(fieldNames);
 
 
-            var hitFieldObj1=this.bxResponse.getBxSearchResponse();
-            var hitFieldValues1=hitFieldObj1.getHitFieldValues(fieldNames);
-
-            for(let id in hitFieldValues1)
-            {
+            hitFieldValues1.forEach(function(id:any,fieldValueMap:any){
                 let item = id;
-                let fieldValueMap=hitFieldValues[id];
-                thisObj.logs.push("<div>"+id);
-                fieldValueMap.forEach(function (fieldName:any , fieldValues:any) {
-                    item = item + " - "+fieldName+": " + fieldValues.join(',') + "<br>"
-                });
-                thisObj.logs.push(item)
-            }
 
-
+                for(let fieldName in fieldValueMap){
+                    //thisObj.logs.push(" - "+fieldName+": " + fieldValueMap[fieldName].toString());
+                    item = item + " - "+fieldName+": " + fieldValueMap[fieldName].toString() + "<br>";
+                }
+                thisObj.logs.push(item);
+            });
 
             if (typeof (print) === "undefined" || print !== null || print) {
                 console.log(this.logs.join("<br/>"));

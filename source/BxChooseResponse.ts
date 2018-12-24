@@ -1,4 +1,4 @@
-let thrift = require('thrift');
+var thrift_types = require('./bxthrift/p13n_types.js');
 import {BxFacets} from "./BxFacets";
 
 export class BxChooseResponse {
@@ -81,15 +81,17 @@ export class BxChooseResponse {
                 }
             }
         }
+
         //autocompletion case (no variants)
-        if(response.class != null){
-            if (response.class.name == 'SearchResult') {
-                let variant: any = new thrift.Variant();
+
+            if(response instanceof thrift_types.SearchResult)
+            {
+                let variant: any = new thrift_types.Variant();
                 variant.searchResult = response;
                 return variant;
             }
             throw new Error("no variant provided in choice response for variant id id, bxRequest: " + String(this.bxRequests));
-        }
+
 
     }
 

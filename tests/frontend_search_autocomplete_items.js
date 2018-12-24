@@ -31,7 +31,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
             let _frontendSearch = new _frontendSearchAutocompleteItems.frontend_search_autocomplete_items();
             //testing the result of the frontend search basic case
             yield _frontendSearch.frontendSearchAutocompleteItems(account, password, isDev, bxHost, queryText);
-            assert.deepEqual(_frontendSearch.bxResponse.getTextualSuggestions(), textualSuggestions);
+            let _textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag'];
+            assert.deepEqual(Object.keys(_frontendSearch.bxResponse.getTextualSuggestions()), textualSuggestions);
         })).timeout(5000);
     });
 });
