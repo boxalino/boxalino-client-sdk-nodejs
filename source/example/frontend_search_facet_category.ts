@@ -15,8 +15,6 @@ export class frontend_search_facet_category {
     public host: string = "";
     public bxResponse: BxChooseResponse;
 
-
-
     public async frontendSearchFacetCategory(account: string, password: string, isDev: boolean, host: string, queryText: string) {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
@@ -39,7 +37,6 @@ export class frontend_search_facet_category {
 
             facets = this.bxResponse.getFacets();
             let logs: string[] = Array();
-
 
             //show the category breadcrumbs
             let level:number = 0;

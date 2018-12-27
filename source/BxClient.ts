@@ -463,7 +463,6 @@ export class BxClient {
         let that = this;
         requests.forEach(function (request: any) {
             let choiceInquiry: any = new thrift_types.ChoiceInquiry();
-            //let choiceInquiry: any = thrift_types.ChoiceInquiry;
             choiceInquiry.choiceId = request.getChoiceId();
             if (choiceInquiries.length == 0 && that.getChoiceIdOverwrite()) {
                 choiceInquiry.choiceId = that.getChoiceIdOverwrite();
@@ -636,7 +635,6 @@ export class BxClient {
         requestBundle.requests = requests;
         try {
             let choiceResponse: any = null;
-            //choiceResponse = await this.getP13n(this._timeout).autocompleteAll(requestBundle).responses;
             let tmp = await this.getP13n(this._timeout).autocompleteAll(requestBundle);
             choiceResponse = tmp.responses;
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {

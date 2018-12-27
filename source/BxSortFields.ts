@@ -7,6 +7,7 @@ export class BxSortFields {
             this.push(field, reverse);
         }
     }
+
     /**
      * field name od field to sort by (i.e. discountedPrice / title)
      * reverse true for ASC, false for DESC
@@ -14,9 +15,11 @@ export class BxSortFields {
     push(field: any, reverse: boolean = false) {
         this.sorts[field] = reverse;
     }
+
     getSortFields() {
         return this.Array_keys(this.sorts);
     }
+
     Array_keys(input: any) {
         let output = new Array();
         let counter = 0;
@@ -25,6 +28,7 @@ export class BxSortFields {
         }
         return output;
     }
+    
     isFieldReverse(field: string) {
         if ((typeof (this.sorts[field]) != "undefined" && this.sorts[field] !== null) && this.sorts[field]) {
             return true;

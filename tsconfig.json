@@ -9,6 +9,9 @@
     "moduleResolution": "node",
     "lib": ["dom", "es2017"]
   },
+  "scripts": {
+    "test": "mocha --require ts-node/register tests/**/*.ts"
+  },
   "exclude": [
     "source",
     "node_modules",

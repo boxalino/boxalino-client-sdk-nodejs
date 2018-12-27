@@ -7,7 +7,7 @@ describe("frontend_search_facet_category", () => {
     let password: string = "boxalino_automated_tests2"; // your account password
     let isDev: boolean = false;
     let bxHost: string = "cdn.bx-cloud.com";
-    let queryText: string = "women";
+    let queryText: string = "woman";
     it("test", async () => {
         let _frontendSearch = new _frontendSearchFacet.frontend_search_facet_category();
         //testing the result of the frontend search basic case

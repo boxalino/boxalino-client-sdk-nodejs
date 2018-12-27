@@ -121,32 +121,26 @@ export class BxChooseResponse {
         let n:number = t.length;
         let d:number[][] = new Array(new Array());
 
-
-        if (n == 0)
-        {
+        if (n == 0) {
             return m;
         }
 
-        if (m == 0)
-        {
+        if (m == 0) {
             return n;
         }
 
 
-        for (let i = 0; i <= n; i++)
-        {
+        for (let i = 0; i <= n; i++) {
             d[i]=[];
             d[i][0]=i;
         }
 
-        for (let j = 0; j <= m;j++)
-        {
+        for (let j = 0; j <= m;j++) {
             d[0][j] = j;
         }
 
 
-        for (let i = 1; i <= m; i++)
-        {
+        for (let i = 1; i <= m; i++) {
             for (let j = 1; j <= n; j++)
             {
                 let cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
@@ -790,6 +784,5 @@ export class BxChooseResponse {
         }
         return values;
     }
-
 
 }

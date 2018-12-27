@@ -16,7 +16,6 @@ export class frontend_search_filter {
     public host: string = "";
     public bxResponse: BxChooseResponse;
 
-
     public async frontendSearchFilter(account: string, password: string, isDev: boolean, host: string, queryText: string) {
         this.host = (typeof (host) != "undefined" && host !== null) ? host : "cdn.bx-cloud.com";
         try {
@@ -36,7 +35,6 @@ export class frontend_search_filter {
             _bxClient.addRequest(bxRequest);
             //make the query to Boxalino server and get back the response for all requests
             this.bxResponse = await _bxClient.getResponse();
-
 
             let logs: string[] = Array();
 

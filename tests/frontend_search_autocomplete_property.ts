@@ -8,7 +8,6 @@ describe("frontend_search_autocomplete_property", () => {
     let isDev: boolean = false;
     let bxHost: string = "cdn.bx-cloud.com";
     let queryText: string = "a";
-    let textualSuggestions = ['ida workout parachute pant', 'jade yoga jacket', 'push it messenger bag'];
     it("test", async () => {
         let _frontendSearch = new _frontendSearchAutocompleteItems.frontend_search_autocomplete_property();
         //testing the result of the frontend search basic case
