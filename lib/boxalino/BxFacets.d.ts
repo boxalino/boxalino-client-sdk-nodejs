@@ -52,10 +52,7 @@ export declare class BxFacets {
     getFacetDisplay(fieldName: string, defaultDisplay?: string): any;
     protected getFacetResponse(fieldName: string): any;
     protected getFacetType(fieldName: string): string;
-    protected buildTree(response: any, parents?: any, parentLevel?: number): {
-        'node': any;
-        'children': any;
-    } | null;
+    protected buildTree(response: any, parents?: any, parentLevel?: number): any;
     protected getFirstNodeWithSeveralChildren(tree: any, minCategoryLevel?: number): any;
     getFacetSelectedValues(fieldName: string): any;
     getSelectedTreeNode(tree: any): any;

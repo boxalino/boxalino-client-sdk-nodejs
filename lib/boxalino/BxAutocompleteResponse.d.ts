@@ -9,14 +9,14 @@ export declare class BxAutocompleteResponse {
     suggestionIsInGroup1(groupName: string, suggestion: string): boolean;
     suggestionIsInGroup(groupName: string, suggestion: string): boolean;
     reOrderSuggestions(suggestions: string[]): string[];
-    protected getTextualSuggestionHit(suggestion: string): null;
+    protected getTextualSuggestionHit(suggestion: string): any;
     getTextualSuggestionTotalHitCount(suggestion: string): any;
     getSearchRequest(): any;
     getTextualSuggestionFacets(suggestion: string): any;
     getTextualSuggestionHighlighted(suggestion: string): any;
     getBxSearchResponse(textualSuggestion: string): BxChooseResponse;
-    getPropertyHits(field: any): any[];
-    getPropertyHit(field: string, hitValue: string): null;
+    getPropertyHits(field: any): any;
+    getPropertyHit(field: string, hitValue: string): any;
     getPropertyHitValues(field: string): string[];
     getPropertyHitValueLabel(field: string, hitValue: string): any;
     getPropertyHitValueTotalHitCount(field: string, hitValue: string): any;

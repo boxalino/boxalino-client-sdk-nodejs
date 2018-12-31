@@ -35,6 +35,9 @@ export class frontend_search_sub_phrases {
 
             let logs: string[] = Array();
 
+            if (this.bxResponse.areResultsCorrectedAndAlsoProvideSubPhrases()) {
+                logs.push('Corrected query  \"' + queryText + '\" into \"' + this.bxResponse.getCorrectedQuery()+ '\"');
+            }
             //check if the system has generated sub phrases results
             if (this.bxResponse.areThereSubPhrases()) {
                 logs.push("No results found for all words in " + queryText + ", but following partial matches were found:");

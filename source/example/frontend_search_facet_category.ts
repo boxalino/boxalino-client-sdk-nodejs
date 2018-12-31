@@ -21,10 +21,10 @@ export class frontend_search_facet_category {
             let _bxClient = new bxClient.BxClient(account, password, this.domain, isDev, this.host, request);
             let language: string = "en"; // a valid language code (e.g.: "en", "fr", "de", "it", ...)
             let hitCount: number = 10; //a maximum number of search result to return in one page
-            let facetField: string = "products_color";
+           // let facetField: string = "products_color";
             //create search request
             let bxRequest = new bxSearchRequest.BxSearchRequest(language, queryText, hitCount);
-            bxRequest.setReturnFields(Array(facetField));
+           // bxRequest.setReturnFields(Array(facetField));
             //add a facert
             let facets = new bxFacet.BxFacets();
             let selectedValue: any =null ;

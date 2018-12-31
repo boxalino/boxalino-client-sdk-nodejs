@@ -37,7 +37,7 @@ export declare class BxChooseResponse {
     getResultTitle(choice?: any, count?: number, ddefault?: string): any;
     areThereSubPhrases(choice?: any, count?: number, maxBaseResults?: number): boolean;
     getSubPhrasesQueries(choice?: any, count?: number): any;
-    getSubPhraseSearchResult(queryText: string, choice?: any, count?: number): null;
+    getSubPhraseSearchResult(queryText: string, choice?: any, count?: number): any;
     getSubPhraseTotalHitCount(queryText: string, choice?: any, count?: number): any;
     getSubPhraseHitIds(queryText: string, choice?: any, count?: number, fieldId?: string): any;
     getSubPhraseHitFieldValues(queryText: string, fields: string[], choice?: any, considerRelaxation?: boolean, count?: number): any;

@@ -43,7 +43,7 @@ export class frontend_search_autocomplete_basic {
             }
 
             //if(this.bxResponse.getTextualSuggestions().count() == 0) {
-            if(this.bxResponse.getTextualSuggestions().length == 0) {
+            if(Object.keys(this.bxResponse.getTextualSuggestions()).length== 0) {
                logs.push("There are no autocomplete textual suggestions. This might be normal, but it also might mean that the first execution of the autocomplete index preparation was not done and published yet. Please refer to the example backend_data_init and make sure you have done the following steps at least once: 1) publish your data 2) run the prepareAutocomplete case 3) publish your data again");
             }
 

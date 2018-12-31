@@ -47,8 +47,9 @@ export class frontend_search_autocomplete_property {
             thisObj.logs.push("property suggestions for "+queryText+":<br>")
 
             this.bxResponse.getPropertyHitValues(property).forEach(function (hitValue:any) {
-                let label = this.bxResponse.getPropertyHitValueLabel(property, hitValue);
-                let totalHitCount = this.bxResponse.getPropertyHitValueTotalHitCount(property, hitValue);
+
+                let label = thisObj.bxResponse.getPropertyHitValueLabel(property, hitValue);
+                let totalHitCount = thisObj.bxResponse.getPropertyHitValueTotalHitCount(property, hitValue);
                 let result = "<b>"+hitValue+":</b><ul><li>label="+label+"</li> <li>totalHitCount="+totalHitCount+"</li></ul>";
                 thisObj.logs.push(result);
             })

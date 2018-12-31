@@ -96,7 +96,7 @@ export class BxAutocompleteResponse {
 
 	protected getTextualSuggestionHit(suggestion: string) {
 		let temp = this.getResponse().hits;
-		var res = null;
+		var res: any = null;
 
         temp.forEach(function (hit: any) {
            if (hit.suggestion == suggestion) {
@@ -129,7 +129,7 @@ export class BxAutocompleteResponse {
 
 	getTextualSuggestionHighlighted(suggestion: string) {
 		let hit: any = this.getTextualSuggestionHit(suggestion);
-		if (hit.highlighted == "") {
+		if (hit.highlighted == null || hit.highlighted == "" ) {
 			return suggestion;
 		}
 		return hit.highlighted;
@@ -142,23 +142,25 @@ export class BxAutocompleteResponse {
 	}
 
 	getPropertyHits(field: any) {
+		let tmpRet: any = Array();
 		let response = this.getResponse().propertyResults;
 		response.forEach(function (propertyResult: any) {
 			if (propertyResult.name == field) {
-				return propertyResult.hits;
+                tmpRet =  propertyResult.hits;
 			}
 		});
-		return Array();
+		return tmpRet;
 	}
 
 	getPropertyHit(field: string, hitValue: string) {
 		let proHit: any = this.getPropertyHits(field);
+		let tmpRet: any = null;
 		proHit.forEach(function (hit: any) {
 			if (hit.value == hitValue) {
-				return hit;
+                tmpRet =  hit;
 			}
 		});
-		return null;
+		return tmpRet;
 	}
 
 	getPropertyHitValues(field: string) {

@@ -414,16 +414,17 @@ export class BxChooseResponse {
     }
 
     getSubPhraseSearchResult(queryText: string, choice: any = null, count: number = 0) {
+        let tmpRet :any = null
         if (!this.areThereSubPhrases(choice, count)) {
-            return null;
+            return tmpRet;
         }
         let variant: any = this.getChoiceResponseVariant(choice, count);
         variant.searchRelaxation.subphrasesResults.forEach(function (searchResult: any) {
             if (searchResult.queryText == queryText) {
-                return searchResult;
+                tmpRet = searchResult;
             }
         });
-        return null;
+        return tmpRet;
     }
 
     getSubPhraseTotalHitCount(queryText: string, choice: any = null, count: number = 0) {
