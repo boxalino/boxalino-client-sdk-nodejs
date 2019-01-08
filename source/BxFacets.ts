@@ -1200,4 +1200,243 @@ export class BxFacets {
             }
         });
     }
+
+    getFacetsAsObjectsCollection(language = null) {
+        let facetsCollection: any = [];
+        let properties :any;
+        if (this.searchResult != null && this.searchResult.facetResponses != null){
+            let Obj = this;
+            this.searchResult.facetResponses.forEach (function(facetResponse:any){
+                let facetField = facetResponse.fieldName;
+                let type = Obj.getFacetType(facetField);
+                switch(type) {
+                    case 'hierarchical': {
+                        //statements;
+                        properties = Obj.prepareFacetsValuesForHierarchicalType(facetResponse, 0);
+                        break;
+                    }
+                    case 'ranged': {
+                        //statements;
+                        properties = Obj.prepareFacetsValuesForRangedType(facetResponse);
+                        break;
+                    }
+                    default: {
+                        //statements;
+                        properties = Obj.prepareFacetsValuesForDefaultType(facetResponse);
+                        break;
+                    }
+                }
+                let overWriteRanking = Obj.getFacetExtraInfo(facetField, "valueorderEnums");
+                properties = Obj.prepareFacetsByDisplaySelectedValuesExtra(facetField, properties);
+                properties = Obj.applyDependencies(facetField, properties);
+                properties = Obj.prepareFacetsByEnumDisplaySizeExtra(facetField, properties);
+                properties = Obj.prepareFacetsByIconMapExtra(properties, facetField);
+                let hasValueCorrelation = Obj.getFacetExtraInfo(facetField, "facet-value-correlation");
+                if(hasValueCorrelation != null) {
+                    properties = Obj.prepareFacetsByValueCorrelation(facetField, properties, hasValueCorrelation);
+                }
+                let facetObject = {
+                                optionValues  : properties,
+                                fieldName   :facetField,
+                                order       : facetResponse.sortOrder,
+                                label   : Obj.getFacetLabel(facetField, language),
+                                showCounter : Obj.showFacetValueCounters(facetField),
+                                displayType : Obj.getFacetDisplay(facetField),
+                                hidden   : String(Obj.getFacetDisplay(facetField))  == "hidden" ? true : false,
+                                type    : Obj.getFacetType(facetField),
+                                icon    :   Obj.getFacetIcon(facetField)
+                }
+                facetsCollection[facetField] = facetObject
+            })
+        }
+        return facetsCollection
+    }
+
+    prepareFacetsByValueCorrelation(fieldName:string, facetValues:any, valueCorrelationField:any) {
+        let extraValuesInfo = this.getFacetExtraInfo(fieldName, valueCorrelationField);
+        if (extraValuesInfo == null) {
+            return facetValues;
+        }
+        let extraValues: JSON = JSON.parse(extraValuesInfo);
+        let finalFacetValues = Array();
+        if (Array.isArray(extraValues)) {
+            for(let k  in facetValues){
+                let v = facetValues[k];
+                // @ts-ignore
+                if (extraValues[k] != null || typeof (extraValues[k]) != "undefined") {
+                    // @ts-ignore
+                    v.label = extraValues[k]["label"][0]
+                }else {
+                    v.label = k
+                }
+                // @ts-ignore
+                finalFacetValues[k] = v
+            }
+            return finalFacetValues
+        }
+
+        return facetValues
+    }
+
+
+    prepareFacetsByIconMapExtra(facetValues: any, fieldName: string, language = null, defaultValue = '') {
+        let facetIconMap = this.getFacetExtraInfo(fieldName, 'iconMap');
+        if (facetIconMap == null) {
+            return facetValues;
+        }
+        let iconMap = JSON.parse(facetIconMap);
+        for (let name in facetValues){
+            let properties = facetValues[name];
+            let facetValue = name.toLowerCase();
+            iconMap.forEach(function(icon:any){
+                /*if(language && icon.language != language) {
+                    continue;
+                }*/
+                if(facetValue == icon.value.toLowerCase()) {
+                    properties.icon = icon.icon
+                    facetValues[name] = properties
+                }
+            })
+            return facetValues
+        }
+        return facetValues
+    }
+
+    prepareFacetsByEnumDisplaySizeExtra(fieldName: string, facetValues: any) {
+        let enumDisplaySize = parseInt(this.getFacetExtraInfo(fieldName, "enumDisplayMaxSize"));
+        if (enumDisplaySize > 0 && facetValues.size > enumDisplaySize) {
+            let enumDisplaySizeMin = parseInt (this.getFacetExtraInfo(fieldName, "enumDisplaySize"));
+            if (enumDisplaySizeMin == 0) {
+                enumDisplaySizeMin = enumDisplaySize
+            }
+            let finalFacetValues = Array();
+            for(let k in facetValues){
+                let v = facetValues[k];
+                if (finalFacetValues.length >= enumDisplaySizeMin) {
+                    v.hidden = true
+                }
+                // @ts-ignore
+                finalFacetValues[k] = v
+            }
+            return finalFacetValues
+        }
+
+        return facetValues
+    }
+
+
+    prepareFacetsByDisplaySelectedValuesExtra(fieldName:string, facetValues:any) {
+        let displaySelectedValues = this.getFacetExtraInfo(fieldName, "displaySelectedValues");
+        let finalFacetValues = Array();
+        if (displaySelectedValues == "only") {
+            for(let k in facetValues){
+                let v = facetValues[k];
+                if (v.selected) {
+                    // @ts-ignore
+                    finalFacetValues[k] = v;
+                }
+
+            }
+            return finalFacetValues.length == 0 ? facetValues : finalFacetValues
+        }
+        if (displaySelectedValues == "top") {
+            finalFacetValues = Array();
+            for(let k in facetValues) {
+                let v = facetValues[k];
+                if (v.selected){
+                    // @ts-ignore
+                    finalFacetValues[k] = v
+                }
+            }
+            return finalFacetValues
+        }
+
+        return facetValues
+    }
+
+
+    prepareFacetsValuesForDefaultType(facetResponse:any) {
+        let facetValues = Array();
+        if (facetResponse.values) {
+            facetResponse.values.forEach(function(facetValue:any){
+                let newFacetType = {
+                    stringValue  : facetValue.stringValue,
+                    hitCount   :facetValue.hitCount,
+                    selected       : facetValue.selected,
+                    hidden   : false,
+                    icon : null,
+                    label : facetValue.stringValue
+
+                }
+                facetValues[facetValue.stringValue] = newFacetType
+            })
+        }
+
+        let fieldName = facetResponse.fieldName;
+        if (this.searchResult && this.facets.length != this.searchResult.facetResponses.length) {
+            if (this.facets[fieldName] == null){
+                this.facets[fieldName] = {
+                    label: fieldName,
+                    boundsOnly: facetResponse.boundsOnly,
+
+                    type: String(facetResponse.numerical ? 'ranged' : 'list'),
+                    order: facetResponse.sortOrder,
+                    selectedValues: Array(),
+                    maxCount: -1
+
+                }
+            }
+        }
+
+        if (Array.isArray(this.facets[fieldName]['selectedValues'])) {
+            this.facets[fieldName]['selectedValues'].forEach(function(value:any){
+                if (facetValues[value] == null){
+                    let newValue = {
+                        stringValue  : value,
+                        hitCount   :0,
+                        selected       : true,
+                        hidden   : false,
+                        icon : null,
+                        label : value
+                    }
+                    facetValues[value] = newValue;
+                }
+            })
+        }
+        return facetValues
+    }
+
+    prepareFacetsValuesForRangedType(facetResponse:any) {
+        let facetValues: any = [];
+        let displayRange = "";
+        if (this.getFacetExtraInfo(facetResponse.fieldName, 'bx_displayPriceRange') != null) {
+            let displayRange: JSON = JSON.parse(this.getFacetExtraInfo(facetResponse.fieldName, 'bx_displayPriceRange'));
+        }
+        facetResponse.values.forEach(function(facetValue:any){
+            if (displayRange) {
+                facetValue.rangeFromInclusive = displayRange[0] != null ? displayRange[0].toString() : facetValue.rangeFromInclusive.toString()
+                facetValue.rangeToExclusive = displayRange[1] != null ? displayRange[1].toString() : facetValue.rangeToExclusive.toString()
+            }
+            facetValues[facetValue.rangeFromInclusive.toString() + '-' + facetValue.rangeToExclusive.toString()] = facetValue
+        });
+        return facetValues
+    }
+
+    prepareFacetsValuesForHierarchicalType(facetResponse:any, minCategoryLevel:any) {
+        let facetValues:any = [];
+        let tree = this.buildTree(facetResponse.values);
+        tree = this.getSelectedTreeNode(tree);
+        let node = this.getFirstNodeWithSeveralChildren(tree, minCategoryLevel);
+        if (node && node.length != 0 && node != null  && node['children'] != null)
+        {
+            node['children'].forEach(function(childNode:any){
+                if (childNode && childNode.length != 0  && childNode != null && childNode['children'] != null ){
+                    childNode['children'].forEach (function(child:any){
+                        facetValues[child["node"].stringValue] = child["node"];
+                    })
+                }
+            })
+        }
+        return facetValues
+    }
 }
