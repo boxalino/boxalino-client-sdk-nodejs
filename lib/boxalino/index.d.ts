@@ -10,3 +10,6 @@ export * from "./BxRecommendationRequest";
 export * from "./BxRequest";
 export * from "./BxSortFields";
 export * from "./BxSearchRequest";
+export * from "./BxBatchClient";
+export * from "./BxBatchRequest";
+export * from "./BxBatchResponse";
