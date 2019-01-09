@@ -93,4 +93,12 @@ export declare class BxFacets {
     getThriftFacets(): any;
     private facetSelectedValue;
     getParentId(fieldName: string, id: any): void;
+    getFacetsAsObjectsCollection(language?: null): any;
+    prepareFacetsByValueCorrelation(fieldName: string, facetValues: any, valueCorrelationField: any): any;
+    prepareFacetsByIconMapExtra(facetValues: any, fieldName: string, language?: null, defaultValue?: string): any;
+    prepareFacetsByEnumDisplaySizeExtra(fieldName: string, facetValues: any): any;
+    prepareFacetsByDisplaySelectedValuesExtra(fieldName: string, facetValues: any): any;
+    prepareFacetsValuesForDefaultType(facetResponse: any): any[];
+    prepareFacetsValuesForRangedType(facetResponse: any): any;
+    prepareFacetsValuesForHierarchicalType(facetResponse: any, minCategoryLevel: any): any;
 }

@@ -12,8 +12,5 @@ describe("frontend_search_autocomplete_property", () => {
         let _frontendSearch = new _frontendSearchAutocompleteItems.frontend_search_autocomplete_property();
         //testing the result of the frontend search basic case
         await _frontendSearch.frontendSearchAutocompleteProperty(account, password, isDev, bxHost, queryText);
-
-
-
-    }).timeout(5000);
+   }).timeout(5000);
 });
