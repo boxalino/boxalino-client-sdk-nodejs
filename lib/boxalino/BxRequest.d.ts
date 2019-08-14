@@ -17,6 +17,7 @@ export declare class BxRequest {
     protected hitsGroupsAsHits: any;
     protected groupFacets: any;
     protected requestContextParameters: any;
+    protected contextItems: any;
     constructor(language: string, choiceId: string, max?: number, min?: number);
     getWithRelaxation(): boolean;
     setWithRelaxation(withRelaxation: boolean): void;
@@ -53,11 +54,10 @@ export declare class BxRequest {
     setHitsGroupsAsHits(groupsAsHits: any): void;
     setGroupFacets(groupFacets: any): void;
     getSimpleSearchQuery(): any;
-    protected contextItems: any[];
     setProductContext(fieldName: string, contextItemId: string, role?: string, relatedProducts?: any, relatedProductField?: string): void;
     setBasketProductWithPrices(fieldName: string, basketContent: any, role?: string, subRole?: string, relatedProducts?: any, relatedProductField?: string): void;
     addRelatedProducts(relatedProducts: any, relatedProductField?: string): void;
-    getContextItems(): any[];
+    getContextItems(): any;
     getRequestContextParameters(): any;
     retrieveHitFieldValues(item: any, field: string, items: any, fields: any): any[];
 }

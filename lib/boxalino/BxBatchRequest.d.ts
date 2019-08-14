@@ -22,7 +22,7 @@ export declare class BxBatchRequest extends BxRequest {
     setUseSameChoiceInquiry(sameInquiry: any): void;
     setProfileIds(ids: any): void;
     getProfileIds(): any;
-    getContextItems(): any[];
+    getContextItems(): any;
     setRequestContextParameters(requestParams: any): void;
     setIsDev(dev: any): void;
 }

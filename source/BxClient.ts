@@ -19,8 +19,6 @@ export class BxClient {
     private port: number;
     private uri: string;
     private schema: string;
-    private p13n_username: string;
-    private p13n_password: string;
     private domain: string;
     private isTest: boolean = false;
     private debugOutput: any = '';
@@ -47,20 +45,17 @@ export class BxClient {
     private request: any = null;
     private choiceIdOverwrite: any = "owbx_choice_id";
 
-    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "cdn.bx-cloud.com", request= {}, port = 443, uri = "/p13n.web/p13n", schema = "https", p13n_username = "boxalino", p13n_password = "tkZ8EXfzeZc6SdXZntCU", apiKey: any = null, apiSecret: any = null) {
+    constructor(account: string, password: string, domain: string, isDev: boolean = false, host = "main.bx-cloud.com", request= {}, apiKey: any = null, apiSecret: any = null) {
         this.account = account;
         this.password = password;
         this.request = request
-        // if (this.requestMap == null) {
-        //     this.requestMap = _REQUEST;
-        // }
+
+        this.uri = "/p13n.json";
+        this.schema = "https";
+        this.port = 443;
+
         this.isDev = isDev;
         this.host = host;
-        this.port = port;
-        this.uri = uri;;
-        this.schema = schema;
-        this.p13n_username = p13n_username;
-        this.p13n_password = p13n_password;
         this.domain = domain;
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
@@ -187,22 +182,22 @@ export class BxClient {
         return userRecord;
     }
 
-    private getP13n(timeout: number = 2, useCurlIfAvailable: boolean = true) {
+    private getP13n() {
         let spval: any = this.getSessionAndProfile();
         this.profileId = spval[1];
         var connection= thrift.createHttpConnection(this.host, this.port, {
            transport: thrift.TBufferedTransport,
-           protocol: thrift.TCompactProtocol,
+           protocol: thrift.TJSONProtocol,
            path: this.uri,
            https : true,
            headers:{
                "Accept": "application/x-thrift",
                "Content-Type": "application/x-thrift",
-               "X-BX-PROFILEID":  this.profileId,
-               "Authorization": "Basic " + btoa(this.p13n_username + ":" + this.p13n_password)
+               "X-BX-PROFILEID":  this.profileId
            },
        });
-       var client = new thrift.createHttpClient(thrift_P13nService, connection);
+       var client = new thrift.createClient(thrift_P13nService, connection);
+        
        return client;
     }
 
@@ -312,10 +307,10 @@ export class BxClient {
     private throwCorrectP13nException(e: any) {
         let pieces: any;
         if (e.toString().indexOf('Could not connect ') !== false) {
-            throw new Error('The connection to our server failed even before checking your credentials. This might be typically caused by 2 possible things: wrong values in host, port, schema or uri (typical value should be host=cdn.bx-cloud.com, port=443, uri =/p13n.web/p13n and schema=https, your values are : host=' + this.host + ', port=' + this.port + ', schema=' + this.schema + ', uri=' + this.uri + '). Another possibility, is that your server environment has a problem with ssl certificate (peer certificate cannot be authenticated with given ca certificates), which you can either fix, or avoid the problem by adding the line "curl_setopt(self::curlHandle, CURLOPT_SSL_VERIFYPEER, false);" in the file "lib\Thrift\Transport\P13nTCurlClient" after the call to curl_init in the function flush. Full error message=' + e.message);
+            throw new Error('The connection to our server failed even before checking your credentials. This might be typically caused by wrong values in host, port, schema or uri (typical value should be host=main.bx-cloud.com, port=443, uri =/p13n.json and schema=https, your values are : host=' + this.host + ', port=' + this.port + ', schema=' + this.schema + ', uri=' + this.uri + ', apiKey=' + this.getApiKey() + ', account=' + this.getAccount() + '). Full error message=' + e.message);
         }
         if (e.toString().indexOf('Bad protocol id in TCompact message') !== false) {
-            throw new Error('The connection to our server has worked, but your credentials were refused. Provided credentials username=' + this.p13n_username + ', password=' + this.p13n_password + '. Full error message=' + e.message);
+            throw new Error('The connection to our server has worked, but your credentials were refused. Provided credentials apiKey=' + this.getApiKey() + ', account=' + this.getAccount() + '. Full error message=' + e.message);
         }
         if (e.toString().indexOf('choice not found') !== false) {
             let parts: any = e.message.split('choice not found');
@@ -340,7 +335,7 @@ export class BxClient {
 
     private async p13nchoose(choiceRequest: any) {
         try {
-            let client = this.getP13n(this._timeout);
+            let client = this.getP13n();
             let choiceResponse: any = null;
             choiceResponse = await client.choose(choiceRequest);
             if ((typeof (this.requestMap['dev_bx_debug']) != "undefined" && this.requestMap['dev_bx_debug'] !== null) && this.requestMap['dev_bx_debug'] == 'true') {
@@ -381,7 +376,7 @@ export class BxClient {
     private async p13nchooseAll(choiceRequestBundle: any) {
         try {
             let bundleChoiceResponse: any = null;
-            bundleChoiceResponse =  await this.getP13n(this._timeout).chooseAll(choiceRequestBundle);
+            bundleChoiceResponse =  await this.getP13n().chooseAll(choiceRequestBundle);
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null)
                 && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Bundle Choice Request</h1>" + choiceRequestBundle.toString() + "<br><h1>Bundle Choice Response</h1>" + bundleChoiceResponse.toString() + "</pre>";
@@ -583,7 +578,7 @@ export class BxClient {
 
     private p13nautocomplete(autocompleteRequest: any) {
         try {
-            let choiceResponse: any = this.getP13n(this._timeout).autocomplete(autocompleteRequest);
+            let choiceResponse: any = this.getP13n().autocomplete(autocompleteRequest);
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
                 // ini_set('xdebug.var_display_max_children', -1);
                 // ini_set('xdebug.var_display_max_data', -1);
@@ -635,7 +630,7 @@ export class BxClient {
         requestBundle.requests = requests;
         try {
             let choiceResponse: any = null;
-            let tmp = await this.getP13n(this._timeout).autocompleteAll(requestBundle);
+            let tmp = await this.getP13n().autocompleteAll(requestBundle);
             choiceResponse = tmp.responses;
             if ((typeof (this.requestMap['dev_bx_disp']) != "undefined" && this.requestMap['dev_bx_disp'] !== null) && this.requestMap['dev_bx_disp'] == 'true') {
                 this.debugOutput = "<pre><h1>Request bundle</h1>" + requestBundle.toString() + "<br><h1>Choice Response</h1>" + choiceResponse.toString() + "</pre>";

@@ -22,6 +22,7 @@ export class BxRequest {
 	protected hitsGroupsAsHits: any = null;
 	protected groupFacets: any = null;
 	protected requestContextParameters: any = Array();
+	protected contextItems: any = Array();
 
 	constructor(language: string, choiceId: string, max: number = 10, min: number = 0) {
 		if (choiceId == '') {
@@ -218,8 +219,6 @@ export class BxRequest {
 		}
 		return searchQuery;
 	}
-
-	protected contextItems = Array();
 	setProductContext(fieldName: string, contextItemId: string, role: string = 'mainProduct', relatedProducts: any = Array(), relatedProductField: string = 'id') {
 		let contextItem: any = new  thrift_types.ContextItem();
 		contextItem.indexId = this.getIndexId();
@@ -230,8 +229,7 @@ export class BxRequest {
 		this.addRelatedProducts(relatedProducts, relatedProductField);
 	}
 	setBasketProductWithPrices(fieldName: string, basketContent: any, role: string = 'mainProduct', subRole: string = 'subProduct', relatedProducts: any = Array(), relatedProductField: string = 'id') {
-		if (basketContent !== false && basketContent.count) {
-
+		if (basketContent !== false && basketContent.length) {
 			// Sort basket content by price
 			basketContent.sort(function (a: any, b: any) {
 				if (a['price'] > b['price']) {
@@ -247,15 +245,15 @@ export class BxRequest {
 			contextItem.fieldName = fieldName;
 			contextItem.contextItemId = basketItem['id'];
 			contextItem.role = role;
-			this.contextItems.push(contextItem);
+			this.getContextItems().push(contextItem);
 			basketContent.forEach(function(basketItem:any){
 				contextItem = new thrift_types.ContextItem();
 				contextItem.indexId = this.getIndexId();
 				contextItem.fieldName = fieldName;
 				contextItem.contextItemId = basketItem['id'];
 				contextItem.role = subRole;
-				this.contextItems.push(contextItem);
-			});
+				this.getContextItems().push(contextItem);
+			}.bind(this));
 		}
 		this.addRelatedProducts(relatedProducts, relatedProductField);
 	}

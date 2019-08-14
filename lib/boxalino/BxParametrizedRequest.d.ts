@@ -32,7 +32,7 @@ export declare class BxParametrizedRequest extends BxRequest {
     getPrefixes(): string[];
     matchesPrefix(string: string, prefix: string, checkOtherPrefixes?: boolean): boolean;
     getPrefixedParameters(prefix: string, checkOtherPrefixes?: boolean): any;
-    getContextItems(): any[];
+    getContextItems(): any;
     getRequestParameterExclusionPatterns(): any[];
     addRequestParameterExclusionPatterns(pattern: string): void;
     getRequestContextParameters(): any;

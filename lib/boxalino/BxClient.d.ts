@@ -10,8 +10,6 @@ export declare class BxClient {
     private port;
     private uri;
     private schema;
-    private p13n_username;
-    private p13n_password;
     private domain;
     private isTest;
     private debugOutput;
@@ -33,7 +31,7 @@ export declare class BxClient {
     private notifications;
     private request;
     private choiceIdOverwrite;
-    constructor(account: string, password: string, domain: string, isDev?: boolean, host?: string, request?: {}, port?: number, uri?: string, schema?: string, p13n_username?: string, p13n_password?: string, apiKey?: any, apiSecret?: any);
+    constructor(account: string, password: string, domain: string, isDev?: boolean, host?: string, request?: {}, apiKey?: any, apiSecret?: any);
     setHost(host: any): void;
     setApiKey(apiKey: any): void;
     setApiSecret(apiSecret: any): void;
