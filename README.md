@@ -24,12 +24,16 @@ or request targeted classes depending on your extension use:
 import {BxClient, BxChooseResponse, BxRecommendationRequest} from "boxalino";
 ```
 
-In a js code, use the boxalino library by:
+In the code, use the boxalino library by:
 
 ```
 var boxalino = require('boxalino');
 var bxClient = boxalino.BxClient(account, password, isDev, host);
+bxClient.setApiKey(<api-key>);
+bxClient.setApiSecret(<api-secret>);
 ```
+and adding BxRequest() objects depending on your use-case.
+Check the code samples in the _tests_ folder or get in touch with your Boxalino contact.
 
 ## Thrift
 This package contains server-generated files for Apache Thrift 0.10.0 version which are located under bxthrift folder
