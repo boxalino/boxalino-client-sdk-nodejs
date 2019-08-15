@@ -262,7 +262,7 @@ export class BxChooseResponse {
     }
 
     getSearchHitFieldValues(searchResult: any, fields: string[]) {
-        let fieldValues: any = [];
+        let fieldValues: any = {};
         if (searchResult) {
             let hits = searchResult.hits;
             if (searchResult.hits == null) {
@@ -279,28 +279,24 @@ export class BxChooseResponse {
                     finalFields = this.Array_keys(item.values);
                 }
                 finalFields.forEach(function (field: any) {
-                    if (typeof (item.values[field]) != "undefined" && item.values[field] !== null) {
-                        if (item.values[field] !== null && item.values[field] !== "") {
-                            if (!fieldValues.hasOwnProperty(item.values['id'][0])) {
-                                let key: string = item.values['id'][0];
-                                fieldValues[key.toString()] = Array();
-                              // fieldValues.push(item.values['id'][0],Array());
-                            }
-                            fieldValues[(item.values['id'][0]).toString()][field] = item.values[field];
+                    if (typeof (item.values[field]) != "undefined" && item.values[field] !== null && item.values[field] !== "") {
+                        if (fieldValues[item.values['id'][0]] === undefined) {
+                            let key: string = item.values['id'][0];
+                            fieldValues[key.toString()] = {};
                         }
+                        fieldValues[(item.values['id'][0]).toString()][field] = item.values[field];
                     }
                     if (item.values['id'] !== null && item.values['id'] !== undefined) {
                         if (item.values['id'][0] !== null && item.values['id'][0] !== undefined) {
                             if (fieldValues[item.values['id'][0]] !== null && fieldValues[item.values['id'][0]] !== undefined) {
-                                if (fieldValues[item.values['id'][0]][field] === null)
-                                    fieldValues[item.values['id'][0]][field] = this.retrieveHitFieldValues(item, field, searchResult.hits, finalFields);
-                                }{
+                                if (fieldValues[item.values['id'][0]][field] === null) {
+                                    fieldValues[item.values['id'][0]][field] = this.retrieveHitFieldValues(item, field, finalFields, searchResult.hits);
+                                }
                             }
                         }
                     }
-
-                });
-            });
+                }.bind(this));
+            }.bind(this));
         }
         return fieldValues;
     }
