@@ -2,7 +2,7 @@ var Cookies = require('js-cookie');
 var secureRandom = require('securerandom');
 var thrift_types = require('./bxthrift/p13n_types.js');
 var thrift_P13nService = require('./bxthrift/P13nService.js');
-var thrift = require('thrift-http');
+var thrift = require('thrift');
 var btoa = require('btoa');
 var get_IP = require('ip');
 import {BxRecommendationRequest} from './BxRecommendationRequest'
@@ -132,7 +132,6 @@ export class BxClient {
     }
 
     getSessionAndProfile() {
-
         if (this.sessionId !== null && this.profileId !== null) {
             return Array(this.sessionId, this.profileId);
         }
@@ -202,7 +201,6 @@ export class BxClient {
     }
 
     getChoiceRequest(inquiries: any, requestContext: any = null) {
-
         let choiceRequest: any = new thrift_types.ChoiceRequest();
         let spval: any = this.getSessionAndProfile();
         let profileid = spval[1];
@@ -257,7 +255,6 @@ export class BxClient {
     resetRequestContextParameter() {
         this.requestContextParameters = Array();
     }
-
 
     protected getBasicRequestContextParameters() {
         let spval: any = this.getSessionAndProfile();
