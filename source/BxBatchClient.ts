@@ -2,7 +2,7 @@ import {BxBatchRequest} from './BxBatchRequest'
 import {BxBatchResponse} from './BxBatchResponse';
 var thrift_types = require('./bxthrift/p13n_types.js');
 var thrift_P13nService = require('./bxthrift/P13nService.js');
-var thrift = require('thrift-http');
+var thrift = require('thrift');
 var btoa = require('btoa');
 var secureRandom = require('securerandom');
 export class BxBatchClient {
