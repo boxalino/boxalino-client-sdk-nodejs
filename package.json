@@ -1,6 +1,6 @@
 {
   "name": "boxalino",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The Boxalino Client SDK provides a simple and efficient usage of Boxalino Search & Recommendations services (based on the p13n Thrift client libraries as separately provided in respective git-hub repositories) and to Boxalino Data Intelligence especially for Data Synchronization (define the structure of your data, push and publish your data structure configuration, push data in dev/prod and full/delta to Boxalino).",
   "main": "./lib/boxalino/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "@types/node": ">=12.0.0",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
-    "nyc": "^14.1.0",
+    "nyc": "^15.0.0",
     "request": "^2.88.0",
     "ts-node": ">=8.0.0",
     "typescript": "^3.2.2"
